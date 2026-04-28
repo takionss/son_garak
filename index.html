@@ -75,11 +75,30 @@
             .hero-content { margin-left: 45%; } /* 중간 해상도에서도 간격 유지 */
         }
 
+        /* 📱 모바일 버전 전용 스타일 교정 */
         @media (max-width: 1100px) {
+            /* (기존 설정들...) */
             .wrapper { flex-direction: column; }
-            .hero-section { padding: 80px 5%; text-align: center; justify-content: center; }
+            .hero-section { padding: 60px 5%; text-align: center; justify-content: center; }
             .expert-woman-layer { display: none; }
             .hero-content { margin-left: 0; max-width: 100%; }
+        
+            /* ✅ 1. 아이콘 박스 내 흰색 설명 글씨 크기 축소 */
+            .benefit-text p {
+                font-size: 0.85rem; /* 기존 0.95rem에서 조금 더 줄여 여유를 줬습니다 */
+                line-height: 1.4;
+            }
+        
+            /* ✅ 2. 모바일 입력란(문의내용) 세로폭 확장 */
+            textarea {
+                height: 180px !important; /* PC보다 시원하게 180px 정도로 넓혔습니다 */
+            }
+        
+            /* 참고: 입력란의 둥근 모서리나 여백을 모바일에 맞게 미세 조정 */
+            input, select, textarea {
+                padding: 14px;
+                font-size: 15px; /* 모바일 키보드 팝업 시 화면 줌 현상 방지용 */
+            }
         }
     </style>
 </head>
