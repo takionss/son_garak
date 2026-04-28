@@ -15,7 +15,7 @@
         /* 왼쪽: 후킹/마케팅 영역 */
         .hero-section { 
             flex: 1.2; 
-            background: linear-gradient(rgba(0,32,96,0.85), rgba(0,32,96,0.85)), url('./images/blue_back.jpg'); /* 배경 이미지 적용 완료 */
+            background: linear-gradient(rgba(0,32,96,0.85), rgba(0,32,96,0.85)), url('./image/blue_back.jpg'); /* 경로 수정됨 */
             background-size: cover; background-position: center; 
             color: white; padding: 80px 8%; display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
         }
@@ -55,7 +55,7 @@
 
         .privacy-notice { font-size: 11px; color: #aaa; text-align: center; margin-top: 20px; line-height: 1.4; }
 
-        /* 통합 완료 커스텀 모달 */
+        /* 커스텀 모달 */
         .modal-overlay { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); 
             z-index: 2000; justify-content: center; align-items: center; padding: 20px;
@@ -84,21 +84,15 @@
         <p style="font-weight: bold; color: #ffd700; margin-bottom: 10px; font-size: 1rem;">KGA Asset 웰스지점 전문 컨설팅</p>
         
         <div class="hook-copy-wrapper">
-            <img src="./images/1-2.png" alt="전문가 캐릭터" class="hook-char1">
-            <h1>매달 빠져나가는 보험료,<br><span>진짜 제대로 내고 계신가요?</span></h1>
+            <img src="./image/1-2.png" alt="전문가 캐릭터" class="hook-char1"> <h1>매달 빠져나가는 보험료,<br><span>진짜 제대로 내고 계신가요?</span></h1>
         </div>
         
-        <img src="./images/onlinebi.jpg" alt="온라인 보험료 계산 그래픽" style="max-width: 320px; margin-bottom: 25px;">
-        
-        <img src="./images/1-txt.jpg" alt="맞춤 보험 설계 그래픽" class="main-desc-graphic" style="max-width: 400px;">
-    </section>
+        <img src="./image/onlinebi.jpg" alt="온라인 보험료 계산" style="max-width: 320px; margin-bottom: 25px;"> <img src="./image/1-txt.jpg" alt="맞춤 보험 설계" class="main-desc-graphic" style="max-width: 400px;"> </section>
 
     <section class="form-section">
         <div class="consult-card">
             <div class="card-graphics">
-                <img src="./images/1-1_txt.png" alt="보험비교 전문가 로고" class="graphic-expert">
-                <img src="./images/2-3.png" alt="보험사별 보험료 확인" class="graphic-price">
-            </div>
+                <img src="./image/1-1_txt.png" alt="보험비교 전문가" class="graphic-expert"> <img src="./image/2-3.png" alt="보험사별 보험료 확인" class="graphic-price"> </div>
 
             <h2>무료 상담 신청하기</h2>
             <p class="form-info">정보를 남겨주시면 영업일 기준 24시간 내 지점장이 연락드립니다.</p>
@@ -126,15 +120,10 @@
 
                 <div class="form-group">
                     <label>상세 문의내용 (선택)</label>
-                    <textarea name="message" placeholder="궁금하신 점이나 상담 희망 시간(예: 주말 가능)을 남겨주세요"></textarea>
+                    <textarea name="message" placeholder="궁금하신 점이나 상담 희망 시간을 남겨주세요"></textarea>
                 </div>
 
                 <button type="submit" class="submit-btn">지금 바로 내 보험 점검하기</button>
-                
-                <p class="privacy-notice">
-                    * 개인정보는 상담 목적으로만 사용되며 안전하게 보호됩니다.<br>
-                    * 신청 후 담당 지점장이 직접 연락을 드립니다.
-                </p>
             </form>
         </div>
     </section>
@@ -142,9 +131,8 @@
 
 <div class="modal-overlay" id="successModal">
     <div class="modal-content">
-        <img src="./images/1-3.png" alt="신청 성공" class="success-graphic">
-        <h3>신청이 완료되었습니다!</h3>
-        <p>상담 신청이 성공적으로 접수되었습니다.<br>지점장이 직접 확인 후 빠른 시간 안에 연락드리겠습니다.</p>
+        <img src="./image/1-3.png" alt="신청 성공" class="success-graphic"> <h3>신청이 완료되었습니다!</h3>
+        <p>성공적으로 접수되었습니다.<br>지점장이 확인 후 곧 연락드리겠습니다.</p>
         <button class="close-modal-btn" onclick="closeModal()">확인</button>
     </div>
 </div>
@@ -160,12 +148,9 @@
 
     form.addEventListener('submit', function(e) {
         e.preventDefault(); 
-
         const btn = form.querySelector('.submit-btn');
         const originalText = btn.innerText;
-        
-        btn.innerText = '신청 접수 중입니다...';
-        btn.style.backgroundColor = '#ccc';
+        btn.innerText = '신청 접수 중...';
         btn.disabled = true;
 
         fetch(form.action, {
@@ -176,13 +161,11 @@
         .then(data => {
             modal.style.display = 'flex';
             btn.innerText = originalText;
-            btn.style.backgroundColor = '#ff5722';
             btn.disabled = false;
         })
         .catch(error => {
-            alert('일시적인 네트워크 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+            alert('오류가 발생했습니다. 다시 시도해 주세요.');
             btn.innerText = originalText;
-            btn.style.backgroundColor = '#ff5722';
             btn.disabled = false;
         });
     });
