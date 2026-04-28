@@ -11,27 +11,27 @@
 
         .wrapper { display: flex; flex-wrap: wrap; min-height: 100vh; position: relative; }
 
-
-
-        /* ✅ [Layer 1] 배경: 그라데이션과 이미지를 명확히 분리해서 인식시킴 */
+        /* ✅ [Layer 1] 배경: 강제로 10% 키워 여백을 만들고 부드럽게 움직이게 함 */
         .bg-layer {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* background 속성을 풀어서 정확하게 지정합니다 */
+            position: absolute; 
+            top: 0; 
+            left: -5%; /* 왼쪽으로 5% 밀어서 숨겨둡니다 */
+            width: 110%; /* 화면보다 10% 크게 만들어 가로 여백을 창조합니다 */
+            height: 100%;
             background-image: linear-gradient(rgba(10,17,40,0.3), rgba(10,17,40,0.5)), url('./image/bg-room.jpg');
             background-size: cover, cover;
             background-repeat: no-repeat, no-repeat;
             z-index: 1;
             
-            /* 마법의 애니메이션 코드: 40초 동안 부드럽게 왕복 */
-            animation: revealHiddenPan 40s ease-in-out infinite alternate;
+            /* 그래픽카드(GPU)를 사용해 물리적으로 이미지를 밀어버립니다 */
+            animation: surePan 40s ease-in-out infinite alternate;
+            will-change: transform;
         }
 
-        /* ✅ 숨겨진 가로 여백을 보여주는 키프레임 (좌표를 2개씩 짝지어 줌) */
-        @keyframes revealHiddenPan {
-            /* 앞의 0% 0%는 그라데이션(고정), 뒤의 0% 50%는 거실 이미지(왼쪽 끝) */
-            0% { background-position: 0% 0%, 0% 50%; }   
-            /* 앞의 0% 0%는 그라데이션(고정), 뒤의 100% 50%는 거실 이미지(오른쪽 끝) */
-            100% { background-position: 0% 0%, 100% 50%; } 
+        /* ✅ 배경 이동 애니메이션: 창조된 여백 안에서 40초 동안 움직임 */
+        @keyframes surePan {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(4%); } /* 숨겨둔 공간 안에서 4%만큼 부드럽게 이동 */
         }
 
         .content-area { position: relative; z-index: 2; display: flex; flex-wrap: wrap; width: 100%; min-height: 100vh; }
@@ -67,10 +67,15 @@
         .benefit-text h3 { font-size: 1.2rem; color: var(--accent-yellow); margin-bottom: 3px; }
         .benefit-text p { font-size: 0.95rem; color: #eee; }
 
-        /* 오른쪽 상담 신청 폼 */
+        /* ✅ 오른쪽 상담 신청 폼: 반투명 유리 효과(Glassmorphism) 적용 */
         .form-section { 
             flex: 1; min-width: 350px; padding: 40px; display: flex; align-items: center; justify-content: center; 
-            background-color: var(--bg-light); z-index: 10;
+            
+            /* 배경을 약간 투명하게 하고, 뒤쪽을 흐리게(blur) 만들어 고급스럽게 연출합니다 */
+            background-color: rgba(248, 249, 250, 0.75); 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 10;
         }
         .consult-card { background: white; width: 100%; max-width: 440px; padding: 45px 35px; border-radius: 24px; box-shadow: 0 25px 50px rgba(0,0,0,0.15); color: #333; }
         .consult-card h2 { color: var(--point-blue); text-align: center; margin-bottom: 35px; font-size: 1.8rem; letter-spacing: -1px; }
@@ -89,7 +94,7 @@
             background: #fdfdfd;
         }
 
-        /* ✅ 약관 동의 체크박스 디자인 */
+        /* 약관 동의 체크박스 디자인 */
         .checkbox-group {
             display: flex; align-items: flex-start; justify-content: center;
             margin: 20px 0; font-size: 0.85rem; color: #666;
@@ -111,7 +116,7 @@
         }
         .submit-btn:hover { background-color: #004494; transform: translateY(-2px); }
 
-        /* ✅ 모달(팝업) 공통 스타일 */
+        /* 모달(팝업) 공통 스타일 */
         .modal-overlay { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); 
             z-index: 2000; justify-content: center; align-items: center; padding: 20px;
@@ -136,12 +141,17 @@
             .hero-content { margin-left: 45%; }
         }
 
-
         @media (max-width: 1100px) {
-            /* ✅ 추가된 부분: 모바일에서는 거리가 머니까 90초로 천천히 움직이게 수정! */
+            /* 모바일에서는 거리가 머니까 90초로 천천히 움직이게 수정 */
             .bg-layer { animation-duration: 90s !important; }
+            
+            /* 모바일 폼 섹션은 가독성을 위해 불투명도를 살짝 높입니다 */
+            .form-section {
+                background-color: rgba(248, 249, 250, 0.9); 
+                backdrop-filter: blur(5px);
+                -webkit-backdrop-filter: blur(5px);
+            }
 
-            /* 아래는 기존 내용 그대로 유지 */
             .wrapper { flex-direction: column; }
             .hero-section { padding: 60px 5%; text-align: center; justify-content: center; }
             .expert-woman-layer { display: none; }
@@ -254,7 +264,7 @@
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // 체크박스 확인 (required가 있지만 한 번 더 체크)
+        // 체크박스 확인
         if(!document.getElementById('privacyAgree').checked) {
             alert('개인정보 동의에 체크해주세요.');
             return;
