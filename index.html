@@ -11,59 +11,47 @@
 
         .wrapper { display: flex; flex-wrap: wrap; min-height: 100vh; position: relative; }
 
-        /* ✅ [Layer 1] 배경: 거실 배경을 은은하게 깔아줍니다 */
+        /* ✅ [Layer 1] 배경: 투명도를 대폭 높여 배경이 더 잘 보이게 수정 (0.85 -> 0.3) */
         .bg-layer {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(10,17,40,0.85), rgba(10,17,40,0.95)), url('./image/bg-room.jpg') no-repeat center center;
+            background: linear-gradient(rgba(10,17,40,0.3), rgba(10,17,40,0.5)), url('./image/bg-room.jpg') no-repeat center center;
             background-size: cover; z-index: 1;
         }
 
         .content-area { position: relative; z-index: 2; display: flex; flex-wrap: wrap; width: 100%; min-height: 100vh; }
 
-        /* 왼쪽 비주얼 영역: 여백을 충분히 줍니다 */
+        /* 왼쪽 비주얼 영역 */
         .hero-section { 
             flex: 1.5; padding: 60px 5% 60px 8%; display: flex; align-items: center; position: relative;
         }
 
-        /* ✅ [Layer 2] 파란 후광: 인물 뒤에 정확히 고정 (박스 현상 해결) */
-        .blue-glow-layer {
-            position: absolute;
-            top: 50%; left: 20%; transform: translate(-50%, -50%);
-            width: 700px; height: 700px;
-            z-index: 1; 
-            mix-blend-mode: screen; /* 검은 배경 제거 */
-            pointer-events: none;
-            opacity: 0.7;
-        }
-
-        /* ✅ [Layer 3] 여성 전문가: 왼쪽 하단에 시원하게 배치 */
+        /* ✅ [Layer 2] 여성 전문가: 크기 조정 (기존 요청대로 70% 수준 유지) */
         .expert-woman-layer {
             position: absolute;
             bottom: 0; left: 0;
-            width: auto;
-            height: 70%; /* 👈 95%에서 70%로 줄였습니다 */
-            max-height: 70vh; /* max-height도 같이 맞춰주는 게 좋습니다 */
+            width: auto; height: 75%;
+            max-height: 75vh;
             object-fit: contain;
             z-index: 2;
         }
 
-        /* ✅ [Layer 4] 텍스트 & 아이콘: 인물과 겹치지 않게 오른쪽으로 밀어줍니다 */
+        /* 텍스트 컨텐츠: 이미지 크기에 맞춰 여백 조정 */
         .hero-content { 
             position: relative; z-index: 3; 
-            margin-left: 35%; /* 인물 공간 확보 */
+            margin-left: 28%; 
             max-width: 650px;
         }
 
         .hero-section h1 { font-size: 3.2rem; font-weight: 800; margin-bottom: 25px; line-height: 1.3; letter-spacing: -1.5px; word-break: keep-all; }
         .hero-section h1 span { color: var(--accent-yellow); }
-        .main-desc { font-size: 1.2rem; margin-bottom: 50px; opacity: 0.9; line-height: 1.7; word-break: keep-all; }
+        .main-desc { font-size: 1.2rem; margin-bottom: 50px; opacity: 0.95; line-height: 1.7; word-break: keep-all; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
 
         /* 혜택 아이콘 리스트 */
-        .benefits-list { display: flex; flex-direction: column; gap: 25px; }
-        .benefit-item { display: flex; align-items: center; gap: 20px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); }
+        .benefits-list { display: flex; flex-direction: column; gap: 20px; }
+        .benefit-item { display: flex; align-items: center; gap: 20px; background: rgba(0,0,0,0.4); padding: 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(5px); }
         .benefit-icon { width: 55px; height: 55px; object-fit: contain; }
         .benefit-text h3 { font-size: 1.2rem; color: var(--accent-yellow); margin-bottom: 3px; }
-        .benefit-text p { font-size: 0.95rem; color: #ddd; }
+        .benefit-text p { font-size: 0.95rem; color: #eee; }
 
         /* 오른쪽 상담 신청 폼 */
         .form-section { 
@@ -75,24 +63,21 @@
 
         .form-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 0.9rem; color: #555; }
-        input, select, textarea { width: 100%; padding: 16px; border: 1px solid #e0e0e0; border-radius: 12px; font-size: 16px; background: #fdfdfd; }
-        input:focus { border-color: var(--point-blue); outline: none; background: #fff; }
+        input, select, textarea { width: 100%; padding: 16px; border: 1px solid #e0e0e0; border-radius: 12px; font-size: 16px; }
 
         .submit-btn { 
             width: 100%; padding: 20px; background-color: var(--point-blue); color: white; border: none; border-radius: 12px; 
-            font-size: 1.3rem; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px;
+            font-size: 1.3rem; font-weight: bold; cursor: pointer; transition: 0.3s;
         }
         .submit-btn:hover { background-color: #004494; transform: translateY(-2px); }
 
-        /* 📱 모바일 대응: 이미지를 과감히 정리 */
         @media (max-width: 1100px) {
             .wrapper { flex-direction: column; }
-            .hero-section { padding: 80px 5%; text-align: center; justify-content: center; min-height: auto; }
-            .expert-woman-layer, .blue-glow-layer { display: none; } /* 모바일에서는 가독성을 위해 인물 제거 */
+            .hero-section { padding: 80px 5%; text-align: center; justify-content: center; }
+            .expert-woman-layer { display: none; }
             .hero-content { margin-left: 0; max-width: 100%; }
             .hero-section h1 { font-size: 2.3rem; }
             .benefits-list { align-items: center; }
-            .benefit-item { width: 100%; max-width: 400px; text-align: left; }
         }
     </style>
 </head>
@@ -103,7 +88,6 @@
 
     <div class="content-area">
         <section class="hero-section">
-            <img src="./image/blue-glow.jpg" alt="" class="blue-glow-layer">
             <img src="./image/expert-woman.png" alt="" class="expert-woman-layer">
 
             <div class="hero-content">
@@ -159,7 +143,7 @@
         btn.disabled = true;
         fetch(form.action, { method: 'POST', body: new FormData(form) })
         .then(() => { alert('신청이 성공적으로 완료되었습니다!'); form.reset(); btn.innerText = '지금 바로 무료 진단받기'; btn.disabled = false; })
-        .catch(() => { alert('오류가 발생했습니다. 다시 시도해 주세요.'); btn.disabled = false; });
+        .catch(() => { alert('오류가 발생했습니다.'); btn.disabled = false; });
     });
 </script>
 
