@@ -63,7 +63,26 @@
 
         .form-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 0.9rem; color: #555; }
-        input, select, textarea { width: 100%; padding: 16px; border: 1px solid #e0e0e0; border-radius: 12px; font-size: 16px; }
+        /* 1. 모든 입력창 공통 스타일 (기존 코드 유지) */
+        input, select, textarea { 
+            width: 100%; padding: 16px; border: 1px solid #e0e0e0; border-radius: 12px; font-size: 16px; 
+        }
+        
+        /* 2. PC 버전: 문의내용(textarea) 전용 높이 설정 */
+        textarea { 
+            height: 150px; /* PC에서 시원하게 보이도록 */
+            resize: none; 
+            line-height: 1.5; 
+            background: #fdfdfd;
+        }
+        
+        /* 3. 모바일 버전: 예시 문구 안 잘리게 더 키우기 */
+        @media (max-width: 1100px) {
+            textarea {
+                height: 220px !important; /* 모바일에서 placeholder 안 잘리게 대폭 확장 */
+                padding: 20px;
+            }
+        }
 
         .submit-btn { 
             width: 100%; padding: 20px; background-color: var(--point-blue); color: white; border: none; border-radius: 12px; 
