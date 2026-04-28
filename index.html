@@ -25,20 +25,19 @@
             flex: 1.6; padding: 60px 5% 60px 5%; display: flex; align-items: center; position: relative;
         }
 
-        /* [Layer 2] 여성 전문가: 왼쪽 끝에 배치 */
+        /* [Layer 2] 여성 전문가 */
         .expert-woman-layer {
             position: absolute;
-            bottom: 0; left: -2%; /* 캐릭터를 왼쪽으로 살짝 더 밀어 여백 확보 */
+            bottom: 0; left: -2%;
             width: auto; height: 75%;
             max-height: 75vh;
             object-fit: contain;
             z-index: 2;
         }
 
-        /* ✅ 문구 컨텐츠: 간격을 넓히기 위해 margin-left 상향 조정 */
         .hero-content { 
             position: relative; z-index: 3; 
-            margin-left: 38%; /* 👈 28%에서 38%로 늘려 캐릭터와 거리를 두었습니다 */
+            margin-left: 38%; 
             max-width: 600px;
         }
 
@@ -46,7 +45,6 @@
         .hero-section h1 span { color: var(--accent-yellow); }
         .main-desc { font-size: 1.2rem; margin-bottom: 50px; opacity: 0.95; line-height: 1.7; word-break: keep-all; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
 
-        /* 혜택 아이콘 리스트 */
         .benefits-list { display: flex; flex-direction: column; gap: 20px; }
         .benefit-item { display: flex; align-items: center; gap: 20px; background: rgba(0,0,0,0.4); padding: 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(5px); }
         .benefit-icon { width: 55px; height: 55px; object-fit: contain; }
@@ -63,25 +61,32 @@
 
         .form-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 0.9rem; color: #555; }
-        /* 1. 모든 입력창 공통 스타일 (기존 코드 유지) */
+        
         input, select, textarea { 
             width: 100%; padding: 16px; border: 1px solid #e0e0e0; border-radius: 12px; font-size: 16px; 
         }
         
-        /* 2. PC 버전: 문의내용(textarea) 전용 높이 설정 */
         textarea { 
-            height: 150px; /* PC에서 시원하게 보이도록 */
+            height: 150px; 
             resize: none; 
             line-height: 1.5; 
             background: #fdfdfd;
         }
-        
-        /* 3. 모바일 버전: 예시 문구 안 잘리게 더 키우기 */
-        @media (max-width: 1100px) {
-            textarea {
-                height: 220px !important; /* 모바일에서 placeholder 안 잘리게 대폭 확장 */
-                padding: 20px;
-            }
+
+        /* ✅ 약관 동의 체크박스 디자인 */
+        .checkbox-group {
+            display: flex; align-items: flex-start; justify-content: center;
+            margin: 20px 0; font-size: 0.85rem; color: #666;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: 16px; height: 16px; margin-right: 8px; margin-top: 2px; cursor: pointer;
+            accent-color: var(--point-blue);
+        }
+        .checkbox-group label {
+            display: inline; margin-bottom: 0; font-weight: normal; cursor: pointer; color: #555; line-height: 1.4;
+        }
+        .view-privacy {
+            color: #888; text-decoration: underline; cursor: pointer; font-weight: bold; margin-left: 2px;
         }
 
         .submit-btn { 
@@ -90,34 +95,39 @@
         }
         .submit-btn:hover { background-color: #004494; transform: translateY(-2px); }
 
+        /* ✅ 모달(팝업) 공통 스타일 */
+        .modal-overlay { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); 
+            z-index: 2000; justify-content: center; align-items: center; padding: 20px;
+        }
+        .modal-content { 
+            background: white; padding: 30px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); 
+            max-width: 450px; width: 100%; color: #333; position: relative;
+        }
+        
+        /* 약관 전용 모달 바디 */
+        .privacy-body {
+            max-height: 400px; overflow-y: auto; text-align: left;
+            font-size: 0.85rem; line-height: 1.6; color: #555;
+            padding: 15px; border: 1px solid #eee; border-radius: 10px; margin: 15px 0;
+        }
+        .privacy-body h4 { color: #333; margin-bottom: 5px; margin-top: 15px; border-left: 3px solid var(--point-blue); padding-left: 8px; }
+        .privacy-body p { margin-bottom: 10px; }
+        .privacy-body ul { list-style: none; padding-left: 0; margin-bottom: 15px; }
+        .close-modal-btn { padding: 12px; background: var(--point-blue); color: white; border: none; border-radius: 8px; width: 100%; cursor: pointer; font-weight: bold; }
+
         @media (max-width: 1200px) {
-            .hero-content { margin-left: 45%; } /* 중간 해상도에서도 간격 유지 */
+            .hero-content { margin-left: 45%; }
         }
 
-        /* 📱 모바일 버전 전용 스타일 교정 */
         @media (max-width: 1100px) {
-            /* (기존 설정들...) */
             .wrapper { flex-direction: column; }
             .hero-section { padding: 60px 5%; text-align: center; justify-content: center; }
             .expert-woman-layer { display: none; }
             .hero-content { margin-left: 0; max-width: 100%; }
-        
-            /* ✅ 1. 아이콘 박스 내 흰색 설명 글씨 크기 축소 */
-            .benefit-text p {
-                font-size: 0.85rem; /* 기존 0.95rem에서 조금 더 줄여 여유를 줬습니다 */
-                line-height: 1.4;
-            }
-        
-            /* ✅ 2. 모바일 입력란(문의내용) 세로폭 확장 */
-            textarea {
-                height: 180px !important; /* PC보다 시원하게 180px 정도로 넓혔습니다 */
-            }
-        
-            /* 참고: 입력란의 둥근 모서리나 여백을 모바일에 맞게 미세 조정 */
-            input, select, textarea {
-                padding: 14px;
-                font-size: 15px; /* 모바일 키보드 팝업 시 화면 줌 현상 방지용 */
-            }
+            .hero-section h1 { font-size: 2.3rem; }
+            .benefit-text p { font-size: 0.85rem; line-height: 1.4; }
+            textarea { height: 200px !important; }
         }
     </style>
 </head>
@@ -167,6 +177,12 @@
                         </select>
                     </div>
                     <div class="form-group"><label>문의내용 (선택)</label><textarea name="message" placeholder="상담 희망 시간 등을 남겨주세요"></textarea></div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="privacyAgree" required>
+                        <label for="privacyAgree">개인정보 수집과 이용 및 제 3자 제공 동의 <span class="view-privacy" onclick="openPrivacyModal()">[보기...]</span></label>
+                    </div>
+
                     <button type="submit" class="submit-btn">지금 바로 무료 진단받기</button>
                 </form>
             </div>
@@ -174,16 +190,64 @@
     </div>
 </div>
 
+<div class="modal-overlay" id="privacyModal">
+    <div class="modal-content">
+        <h3 style="color: #333; margin-bottom: 10px;">개인정보 처리방침</h3>
+        <div class="privacy-body">
+            <h4>▶ 개인정보 수집 및 이용 동의</h4>
+            <p>개인정보는 보험문의 상담 목적으로만 사용되며 동의를 거부하실 수 있으나 보험설계 및 상담이 불가능합니다.</p>
+            <ul>
+                <li>• 수집항목: 이름, 연락처, 카카오톡아이디</li>
+                <li>• 수집목적: 함일상회 보험 설계, 상담, 리모델링 안내 및 서비스 제공</li>
+                <li>• 보유기간: 수집 및 동의일로부터 3개월</li>
+            </ul>
+            
+            <h4>▶ 개인정보 제 3자 제공 동의</h4>
+            <p>개인정보는 보험문의 상담 목적으로만 사용되며 동의를 거부하실 수 있으나 보험설계 및 상담이 불가능합니다.</p>
+            <ul>
+                <li>• 제공받는 자: 함일상회와 위탁계약을 체결한 보험설계사</li>
+                <li>• 이용목적: 전화, 문자, 카카오톡을 통한 보험상품 설계 및 상담</li>
+                <li>• 제공항목: 이름, 연락처, 카카오톡아이디</li>
+                <li>• 보유기간: 수집 및 동의일로부터 3개월</li>
+            </ul>
+        </div>
+        <button class="close-modal-btn" onclick="closePrivacyModal()">확인</button>
+    </div>
+</div>
+
 <script>
     const form = document.getElementById('consultationForm');
+    const privacyModal = document.getElementById('privacyModal');
+
+    // 약관 모달 열기/닫기
+    function openPrivacyModal() { privacyModal.style.display = 'flex'; }
+    function closePrivacyModal() { privacyModal.style.display = 'none'; }
+
     form.addEventListener('submit', function(e) {
         e.preventDefault();
+        
+        // 체크박스 확인 (required가 있지만 한 번 더 체크)
+        if(!document.getElementById('privacyAgree').checked) {
+            alert('개인정보 동의에 체크해주세요.');
+            return;
+        }
+
         const btn = form.querySelector('.submit-btn');
         btn.innerText = '접수 중...';
         btn.disabled = true;
+        
         fetch(form.action, { method: 'POST', body: new FormData(form) })
-        .then(() => { alert('신청이 성공적으로 완료되었습니다!'); form.reset(); btn.innerText = '지금 바로 무료 진단받기'; btn.disabled = false; })
-        .catch(() => { alert('오류가 발생했습니다.'); btn.disabled = false; });
+        .then(() => { 
+            alert('신청이 성공적으로 완료되었습니다!'); 
+            form.reset(); 
+            btn.innerText = '지금 바로 무료 진단받기'; 
+            btn.disabled = false; 
+        })
+        .catch(() => { 
+            alert('오류가 발생했습니다. 다시 시도해주세요.'); 
+            btn.disabled = false; 
+            btn.innerText = '지금 바로 무료 진단받기';
+        });
     });
 </script>
 
