@@ -11,27 +11,25 @@
 
         .wrapper { display: flex; flex-wrap: wrap; min-height: 100vh; position: relative; }
 
-        /* ✅ [Layer 1] 배경: 강제로 10% 키워 여백을 만들고 부드럽게 움직이게 함 */
+        /* [Layer 1] 배경: 좌우 패닝 효과 */
         .bg-layer {
             position: absolute; 
             top: 0; 
-            left: -5%; /* 왼쪽으로 5% 밀어서 숨겨둡니다 */
-            width: 110%; /* 화면보다 10% 크게 만들어 가로 여백을 창조합니다 */
+            left: -5%; 
+            width: 110%; 
             height: 100%;
             background-image: linear-gradient(rgba(10,17,40,0.3), rgba(10,17,40,0.5)), url('./image/bg-room.jpg');
             background-size: cover, cover;
             background-repeat: no-repeat, no-repeat;
             z-index: 1;
             
-            /* 그래픽카드(GPU)를 사용해 물리적으로 이미지를 밀어버립니다 */
             animation: surePan 40s ease-in-out infinite alternate;
             will-change: transform;
         }
 
-        /* ✅ 배경 이동 애니메이션: 창조된 여백 안에서 40초 동안 움직임 */
         @keyframes surePan {
             0% { transform: translateX(0); }
-            100% { transform: translateX(4%); } /* 숨겨둔 공간 안에서 4%만큼 부드럽게 이동 */
+            100% { transform: translateX(4%); } 
         }
 
         .content-area { position: relative; z-index: 2; display: flex; flex-wrap: wrap; width: 100%; min-height: 100vh; }
@@ -67,15 +65,18 @@
         .benefit-text h3 { font-size: 1.2rem; color: var(--accent-yellow); margin-bottom: 3px; }
         .benefit-text p { font-size: 0.95rem; color: #eee; }
 
-        /* ✅ 오른쪽 상담 신청 폼: 반투명 유리 효과(Glassmorphism) 적용 */
+        /* ✅ [오른쪽 영역] 투명도를 대폭 높인 반투명 유리 효과 (Glassmorphism) 교정 */
         .form-section { 
             flex: 1; min-width: 350px; padding: 40px; display: flex; align-items: center; justify-content: center; 
             
-            /* 배경을 약간 투명하게 하고, 뒤쪽을 흐리게(blur) 만들어 고급스럽게 연출합니다 */
-            background-color: rgba(248, 249, 250, 0.75); 
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            /* ✅ 하얀색 불투명도를 75% -> 40%로 대폭 낮췄습니다. (더 투명하게) */
+            background-color: rgba(248, 249, 250, 0.4); 
+            
+            /* ✅ 블러(흐림) 효과를 10px -> 7px로 미세하게 줄여 뒤쪽 이미지가 더 선명하게 보이게 합니다. */
+            backdrop-filter: blur(7px);
+            -webkit-backdrop-filter: blur(7px);
             z-index: 10;
+            border-left: 1px solid rgba(255, 255, 255, 0.2); /* 은은한 테두리 추가 */
         }
         .consult-card { background: white; width: 100%; max-width: 440px; padding: 45px 35px; border-radius: 24px; box-shadow: 0 25px 50px rgba(0,0,0,0.15); color: #333; }
         .consult-card h2 { color: var(--point-blue); text-align: center; margin-bottom: 35px; font-size: 1.8rem; letter-spacing: -1px; }
@@ -142,14 +143,13 @@
         }
 
         @media (max-width: 1100px) {
-            /* 모바일에서는 거리가 머니까 90초로 천천히 움직이게 수정 */
             .bg-layer { animation-duration: 90s !important; }
             
-            /* 모바일 폼 섹션은 가독성을 위해 불투명도를 살짝 높입니다 */
+            /* ✅ 모바일 폼 섹션도 투명도를 높여 더 시원하게 만듭니다 */
             .form-section {
-                background-color: rgba(248, 249, 250, 0.9); 
-                backdrop-filter: blur(5px);
-                -webkit-backdrop-filter: blur(5px);
+                background-color: rgba(248, 249, 250, 0.6); /* 90% -> 60%로 투명하게 */
+                backdrop-filter: blur(4px); /* 흐림 효과도 미세하게 줄임 */
+                -webkit-backdrop-filter: blur(4px);
             }
 
             .wrapper { flex-direction: column; }
@@ -257,14 +257,12 @@
     const form = document.getElementById('consultationForm');
     const privacyModal = document.getElementById('privacyModal');
 
-    // 약관 모달 열기/닫기
     function openPrivacyModal() { privacyModal.style.display = 'flex'; }
     function closePrivacyModal() { privacyModal.style.display = 'none'; }
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // 체크박스 확인
         if(!document.getElementById('privacyAgree').checked) {
             alert('개인정보 동의에 체크해주세요.');
             return;
