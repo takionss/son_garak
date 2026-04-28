@@ -11,11 +11,23 @@
 
         .wrapper { display: flex; flex-wrap: wrap; min-height: 100vh; position: relative; }
 
-        /* [Layer 1] 배경 */
+
+        /* ✅ [Layer 1] 배경: 잘려나간 원본 이미지를 좌우로 스윽 훑어주는 효과 */
         .bg-layer {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(10,17,40,0.3), rgba(10,17,40,0.5)), url('./image/bg-room.jpg') no-repeat center center;
-            background-size: cover; z-index: 1;
+            /* center center 대신, 시작점을 왼쪽 끝(0% 50%)으로 잡습니다 */
+            background: linear-gradient(rgba(10,17,40,0.3), rgba(10,17,40,0.5)), url('./image/bg-room.jpg') no-repeat;
+            background-size: cover; 
+            z-index: 1;
+            
+            /* 마법의 애니메이션 코드: 40초 동안 부드럽게 가감속, 무한 왕복 */
+            animation: revealHiddenPan 40s ease-in-out infinite alternate;
+        }
+
+        /* ✅ 숨겨진 가로 여백을 끝에서 끝까지 보여주는 키프레임 */
+        @keyframes revealHiddenPan {
+            0% { background-position: 0% 50%; }   /* 카메라가 원본 이미지의 가장 왼쪽 끝을 비춤 */
+            100% { background-position: 100% 50%; } /* 카메라가 원본 이미지의 가장 오른쪽 끝을 비춤 */
         }
 
         .content-area { position: relative; z-index: 2; display: flex; flex-wrap: wrap; width: 100%; min-height: 100vh; }
