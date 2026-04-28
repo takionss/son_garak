@@ -13,14 +13,20 @@
         /* 전체 레이아웃 */
         .wrapper { display: flex; flex-wrap: wrap; min-height: 100vh; }
 
-        /* 왼쪽: 비주얼 영역 (이미지 자체에 문구가 있으므로 글자 코드는 생략) */
+
+        /* 왼쪽: 비주얼 영역 (img 태그 스타일 추가) */
         .hero-section { 
             flex: 1.5; 
-            background: url('./image/hero-premium.png') no-repeat center center; 
-            background-size: cover; 
+            display: flex; /* ✅ flexbox 사용 */
+            justify-content: center; /* ✅ 수평 중앙 배치 */
+            align-items: center; /* ✅ 수직 중앙 배치 */
             min-height: 400px;
         }
-
+        
+        .hero-img {
+            max-width: 100%; /* ✅ 이미지 너비 자동 조정 */
+            height: auto; /* ✅ 이미지 높이 자동 조정 */
+        }
         /* 오른쪽: 상담 신청 폼 영역 */
         .form-section { 
             flex: 1; 
@@ -81,7 +87,9 @@
 <body>
 
 <div class="wrapper">
-    <section class="hero-section"></section>
+    <section class="hero-section">
+       <img src="./image/hero-premium.png" alt="보험 정밀 팩트체크 센터" class="hero-img"> 
+    </section>
 
     <section class="form-section">
         <div class="consult-card">
