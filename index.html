@@ -15,26 +15,26 @@
         /* 왼쪽: 후킹/마케팅 영역 */
         .hero-section { 
             flex: 1.2; 
-            background: linear-gradient(rgba(0,32,96,0.85), rgba(0,32,96,0.85)), url('./images/blue_back.jpg'); /* 지점장님 배경 이미지 적용 */
+            background: linear-gradient(rgba(0,32,96,0.85), rgba(0,32,96,0.85)), url('./images/blue_back.jpg');
             background-size: cover; background-position: center; 
             color: white; padding: 80px 8%; display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
         }
         
         .hook-copy-wrapper { position: relative; margin-bottom: 20px; }
-        .hero-section .hook-char1 { position: absolute; top: -50px; right: -80px; max-width: 150px; } /* 지점장님 후킹 캐릭터 배치 */
+        .hero-section .hook-char1 { position: absolute; top: -50px; right: -80px; max-width: 150px; }
         
         .hero-section h1 { font-size: 3rem; font-weight: 800; margin-bottom: 10px; line-height: 1.2; word-break: keep-all; position: relative; z-index: 10; }
         .hero-section h1 span { color: #ffd700; }
         
-        .hero-section p.main-desc-graphic { margin-bottom: 40px; } /* image_6.png (메인 설명 그래픽) */
+        .hero-section p.main-desc-graphic { margin-bottom: 40px; }
 
         /* 오른쪽: 상담 신청 폼 영역 */
         .form-section { flex: 1; min-width: 300px; padding: 40px 5%; display: flex; align-items: center; justify-content: center; }
         .consult-card { background: white; width: 100%; max-width: 480px; padding: 45px 35px; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); position: relative;}
         
         .card-graphics { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; border-bottom: 1px solid #f0f0f0; padding-bottom: 20px;}
-        .consult-card .graphic-expert { max-width: 120px; } /* image_3.png (보험비교 전문가 로고) */
-        .consult-card .graphic-price { max-width: 160px; } /* image_9.png (보험사별 보험료 로고) */
+        .consult-card .graphic-expert { max-width: 120px; }
+        .consult-card .graphic-price { max-width: 160px; }
 
         .form-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; font-weight: 700; color: #555; font-size: 0.9rem; }
@@ -55,7 +55,7 @@
 
         .privacy-notice { font-size: 11px; color: #aaa; text-align: center; margin-top: 20px; line-height: 1.4; }
 
-        /* ✅ 통합 완료 커스텀 모달 (Thumbs-up 아이콘 포함) */
+        /* 통합 완료 커스텀 모달 (Thumbs-up 아이콘 포함) */
         .modal-overlay { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); 
             z-index: 2000; justify-content: center; align-items: center; padding: 20px;
@@ -64,7 +64,7 @@
             background: white; padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.3); 
             max-width: 400px; width: 100%;
         }
-        .modal-content .success-graphic { max-width: 120px; margin-bottom: 25px; } /* image_7.png (Thumbs-up 아이콘) */
+        .modal-content .success-graphic { max-width: 120px; margin-bottom: 25px; }
         .modal-content h3 { font-size: 1.5rem; color: var(--main-blue); margin-bottom: 10px; }
         .modal-content p { color: #555; margin-bottom: 25px; font-size: 0.95rem; line-height: 1.5;}
         .close-modal-btn { padding: 10px 25px; background-color: var(--main-blue); color: white; border: none; border-radius: 5px; cursor: pointer; }
@@ -73,7 +73,7 @@
         @media (max-width: 1024px) {
             .hero-section { padding: 60px 5%; text-align: center; align-items: center; }
             .hero-section h1 { font-size: 2.2rem; }
-            .hero-section .hook-char1 { display: none; } /* 모바일에서는 캐릭터 숨김 */
+            .hero-section .hook-char1 { display: none; }
         }
     </style>
 </head>
@@ -103,7 +103,7 @@
             <h2>무료 상담 신청하기</h2>
             <p class="form-info">정보를 남겨주시면 영업일 기준 24시간 내 지점장이 연락드립니다.</p>
 
-            <form id="consultationForm" action="여기에_구글_웹앱_URL을_붙여넣으세요" method="POST">
+            <form id="consultationForm" action="https://script.google.com/macros/s/AKfycbx-w1FcGyFXR3TR6iv2x3ImVgIMRt9lCoa-PCB6Qer38NbGP_-pJcIxlQU6jQdlokgm/exec" method="POST">
                 <div class="form-group">
                     <label>성함 (필수)</label>
                     <input type="text" name="name" placeholder="성함을 입력하세요" required>
@@ -174,7 +174,7 @@
         })
         .then(response => response.text())
         .then(data => {
-            // ✅ 성공 시 단순 팝업(Alert) 대신 커스텀 모달 띄우기
+            // 성공 시 단순 팝업(Alert) 대신 커스텀 모달 띄우기
             modal.style.display = 'flex';
             
             // 버튼 원상 복구 (폼 리셋은 모달 확인 버튼에서 처리)
