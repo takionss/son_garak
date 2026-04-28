@@ -3,131 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>보험 정밀 팩트체크 리모델링 | 무료 보장분석 센터</title>
+    <title>보험 정밀 팩트체크 센터</title>
     <style>
-        :root { --main-dark: #121c38; --point-blue: #23477e; --accent-yellow: #ffc107; --bg-light: #f4f6f8; --text-gray: #777; --white: #ffffff; }
+        :root { --main-dark: #121c38; --point-blue: #0056b3; --accent-yellow: #ffc107; --bg-light: #f4f6f8; --text-gray: #777; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; background-color: var(--main-dark); color: white; line-height: 1.6; }
+        body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; background-color: var(--main-dark); color: white; overflow-x: hidden; }
 
-        /* 랜딩 메인 레이아웃 */
-        .wrapper { display: flex; flex-wrap: wrap; min-height: 100vh; position: relative; overflow: hidden; }
+        .wrapper { display: flex; flex-wrap: wrap; min-height: 100vh; position: relative; }
 
-        /* ✅ [Layer 1 - 최하단 배경]: 지점장님이 주신 예시 스타일 깨끗한 거실 배경 */
+        /* ✅ [Layer 1] 최하단 거실 배경 */
         .bg-layer {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: url('./image/bg-room.jpg') no-repeat center center;
             background-size: cover; z-index: 1;
         }
 
-        /* ✅ [Layer 2 - 전문가 뒤편 그라데이션]: 입체감을 주는 은은한 블루 그라데이션 */
-        .gradient-layer {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18,28,56,0.9), rgba(18,28,56,0.95)), url('./image/bg-room.jpg'); 
-            z-index: 2;
-        }
-
         /* 컨텐츠 영역 (레이어 위에 위치) */
         .content-area {
-            position: relative; z-index: 3;
+            position: relative; z-index: 2;
             display: flex; flex-wrap: wrap; width: 100%; min-height: 100vh;
         }
 
-        /* 왼쪽: 비주얼 & 강력 후킹 영역 */
+        /* 왼쪽 비주얼 영역 */
         .hero-section { 
-            flex: 1.3; 
-            padding: 100px 8%; 
-            display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+            flex: 1.3; padding: 80px 8%; display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
             position: relative;
         }
 
-        /* ✅ [Layer 3 - 인물]: 지점장님이 완벽하게 누끼 딴 여성 전문가 */
+        /* ✅ [Layer 2] 파란색 후광 (인물 바로 뒤에 배치) */
+        .blue-glow-layer {
+            position: absolute;
+            top: 50%; left: 15%; transform: translate(-50%, -50%);
+            width: 80%; height: auto; max-width: 800px;
+            z-index: 1; 
+            mix-blend-mode: screen; /* 검은색 날리기 */
+            pointer-events: none; /* 클릭 방해 금지 */
+            opacity: 0.9;
+        }
+
+        /* ✅ [Layer 3] 여성 전문가 (후광 위에 배치) */
         .expert-woman-layer {
             position: absolute;
-            top: 50%; left: 10%; /* 예시 페이지 위치 참고 */
-            transform: translateY(-50%);
-            width: auto; height: 100%; /* 화면 높이에 맞춤 */
-            max-height: 80vh; /* 너무 크지 않게 */
+            bottom: 0; left: 5%;
+            width: auto; height: 85%;
+            max-height: 90vh;
             object-fit: contain;
-            z-index: 1; /* 인물 영역 내에서 최하단 */
+            z-index: 2;
         }
-        
-        .hero-text { position: relative; z-index: 2; /* 인물 위에 텍스트 */ }
-        .hero-section h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; line-height: 1.2; word-break: keep-all; letter-spacing: -1px; }
+
+        /* 텍스트 및 아이콘 레이어 */
+        .hero-content { position: relative; z-index: 3; }
+        .hero-section h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; line-height: 1.2; letter-spacing: -1px; }
         .hero-section h1 span { color: var(--accent-yellow); }
-        .hero-section p.main-desc { font-size: 1.4rem; margin-bottom: 60px; opacity: 0.95; word-break: keep-all; font-weight: 500; }
+        .main-desc { font-size: 1.3rem; margin-bottom: 50px; opacity: 0.9; max-width: 600px; word-break: keep-all; }
 
-        /* ✅ [Layer 4 - 혜택 아이콘]: 지점장님이 완벽하게 누끼 딴 3대 혜택 아이콘 배치 */
-        .benefits-graphic { 
-            display: flex; flex-direction: column; gap: 20px;
-            position: relative; z-index: 2; /* 인물 위에 아이콘 */
+        /* 혜택 아이콘 배치 */
+        .benefits-list { display: flex; flex-direction: column; gap: 20px; }
+        .benefit-item { display: flex; align-items: center; gap: 15px; }
+        .benefit-icon { width: 60px; height: 60px; object-fit: contain; }
+        .benefit-text h3 { font-size: 1.2rem; color: var(--accent-yellow); }
+        .benefit-text p { font-size: 0.95rem; color: #ccc; }
+
+        /* 오른쪽 상담 신청 폼 */
+        .form-section { 
+            flex: 1; min-width: 320px; padding: 60px 5%; display: flex; align-items: center; justify-content: center; 
+            background-color: var(--bg-light); z-index: 10;
         }
-        .benefit-item { display: flex; align-items: center; gap: 20px;}
-        
-        /* 코인 아이콘 스타일 */
-        .benefit-icon { 
-            width: 70px; height: 70px; display: flex; justify-content: center; align-items: center;
-            position: relative; z-index: 2;
-        }
-        .benefit-icon img { width: 100%; height: auto; object-fit: contain; }
+        .consult-card { background: white; width: 100%; max-width: 420px; padding: 40px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); color: #333; }
+        .consult-card h2 { color: var(--point-blue); text-align: center; margin-bottom: 30px; font-size: 1.7rem; }
 
-        .benefit-text h3 { font-size: 1.3rem; margin-bottom: 5px; color: var(--accent-yellow); }
-        .benefit-text p { color: #ddd; font-size: 1rem;}
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 7px; font-weight: bold; font-size: 0.9rem; }
+        input, select, textarea { width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; }
+        textarea { height: 80px; resize: none; }
 
-        /* 오른쪽: 깔끔한 입력 폼 영역 (미니멀 라이나 스타알 완벽 적용) */
-        .form-section { flex: 1; min-width: 320px; padding: 60px 6%; display: flex; align-items: center; justify-content: center; background-color: var(--bg-light); z-index: 4; /* 배경보다 위에 */ }
-        .consult-card { background: white; width: 100%; max-width: 450px; padding: 50px 40px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.06); color: #333; }
-        
-        /* 폼 제목 (미니멀) */
-        .consult-card h2 { font-size: 1.8rem; color: var(--point-blue); text-align: center; margin-bottom: 15px; letter-spacing: -1px; }
-        .consult-card p.form-info { text-align: center; color: var(--text-gray); font-size: 0.95rem; margin-bottom: 40px; }
-
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 10px; font-weight: 700; color: #444; font-size: 0.9rem; }
-        input, select, textarea { 
-            width: 100%; padding: 16px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; background-color: white; transition: 0.3s;
-        }
-        input:focus, select:focus, textarea:focus { border-color: var(--point-blue); outline: none; box-shadow: 0 0 0 4px rgba(35,71,126,0.05); }
-        textarea { height: 90px; resize: none; }
-
-        /* 강력한 행동 유도 버튼 카피 (라이나 스타일 색상) */
         .submit-btn { 
-            width: 100%; padding: 20px; background-color: var(--point-blue); color: white; border: none; border-radius: 10px; 
-            font-size: 1.3rem; font-weight: bold; cursor: pointer; transition: all 0.3s; margin-top: 15px;
-            box-shadow: 0 6px 20px rgba(35, 71, 126, 0.2);
+            width: 100%; padding: 18px; background-color: var(--point-blue); color: white; border: none; border-radius: 10px; 
+            font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px;
         }
-        .submit-btn:hover { background-color: var(--main-dark); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(35, 71, 126, 0.3); }
-        .submit-btn:disabled { background-color: #ccc; cursor: not-allowed; transform: none; }
+        .submit-btn:hover { background-color: #004494; }
 
-        .privacy-notice { font-size: 11px; color: #aaa; text-align: center; margin-top: 25px; line-height: 1.4; }
-
-        /* 통합 완료 커스텀 모달 (미니멀) */
-        .modal-overlay { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); 
-            z-index: 2000; justify-content: center; align-items: center; padding: 20px;
-        }
-        .modal-content { 
-            background: white; padding: 50px 40px; border-radius: 20px; text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.3); 
-            max-width: 400px; width: 100%; color: #333;
-        }
-        .modal-content h3 { font-size: 1.6rem; color: var(--point-blue); margin-bottom: 15px; letter-spacing: -1px;}
-        .modal-content p { color: #555; margin-bottom: 30px; font-size: 1rem; line-height: 1.6;}
-        .close-modal-btn { padding: 12px 30px; background-color: var(--point-blue); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 1rem;}
-
-        /* 모바일 대응 (반응형 최적화) */
+        /* 모바일 대응 */
         @media (max-width: 1024px) {
-            .wrapper { display: flex; flex-direction: column-reverse; } /* 폼을 위로 */
-            .hero-section { padding: 80px 6%; text-align: center; align-items: center; z-index: 1; /* 배경보다 아래로 */ }
-            .bg-layer, .gradient-layer { position: fixed; } /* 배경 고정 */
-            
-            .expert-woman-layer {
-                display: none; /* 모바일에서는 인물 숨김 - 예시 페이지 스타일 */
-            }
-
-            .hero-section h1 { font-size: 2.5rem; }
-            .hero-section p.main-desc { font-size: 1.2rem; margin-bottom: 40px; }
-            .benefits-graphic { flex-direction: row; flex-wrap: wrap; justify-content: center; }
-            .benefit-item { flex-direction: column; align-items: center; text-align: center;}
-            .benefit-icon { width: 60px; height: 60px; }
+            .wrapper { flex-direction: column; }
+            .hero-section { padding: 60px 5%; text-align: center; align-items: center; min-height: 400px; }
+            .expert-woman-layer, .blue-glow-layer { display: none; } /* 모바일은 텍스트에 집중 */
+            .hero-section h1 { font-size: 2.2rem; }
+            .benefits-list { align-items: center; }
         }
     </style>
 </head>
@@ -135,47 +97,30 @@
 
 <div class="wrapper">
     <div class="bg-layer"></div>
-    
-    <div class="gradient-layer"></div>
-    
+
     <div class="content-area">
         <section class="hero-section">
-            <p style="font-weight: bold; color: var(--accent-yellow); margin-bottom: 10px; font-size: 1.1rem; border-bottom: 2px solid var(--accent-yellow); display: inline-block; padding-bottom: 3px; position: relative; z-index: 2;">보험 정밀 팩트체크 센터</p>
+            <img src="./image/blue-glow.jpg" alt="" class="blue-glow-layer">
             
-            <img src="./image/expert-woman.png" alt="보험 진단 전문가" class="expert-woman-layer">
-            
-            <div class="hero-text">
-                <h1>그때 가입한 보험,<br><span>지금도 당신을 지켜주고 있나요?</span></h1>
-                
-                <p class="main-desc">나도 모르게 새어나가는 보험료, 30개 주요 보험사 정밀 비교분석으로 거품은 걷어내고, 보장은 확실하게 챙겨드립니다.</p>
-            </div>
-            
-            <div class="benefits-graphic">
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <img src="./image/icon-cost-down.png" alt="보험료 절감 아이콘">
+            <img src="./image/expert-woman.png" alt="" class="expert-woman-layer">
+
+            <div class="hero-content">
+                <p style="color: var(--accent-yellow); font-weight: bold; margin-bottom: 10px;">보험 정밀 팩트체크 센터</p>
+                <h1>그때 가입한 보험,<br><span>지금도 당신을 지켜주나요?</span></h1>
+                <p class="main-desc">나도 모르게 새어나가는 보험료, 30개 보험사 정밀 비교로 거품은 빼고 보장은 채워드립니다.</p>
+
+                <div class="benefits-list">
+                    <div class="benefit-item">
+                        <img src="./image/icon-cost-down.png" class="benefit-icon" alt="">
+                        <div class="benefit-text"><h3>보험료 절감</h3><p>불필요한 지출을 즉시 막아드립니다.</p></div>
                     </div>
-                    <div class="benefit-text">
-                        <h3>보험료 절감</h3>
-                        <p>불필요한 지출을 막아드립니다.</p>
+                    <div class="benefit-item">
+                        <img src="./image/icon-analysis.png" class="benefit-icon" alt="">
+                        <div class="benefit-text"><h3>보장 분석</h3><p>내 보장 내역을 꼼꼼하게 팩트체크 하세요.</p></div>
                     </div>
-                </div>
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <img src="./image/icon-analysis.png" alt="보장 분석 아이콘">
-                    </div>
-                    <div class="benefit-text">
-                        <h3>보장 분석</h3>
-                        <p>내 보장 내역을 팩트체크 하세요.</p>
-                    </div>
-                </div>
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <img src="./image/icon-check.png" alt="보험 점검 아이콘">
-                    </div>
-                    <div class="benefit-text">
-                        <h3>보험 점검</h3>
-                        <p>전문가의 정밀 진단을 받으세요.</p>
+                    <div class="benefit-item">
+                        <img src="./image/icon-check.png" class="benefit-icon" alt="">
+                        <div class="benefit-text"><h3>보험 점검</h3><p>전문가의 정밀 진단으로 안심을 더하세요.</p></div>
                     </div>
                 </div>
             </div>
@@ -183,92 +128,36 @@
 
         <section class="form-section">
             <div class="consult-card">
-                <h2>무료 진단 신청하기</h2>
-                <p class="form-info">정보를 남겨주시면 영업일 기준 24시간 내 연락드립니다.</p>
-
+                <h2>무료 진단 신청</h2>
                 <form id="consultationForm" action="https://script.google.com/macros/s/AKfycbx-w1FcGyFXR3TR6iv2x3ImVgIMRt9lCoa-PCB6Qer38NbGP_-pJcIxlQU6jQdlokgm/exec" method="POST">
+                    <div class="form-group"><label>성함 (필수)</label><input type="text" name="name" required></div>
+                    <div class="form-group"><label>연락처 (필수)</label><input type="tel" name="phone" required></div>
                     <div class="form-group">
-                        <label>성함 (필수)</label>
-                        <input type="text" name="name" placeholder="실명을 입력해 주세요" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>연락처 (필수)</label>
-                        <input type="tel" name="phone" placeholder="예: 010-1234-5678" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>관심 상담 분야</label>
+                        <label>상담 분야</label>
                         <select name="category">
-                            <option value="보험 보장분석/거품제거">기존 보험 보장분석/거품제거</option>
-                            <option value="신규 보험 가입문의">신규 보험 가입 문의</option>
-                            <option value="태아/어린이 보험">태아 및 어린이 보험</option>
-                            <option value="운전자/자동차 보험 최적화">운전자 및 자동차 보험 최적화</option>
+                            <option value="보장분석">기존 보험 보장분석</option>
+                            <option value="신규가입">신규 보험 가입문의</option>
+                            <option value="자동차/운전자">자동차/운전자 보험</option>
                         </select>
                     </div>
-
-                    <div class="form-group">
-                        <label>상세 문의내용 (선택)</label>
-                        <textarea name="message" placeholder="궁금하신 점이나 상담 희망 시간을 남겨주세요"></textarea>
-                    </div>
-
-                    <button type="submit" class="submit-btn">지금 바로 무료 진단받기</button>
-                    
-                    <p class="privacy-notice">
-                        * 개인정보는 상담 목적으로만 사용되며 안전하게 보호됩니다.<br>
-                        * 신청 후 담당 보험 진단 전문가가 직접 연락을 드립니다.
-                    </p>
+                    <div class="form-group"><label>문의내용</label><textarea name="message"></textarea></div>
+                    <button type="submit" class="submit-btn">지금 바로 신청하기</button>
                 </form>
             </div>
         </section>
     </div>
 </div>
 
-<div class="modal-overlay" id="successModal">
-    <div class="modal-content">
-        <h3>상담 신청 완료!</h3>
-        <p>상담 신청이 성공적으로 접수되었습니다.<br>보험 진단 전문가가 곧 연락드리겠습니다.</p>
-        <button class="close-modal-btn" onclick="closeModal()">확인</button>
-    </div>
-</div>
-
 <script>
     const form = document.getElementById('consultationForm');
-    const modal = document.getElementById('successModal');
-    
-    function closeModal() {
-        modal.style.display = 'none';
-        form.reset(); 
-    }
-
     form.addEventListener('submit', function(e) {
-        e.preventDefault(); 
+        e.preventDefault();
         const btn = form.querySelector('.submit-btn');
-        const originalText = btn.innerText;
-        btn.innerText = '신청 접수 중...';
-        btn.style.backgroundColor = '#ccc';
+        btn.innerText = '접수 중...';
         btn.disabled = true;
-
-        fetch(form.action, {
-            method: 'POST',
-            body: new FormData(form)
-        })
-        .then(response => response.text())
-        .then(data => {
-            // 성공 시 단순 팝업(Alert) 대신 커스텀 모달 띄우기
-            modal.style.display = 'flex';
-            
-            // 버튼 원상 복구 (폼 리셋은 모달 확인 버튼에서 처리)
-            btn.innerText = originalText;
-            btn.style.backgroundColor = '#23477e';
-            btn.disabled = false;
-        })
-        .catch(error => {
-            alert('일시적인 네트워크 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
-            btn.innerText = originalText;
-            btn.style.backgroundColor = '#23477e';
-            btn.disabled = false;
-        });
+        fetch(form.action, { method: 'POST', body: new FormData(form) })
+        .then(() => { alert('신청이 완료되었습니다!'); form.reset(); btn.innerText = '지금 바로 신청하기'; btn.disabled = false; })
+        .catch(() => { alert('오류가 발생했습니다.'); btn.disabled = false; });
     });
 </script>
 
