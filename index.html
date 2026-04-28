@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KGA Asset | 맞춤 보험 컨설팅</title>
+    <style>
+        /* 기본 리셋 및 폰트 설정 */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; background-color: #f0f2f5; color: #333; line-height: 1.6; }
+        
+        /* 상단 배너 영역 */
+        .hero-banner {
+            width: 100%;
+            height: 250px;
+            /* images 폴더에 banner.jpg를 넣으면 배경으로 출력됩니다. 현재는 임시 이미지 주소입니다. */
+            background-image: linear-gradient(rgba(0, 32, 96, 0.7), rgba(0, 32, 96, 0.7)), url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .hero-banner h1 { font-size: 28px; margin-bottom: 10px; font-weight: 800; letter-spacing: -1px; }
+        .hero-banner p { font-size: 16px; opacity: 0.9; }
+
+        /* 컨테이너 (상담 폼 영역) */
+        .container { 
+            max-width: 500px; 
+            background: white; 
+            margin: -40px auto 40px auto; /* 배너 위로 살짝 겹치게 올려서 세련미 강조 */
+            padding: 35px 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
+            position: relative;
+        }
+        
+        /* 폼 내부 요소 디자인 */
+        .agency-info { text-align: center; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 2px solid #f0f2f5; }
+        .agency-info h2 { color: #002060; font-size: 20px; margin-bottom: 5px; }
+        .agency-info span { font-size: 14px; color: #666; }
+
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 700; color: #444; font-size: 14px; }
+        input, select, textarea { 
+            width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 8px; 
+            font-size: 15px; transition: border-color 0.3s; background-color: #fafafa;
+        }
+        input:focus, select:focus, textarea:focus { border-color: #002060; outline: none; background-color: #fff; }
+        textarea { height: 110px; resize: none; }
+        
+        /* 버튼 디자인 */
+        button { 
+            width: 100%; padding: 16px; background-color: #002060; color: white; 
+            border: none; border-radius: 8px; font-size: 18px; font-weight: bold; 
+            cursor: pointer; transition: background 0.3s, transform 0.1s; 
+            margin-top: 10px;
+        }
+        button:hover { background-color: #001540; transform: translateY(-2px); }
+        
+        /* 하단 카피라이트 및 안내 */
+        .privacy { font-size: 12px; color: #888; margin-top: 20px; line-height: 1.5; text-align: center; word-break: keep-all; }
+        .footer { text-align: center; padding: 20px; color: #999; font-size: 13px; margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+
+<div class="hero-banner">
+    <h1>당신에게 딱 맞는 맞춤 컨설팅</h1>
+    <p>수많은 보험사 상품을 객관적으로 비교 분석해 드립니다</p>
+</div>
+
+<div class="container">
+    <div class="agency-info">
+        <h2>KGA Asset 웰스(Wells) 지점</h2>
+        <span>지점장 직접 1:1 무료 상담 접수처</span>
+    </div>
+
+    <form id="consultationForm" action="여기에_구글_웹앱_URL을_붙여넣으세요" method="POST">
+        <div class="form-group">
+            <label for="name">성함 (필수)</label>
+            <input type="text" id="name" name="name" placeholder="고객님의 성함을 입력해 주세요" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="phone">연락처 (필수)</label>
+            <input type="tel" id="phone" name="phone" placeholder="예: 010-1234-5678" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="category">관심 분야 (필수)</label>
+            <select id="category" name="category">
+                <option value="암/건강보험">암/건강보험 리모델링</option>
+                <option value="태아/어린이보험">태아/어린이보험</option>
+                <option value="운전자/자동차보험">운전자/자동차보험</option>
+                <option value="종합재무설계">종합 재무/연금 설계</option>
+                <option value="기타상담">기타 문의사항</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="message">문의 상세내용 (선택)</label>
+            <textarea id="message" name="message" placeholder="현재 가입하신 보험의 고민이나 궁금하신 점을 편하게 남겨주세요."></textarea>
+        </div>
+
+        <button type="submit">무료 상담 신청하기</button>
+        
+        <p class="privacy">
+            * 입력하신 정보는 원활한 상담 제공 목적으로만 활용되며, 외부로 절대 유출되지 않습니다.<br>
+            * 상담 접수 후 영업일 기준 24시간 이내에 직접 연락드리겠습니다.
+        </p>
+    </form>
+</div>
+
+<div class="footer">
+    &copy; KGA Asset Wells Branch. All rights reserved.
+</div>
+
+<script>
+    const form = document.getElementById('consultationForm');
+    form.addEventListener('submit', function(e) {
+        // 전송 버튼 누를 시 버튼 텍스트 변경
+        const btn = form.querySelector('button');
+        btn.innerText = '신청 접수 중...';
+        btn.style.backgroundColor = '#666';
+    });
+</script>
+
+</body>
+</html>
