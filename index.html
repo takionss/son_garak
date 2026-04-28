@@ -3,37 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>보험 팩트체크 리모델링 | 무료 정밀 진단</title>
+    <title>보험료 팩트체크 리모델링 | 무료 보장분석 센터</title>
     <style>
-        :root { --main-dark: #212529; --main-blue: #0056b3; --point-yellow: #ffc107; --bg-light: #f8f9fa; --text-gray: #6c757d; }
+        :root { --main-dark: #121c38; --main-blue: #0056b3; --accent-yellow: #ffc107; --bg-light: #f4f6f8; --text-gray: #777; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; background-color: white; color: var(--main-dark); line-height: 1.6; }
+        body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; background-color: var(--main-dark); color: white; line-height: 1.6; }
 
-        /* 랜딩 메인 레이아웃 (Split Screen for PC) */
+        /* 랜딩 메인 레이아웃 (Split Screen - PC) */
         .wrapper { display: flex; flex-wrap: wrap; min-height: 100vh; }
 
-        /* 왼쪽: 최고급 비주얼 & 강력 후킹 카피 영역 */
+        /* 왼쪽: 비주얼 & 강력 후킹 영역 */
         .hero-section { 
             flex: 1.3; 
-            /* ✅ 제가 생성한 최고급 이미지 적용 */
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('./image/hero-premium.jpg'); 
+            /* ✅ 지점장님 의도대로 '비주얼 배경' 역할만 수행 */
+            background: linear-gradient(rgba(18,28,56,0.95), rgba(18,28,56,0.98)), url('./image/hero-premium.png'); 
             background-size: cover; background-position: center; 
-            color: white; padding: 100px 8%; display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+            padding: 120px 8%; display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
         }
         
         .hero-section h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; line-height: 1.2; word-break: keep-all; letter-spacing: -1px; }
-        .hero-section h1 span { color: var(--point-yellow); }
+        .hero-section h1 span { color: var(--accent-yellow); }
         
-        /* ✅ 강력 후킹 카피 2 (설명) */
-        .hero-section p.main-desc { font-size: 1.4rem; margin-bottom: 50px; opacity: 0.95; word-break: keep-all; font-weight: 500; }
+        /* ✅ 예시 페이지 스타일 부제목 문구 */
+        .hero-section p.main-desc { font-size: 1.4rem; margin-bottom: 60px; opacity: 0.95; word-break: keep-all; font-weight: 500; }
 
-        .check-list { list-style: none; }
-        .check-list li { margin-bottom: 18px; font-size: 1.15rem; display: flex; align-items: center; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;}
-        .check-list li::before { content: '✔'; color: var(--point-yellow); margin-right: 15px; font-weight: bold; font-size: 1.4rem; }
+        /* ✅ 예시 페이지 스타일 3대 혜택 아이콘 배치 (문구 완벽 반영) */
+        .benefits-graphic { 
+            display: flex; flex-direction: column; gap: 20px;
+        }
+        .benefit-item { display: flex; align-items: center; gap: 20px;}
+        .benefit-icon { width: 60px; height: 60px; background-color: rgba(255,193,7,0.1); border-radius: 15px; display: flex; justify-content: center; align-items: center; font-size: 2rem;}
+        .benefit-text h3 { font-size: 1.3rem; margin-bottom: 5px; color: var(--accent-yellow); }
+        .benefit-text p { color: #ddd; font-size: 1rem;}
 
-        /* 오른쪽: 깔끔한 입력 폼 영역 (미니멀리즘) */
+        /* 오른쪽: 깔끔한 입력 폼 영역 (미니멀 라이나 스타일 완벽 적용) */
         .form-section { flex: 1; min-width: 320px; padding: 60px 6%; display: flex; align-items: center; justify-content: center; background-color: var(--bg-light); }
-        .consult-card { background: white; width: 100%; max-width: 450px; padding: 50px 40px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.06); }
+        .consult-card { background: white; width: 100%; max-width: 450px; padding: 50px 40px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.06); color: #333; }
         
         /* ✅ 폼 제목 (미니멀) */
         .consult-card h2 { font-size: 1.8rem; color: var(--main-blue); text-align: center; margin-bottom: 15px; letter-spacing: -1px; }
@@ -47,7 +52,7 @@
         input:focus, select:focus, textarea:focus { border-color: var(--main-blue); outline: none; box-shadow: 0 0 0 4px rgba(0,86,179,0.05); }
         textarea { height: 90px; resize: none; }
 
-        /* ✅ 강력한 행동 유도 버튼 (라이나 스타일 색상) */
+        /* ✅ 강력한 행동 유도 버튼 카피 (라이나 스타일 색상) */
         .submit-btn { 
             width: 100%; padding: 20px; background-color: var(--main-blue); color: white; border: none; border-radius: 10px; 
             font-size: 1.3rem; font-weight: bold; cursor: pointer; transition: all 0.3s; margin-top: 15px;
@@ -65,7 +70,7 @@
         }
         .modal-content { 
             background: white; padding: 50px 40px; border-radius: 20px; text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.3); 
-            max-width: 400px; width: 100%;
+            max-width: 400px; width: 100%; color: #333;
         }
         .modal-content h3 { font-size: 1.6rem; color: var(--main-blue); margin-bottom: 15px; letter-spacing: -1px;}
         .modal-content p { color: #555; margin-bottom: 30px; font-size: 1rem; line-height: 1.6;}
@@ -76,7 +81,8 @@
             .hero-section { padding: 80px 6%; text-align: center; align-items: center; }
             .hero-section h1 { font-size: 2.5rem; }
             .hero-section p.main-desc { font-size: 1.2rem; }
-            .check-list li { font-size: 1.1rem; }
+            .benefits-graphic { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+            .benefit-item { flex-direction: column; align-items: center; text-align: center;}
         }
     </style>
 </head>
@@ -84,22 +90,37 @@
 
 <div class="wrapper">
     <section class="hero-section">
-        <p style="font-weight: bold; color: var(--point-orange); margin-bottom: 10px; font-size: 1.1rem; border-bottom: 2px solid var(--point-orange); display: inline-block; padding-bottom: 3px;">맞춤 보험설계 전문</p>
+        <p style="font-weight: bold; color: var(--accent-yellow); margin-bottom: 10px; font-size: 1.1rem; border-bottom: 2px solid var(--accent-yellow); display: inline-block; padding-bottom: 3px;">보험 정밀 팩트체크 센터</p>
         
         <h1>그때 가입한 보험,<br><span>지금도 당신을 지켜주고 있나요?</span></h1>
         
         <p class="main-desc">나도 모르게 새어나가는 보험료, 30개 주요 보험사 정밀 비교분석으로 거품은 걷어내고, 보장은 확실하게 챙겨드립니다.</p>
         
-        <ul class="check-list">
-            <li>기존 보험의 중복 가입 및 불필요 특약 정리</li>
-            <li>나에게 꼭 필요한 보장만 합리적인 가격으로 재설계</li>
-            <li>신청 즉시 보험 진단 전문가가 1:1 맞춤 컨설팅</li>
-        </ul>
+        <div class="benefits-graphic">
+            <div class="benefit-item">
+                <div class="benefit-icon">✂️</div> <div class="benefit-text">
+                    <h3>보험료 절감</h3>
+                    <p>불필요한 지출을 막아드립니다.</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🔍</div> <div class="benefit-text">
+                    <h3>보장 분석</h3>
+                    <p>내 보장 내역을 팩트체크 하세요.</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🛡️</div> <div class="benefit-text">
+                    <h3>보험 점검</h3>
+                    <p>전문가의 정밀 진단을 받으세요.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section class="form-section">
         <div class="consult-card">
-            <h2>무료 보험 점검 신청</h2>
+            <h2>무료 진단 신청하기</h2>
             <p class="form-info">정보를 남겨주시면 영업일 기준 24시간 내 연락드립니다.</p>
 
             <form id="consultationForm" action="https://script.google.com/macros/s/AKfycbx-w1FcGyFXR3TR6iv2x3ImVgIMRt9lCoa-PCB6Qer38NbGP_-pJcIxlQU6jQdlokgm/exec" method="POST">
@@ -170,6 +191,7 @@
         })
         .then(response => response.text())
         .then(data => {
+            // 성공 시 단순 팝업(Alert) 대신 커스텀 모달 띄우기
             modal.style.display = 'flex';
             btn.innerText = originalText;
             btn.style.backgroundColor = '#0056b3';
