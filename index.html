@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>보험 팩트체크 리모델링 | 무료 정밀 진단</title>
+    <style>
+        :root { --main-dark: #212529; --main-blue: #0056b3; --point-yellow: #ffc107; --bg-light: #f8f9fa; --text-gray: #6c757d; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; background-color: white; color: var(--main-dark); line-height: 1.6; }
+
+        /* 랜딩 메인 레이아웃 (Split Screen for PC) */
+        .wrapper { display: flex; flex-wrap: wrap; min-height: 100vh; }
+
+        /* 왼쪽: 최고급 비주얼 & 강력 후킹 카피 영역 */
+        .hero-section { 
+            flex: 1.3; 
+            /* ✅ 제가 생성한 최고급 이미지 적용 */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('./image/hero-premium.jpg'); 
+            background-size: cover; background-position: center; 
+            color: white; padding: 100px 8%; display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+        }
+        
+        .hero-section h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; line-height: 1.2; word-break: keep-all; letter-spacing: -1px; }
+        .hero-section h1 span { color: var(--point-yellow); }
+        
+        /* ✅ 강력 후킹 카피 2 (설명) */
+        .hero-section p.main-desc { font-size: 1.4rem; margin-bottom: 50px; opacity: 0.95; word-break: keep-all; font-weight: 500; }
+
+        .check-list { list-style: none; }
+        .check-list li { margin-bottom: 18px; font-size: 1.15rem; display: flex; align-items: center; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;}
+        .check-list li::before { content: '✔'; color: var(--point-yellow); margin-right: 15px; font-weight: bold; font-size: 1.4rem; }
+
+        /* 오른쪽: 깔끔한 입력 폼 영역 (미니멀리즘) */
+        .form-section { flex: 1; min-width: 320px; padding: 60px 6%; display: flex; align-items: center; justify-content: center; background-color: var(--bg-light); }
+        .consult-card { background: white; width: 100%; max-width: 450px; padding: 50px 40px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.06); }
+        
+        /* ✅ 폼 제목 (미니멀) */
+        .consult-card h2 { font-size: 1.8rem; color: var(--main-blue); text-align: center; margin-bottom: 15px; letter-spacing: -1px; }
+        .consult-card p.form-info { text-align: center; color: var(--text-gray); font-size: 0.95rem; margin-bottom: 40px; }
+
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 10px; font-weight: 700; color: #444; font-size: 0.9rem; }
+        input, select, textarea { 
+            width: 100%; padding: 16px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; background-color: white; transition: 0.3s;
+        }
+        input:focus, select:focus, textarea:focus { border-color: var(--main-blue); outline: none; box-shadow: 0 0 0 4px rgba(0,86,179,0.05); }
+        textarea { height: 90px; resize: none; }
+
+        /* ✅ 강력한 행동 유도 버튼 (라이나 스타일 색상) */
+        .submit-btn { 
+            width: 100%; padding: 20px; background-color: var(--main-blue); color: white; border: none; border-radius: 10px; 
+            font-size: 1.3rem; font-weight: bold; cursor: pointer; transition: all 0.3s; margin-top: 15px;
+            box-shadow: 0 6px 20px rgba(0, 86, 179, 0.2);
+        }
+        .submit-btn:hover { background-color: #004494; transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0, 86, 179, 0.3); }
+        .submit-btn:disabled { background-color: #ccc; cursor: not-allowed; transform: none; }
+
+        .privacy-notice { font-size: 11px; color: #aaa; text-align: center; margin-top: 25px; line-height: 1.4; }
+
+        /* ✅ 통합 완료 커스텀 모달 (미니멀) */
+        .modal-overlay { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); 
+            z-index: 2000; justify-content: center; align-items: center; padding: 20px;
+        }
+        .modal-content { 
+            background: white; padding: 50px 40px; border-radius: 20px; text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.3); 
+            max-width: 400px; width: 100%;
+        }
+        .modal-content h3 { font-size: 1.6rem; color: var(--main-blue); margin-bottom: 15px; letter-spacing: -1px;}
+        .modal-content p { color: #555; margin-bottom: 30px; font-size: 1rem; line-height: 1.6;}
+        .close-modal-btn { padding: 12px 30px; background-color: var(--main-blue); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 1rem;}
+
+        /* 모바일 대응 (반응형 최적화) */
+        @media (max-width: 1024px) {
+            .hero-section { padding: 80px 6%; text-align: center; align-items: center; }
+            .hero-section h1 { font-size: 2.5rem; }
+            .hero-section p.main-desc { font-size: 1.2rem; }
+            .check-list li { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <section class="hero-section">
+        <p style="font-weight: bold; color: var(--point-orange); margin-bottom: 10px; font-size: 1.1rem; border-bottom: 2px solid var(--point-orange); display: inline-block; padding-bottom: 3px;">정밀 보험 비교분석 센터</p>
+        
+        <h1>그때 가입한 보험,<br><span>지금도 당신을 지켜주고 있나요?</span></h1>
+        
+        <p class="main-desc">나도 모르게 새어나가는 보험료, 30개 주요 보험사 정밀 비교분석으로 거품은 걷어내고, 보장은 확실하게 챙겨드립니다.</p>
+        
+        <ul class="check-list">
+            <li>기존 보험의 중복 가입 및 불필요 특약 정리</li>
+            <li>나에게 꼭 필요한 보장만 합리적인 가격으로 재설계</li>
+            <li>신청 즉시 보험 진단 전문가가 1:1 맞춤 컨설팅</li>
+        </ul>
+    </section>
+
+    <section class="form-section">
+        <div class="consult-card">
+            <h2>무료 보험 점검 신청</h2>
+            <p class="form-info">정보를 남겨주시면 영업일 기준 24시간 내 연락드립니다.</p>
+
+            <form id="consultationForm" action="https://script.google.com/macros/s/AKfycbx-w1FcGyFXR3TR6iv2x3ImVgIMRt9lCoa-PCB6Qer38NbGP_-pJcIxlQU6jQdlokgm/exec" method="POST">
+                <div class="form-group">
+                    <label>성함 (필수)</label>
+                    <input type="text" name="name" placeholder="실명을 입력해 주세요" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>연락처 (필수)</label>
+                    <input type="tel" name="phone" placeholder="예: 010-1234-5678" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>관심 상담 분야</label>
+                    <select name="category">
+                        <option value="보험 보장분석/거품제거">기존 보험 보장분석/거품제거</option>
+                        <option value="신규 보험 가입문의">신규 보험 가입 문의</option>
+                        <option value="태아/어린이 보험">태아 및 어린이 보험</option>
+                        <option value="운전자/자동차 보험 최적화">운전자 및 자동차 보험 최적화</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>상세 문의내용 (선택)</label>
+                    <textarea name="message" placeholder="궁금하신 점이나 상담 희망 시간을 남겨주세요"></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">지금 바로 무료 진단받기</button>
+                
+                <p class="privacy-notice">
+                    * 개인정보는 상담 목적으로만 사용되며 안전하게 보호됩니다.<br>
+                    * 신청 후 담당 보험 진단 전문가가 직접 연락을 드립니다.
+                </p>
+            </form>
+        </div>
+    </section>
+</div>
+
+<div class="modal-overlay" id="successModal">
+    <div class="modal-content">
+        <h3>상담 신청 완료!</h3>
+        <p>상담 신청이 성공적으로 접수되었습니다.<br>보험 진단 전문가가 곧 연락드리겠습니다.</p>
+        <button class="close-modal-btn" onclick="closeModal()">확인</button>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById('consultationForm');
+    const modal = document.getElementById('successModal');
+    
+    function closeModal() {
+        modal.style.display = 'none';
+        form.reset(); 
+    }
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); 
+        const btn = form.querySelector('.submit-btn');
+        const originalText = btn.innerText;
+        btn.innerText = '신청 접수 중...';
+        btn.style.backgroundColor = '#ccc';
+        btn.disabled = true;
+
+        fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form)
+        })
+        .then(response => response.text())
+        .then(data => {
+            modal.style.display = 'flex';
+            btn.innerText = originalText;
+            btn.style.backgroundColor = '#0056b3';
+            btn.disabled = false;
+        })
+        .catch(error => {
+            alert('오류가 발생했습니다. 다시 시도해 주세요.');
+            btn.innerText = originalText;
+            btn.style.backgroundColor = '#0056b3';
+            btn.disabled = false;
+        });
+    });
+</script>
+
+</body>
+</html>
