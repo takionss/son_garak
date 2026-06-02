@@ -127,34 +127,48 @@
         .privacy-body ul { list-style: none; padding-left: 0; margin-bottom: 15px; }
         .close-modal-btn { padding: 12px; background: var(--point-blue); color: white; border: none; border-radius: 8px; width: 100%; cursor: pointer; font-weight: bold; }
 
-        /* 태블릿 반응형 (1100px 이하) */
+        /* 📱 태블릿 반응형 (1100px 이하) - 무조건 세로로 떨어지도록 강제 */
         @media (max-width: 1100px) {
             .bg-layer { animation-duration: 90s !important; }
+            
+            /* flex를 해제하고 block으로 변경하여 확실하게 위아래로 분리 */
+            .wrapper { display: block; } 
+            
+            .hero-section { 
+                width: 100%; /* 가로 100% 꽉 채우기 */
+                padding: 60px 5%; 
+                text-align: center; 
+                display: block; /* flex 해제 */
+            }
+            .expert-woman-layer { display: none; }
+            .hero-content { margin-left: 0; max-width: 100%; }
+            .hero-section h1 { font-size: 2.5rem; }
+            
             .form-section {
+                width: 100%; /* 가로 100% 꽉 채우기 */
+                padding: 50px 5%; 
+                display: flex; 
+                justify-content: center;
+                border-left: none; /* 가로선 제거 */
                 background-color: rgba(248, 249, 250, 0.6); 
                 backdrop-filter: blur(4px); 
                 -webkit-backdrop-filter: blur(4px);
             }
-            .wrapper { flex-direction: column; }
-            .hero-section { padding: 60px 5%; text-align: center; justify-content: center; }
-            .expert-woman-layer { display: none; }
-            .hero-content { margin-left: 0; max-width: 100%; }
-            .hero-section h1 { font-size: 2.5rem; }
             textarea { height: 200px; }
         }
 
-        /* 모바일 반응형 (768px 이하) - 핵심 최적화 구간 */
+        /* 📱 모바일 반응형 (768px 이하) - 좁은 화면 최적화 */
         @media (max-width: 768px) {
             .hero-section { padding: 40px 5%; }
             .hero-section h1 { font-size: 2rem; }
             .main-desc { font-size: 1.05rem; margin-bottom: 35px; }
             
+            /* 장점 아이콘과 텍스트도 모바일에선 세로로 떨어지게 유지 */
             .benefit-item { flex-direction: column; text-align: center; padding: 20px; }
             .benefit-icon { margin-bottom: 5px; }
             
             .form-section { padding: 30px 15px; }
-            /* 모바일 가로 스크롤 유발 요소 제거 및 패딩 축소 */
-            .consult-card { padding: 35px 20px; border-radius: 16px; }
+            .consult-card { padding: 35px 20px; border-radius: 16px; width: 100%; }
             .consult-card h2 { font-size: 1.5rem; margin-bottom: 25px; }
             
             input, select, textarea { padding: 14px; }
