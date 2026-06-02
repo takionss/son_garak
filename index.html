@@ -19,10 +19,10 @@
             width: 110%; 
             height: 100%;
             background-image: linear-gradient(rgba(10,17,40,0.3), rgba(10,17,40,0.5)), url('./image/bg-room.jpg');
-            background-size: cover, cover;
-            background-repeat: no-repeat, no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             z-index: 1;
-            
             animation: surePan 40s ease-in-out infinite alternate;
             will-change: transform;
         }
@@ -36,7 +36,7 @@
 
         /* 왼쪽 비주얼 영역 */
         .hero-section { 
-            flex: 1.6; padding: 60px 5% 60px 5%; display: flex; align-items: center; position: relative;
+            flex: 1.6; padding: 60px 5%; display: flex; align-items: center; position: relative;
         }
 
         /* [Layer 2] 여성 전문가 */
@@ -65,19 +65,16 @@
         .benefit-text h3 { font-size: 1.2rem; color: var(--accent-yellow); margin-bottom: 3px; }
         .benefit-text p { font-size: 0.95rem; color: #eee; }
 
-        /* ✅ [오른쪽 영역] 투명도를 대폭 높인 반투명 유리 효과 (Glassmorphism) 교정 */
+        /* 오른쪽 폼 영역 */
         .form-section { 
-            flex: 1; min-width: 350px; padding: 40px; display: flex; align-items: center; justify-content: center; 
-            
-            /* ✅ 하얀색 불투명도를 75% -> 40%로 대폭 낮췄습니다. (더 투명하게) */
+            flex: 1; padding: 40px; display: flex; align-items: center; justify-content: center; 
             background-color: rgba(248, 249, 250, 0.4); 
-            
-            /* ✅ 블러(흐림) 효과를 10px -> 7px로 미세하게 줄여 뒤쪽 이미지가 더 선명하게 보이게 합니다. */
             backdrop-filter: blur(7px);
             -webkit-backdrop-filter: blur(7px);
             z-index: 10;
-            border-left: 1px solid rgba(255, 255, 255, 0.2); /* 은은한 테두리 추가 */
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
         }
+        
         .consult-card { background: white; width: 100%; max-width: 440px; padding: 45px 35px; border-radius: 24px; box-shadow: 0 25px 50px rgba(0,0,0,0.15); color: #333; }
         .consult-card h2 { color: var(--point-blue); text-align: center; margin-bottom: 35px; font-size: 1.8rem; letter-spacing: -1px; }
 
@@ -85,17 +82,12 @@
         label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 0.9rem; color: #555; }
         
         input, select, textarea { 
-            width: 100%; padding: 16px; border: 1px solid #e0e0e0; border-radius: 12px; font-size: 16px; 
+            width: 100%; padding: 16px; border: 1px solid #e0e0e0; border-radius: 12px; font-size: 16px; font-family: inherit;
         }
         
-        textarea { 
-            height: 150px; 
-            resize: none; 
-            line-height: 1.5; 
-            background: #fdfdfd;
-        }
+        textarea { height: 150px; resize: none; line-height: 1.5; background: #fdfdfd; }
 
-        /* 약관 동의 체크박스 디자인 */
+        /* 약관 동의 체크박스 */
         .checkbox-group {
             display: flex; align-items: flex-start; justify-content: center;
             margin: 20px 0; font-size: 0.85rem; color: #666;
@@ -107,9 +99,7 @@
         .checkbox-group label {
             display: inline; margin-bottom: 0; font-weight: normal; cursor: pointer; color: #555; line-height: 1.4;
         }
-        .view-privacy {
-            color: #888; text-decoration: underline; cursor: pointer; font-weight: bold; margin-left: 2px;
-        }
+        .view-privacy { color: #888; text-decoration: underline; cursor: pointer; font-weight: bold; margin-left: 2px; }
 
         .submit-btn { 
             width: 100%; padding: 20px; background-color: var(--point-blue); color: white; border: none; border-radius: 12px; 
@@ -127,9 +117,8 @@
             max-width: 450px; width: 100%; color: #333; position: relative;
         }
         
-        /* 약관 전용 모달 바디 */
         .privacy-body {
-            max-height: 400px; overflow-y: auto; text-align: left;
+            max-height: 60vh; overflow-y: auto; text-align: left;
             font-size: 0.85rem; line-height: 1.6; color: #555;
             padding: 15px; border: 1px solid #eee; border-radius: 10px; margin: 15px 0;
         }
@@ -138,27 +127,39 @@
         .privacy-body ul { list-style: none; padding-left: 0; margin-bottom: 15px; }
         .close-modal-btn { padding: 12px; background: var(--point-blue); color: white; border: none; border-radius: 8px; width: 100%; cursor: pointer; font-weight: bold; }
 
-        @media (max-width: 1200px) {
-            .hero-content { margin-left: 45%; }
-        }
-
+        /* 태블릿 반응형 (1100px 이하) */
         @media (max-width: 1100px) {
             .bg-layer { animation-duration: 90s !important; }
-            
-            /* ✅ 모바일 폼 섹션도 투명도를 높여 더 시원하게 만듭니다 */
             .form-section {
-                background-color: rgba(248, 249, 250, 0.6); /* 90% -> 60%로 투명하게 */
-                backdrop-filter: blur(4px); /* 흐림 효과도 미세하게 줄임 */
+                background-color: rgba(248, 249, 250, 0.6); 
+                backdrop-filter: blur(4px); 
                 -webkit-backdrop-filter: blur(4px);
             }
-
             .wrapper { flex-direction: column; }
             .hero-section { padding: 60px 5%; text-align: center; justify-content: center; }
             .expert-woman-layer { display: none; }
             .hero-content { margin-left: 0; max-width: 100%; }
-            .hero-section h1 { font-size: 2.3rem; }
-            .benefit-text p { font-size: 0.85rem; line-height: 1.4; }
-            textarea { height: 200px !important; }
+            .hero-section h1 { font-size: 2.5rem; }
+            textarea { height: 200px; }
+        }
+
+        /* 모바일 반응형 (768px 이하) - 핵심 최적화 구간 */
+        @media (max-width: 768px) {
+            .hero-section { padding: 40px 5%; }
+            .hero-section h1 { font-size: 2rem; }
+            .main-desc { font-size: 1.05rem; margin-bottom: 35px; }
+            
+            .benefit-item { flex-direction: column; text-align: center; padding: 20px; }
+            .benefit-icon { margin-bottom: 5px; }
+            
+            .form-section { padding: 30px 15px; }
+            /* 모바일 가로 스크롤 유발 요소 제거 및 패딩 축소 */
+            .consult-card { padding: 35px 20px; border-radius: 16px; }
+            .consult-card h2 { font-size: 1.5rem; margin-bottom: 25px; }
+            
+            input, select, textarea { padding: 14px; }
+            .submit-btn { font-size: 1.1rem; padding: 16px; }
+            .modal-content { padding: 20px; }
         }
     </style>
 </head>
@@ -169,7 +170,7 @@
 
     <div class="content-area">
         <section class="hero-section">
-            <img src="./image/expert-woman.png" alt="" class="expert-woman-layer">
+            <img src="./image/expert-woman.png" alt="보험 전문가" class="expert-woman-layer">
 
             <div class="hero-content">
                 <p style="color: var(--accent-yellow); font-weight: bold; margin-bottom: 12px; font-size: 1.1rem;">보험 정밀 팩트체크 센터</p>
@@ -178,15 +179,15 @@
 
                 <div class="benefits-list">
                     <div class="benefit-item">
-                        <img src="./image/icon-cost-down.png" class="benefit-icon">
+                        <img src="./image/icon-cost-down.png" class="benefit-icon" alt="비용 절감">
                         <div class="benefit-text"><h3>보험료 절감</h3><p>불필요하게 낭비되는 고정 지출을 즉시 차단</p></div>
                     </div>
                     <div class="benefit-item">
-                        <img src="./image/icon-analysis.png" class="benefit-icon">
+                        <img src="./image/icon-analysis.png" class="benefit-icon" alt="보장 분석">
                         <div class="benefit-text"><h3>보장 분석</h3><p>복잡한 약관 속 핵심 보장만 팩트체크</p></div>
                     </div>
                     <div class="benefit-item">
-                        <img src="./image/icon-check.png" class="benefit-icon">
+                        <img src="./image/icon-check.png" class="benefit-icon" alt="보험 점검">
                         <div class="benefit-text"><h3>보험 점검</h3><p>전문가의 정밀 진단으로 설계의 빈틈 보완</p></div>
                     </div>
                 </div>
@@ -218,7 +219,7 @@
                     
                     <div class="checkbox-group">
                         <input type="checkbox" id="privacyAgree" required>
-                        <label for="privacyAgree">개인정보 수집과 이용 및 제 3자 제공 동의 <span class="view-privacy" onclick="openPrivacyModal()">[보기...]</span></label>
+                        <label for="privacyAgree">개인정보 수집 및 제3자 제공 동의 <span class="view-privacy" onclick="openPrivacyModal()">[보기]</span></label>
                     </div>
 
                     <button type="submit" class="submit-btn">지금 바로 무료 진단받기</button>
@@ -235,17 +236,17 @@
             <h4>▶ 개인정보 수집 및 이용 동의</h4>
             <p>개인정보는 보험문의 상담 목적으로만 사용되며 동의를 거부하실 수 있으나 보험설계 및 상담이 불가능합니다.</p>
             <ul>
-                <li>• 수집항목: 이름, 연락처, 카카오톡아이디</li>
-                <li>• 수집목적: 함일상회 보험 설계, 상담, 리모델링 안내 및 서비스 제공</li>
+                <li>• 수집항목: 이름, 연락처, 카카오톡 아이디</li>
+                <li>• 수집목적: KGA에셋 웰스지점 보험 설계, 상담, 리모델링 안내 및 서비스 제공</li>
                 <li>• 보유기간: 수집 및 동의일로부터 3개월</li>
             </ul>
             
-            <h4>▶ 개인정보 제 3자 제공 동의</h4>
+            <h4>▶ 개인정보 제3자 제공 동의</h4>
             <p>개인정보는 보험문의 상담 목적으로만 사용되며 동의를 거부하실 수 있으나 보험설계 및 상담이 불가능합니다.</p>
             <ul>
-                <li>• 제공받는 자: 함일상회와 위탁계약을 체결한 보험설계사</li>
+                <li>• 제공받는 자: KGA에셋 웰스지점 소속 보험설계사</li>
                 <li>• 이용목적: 전화, 문자, 카카오톡을 통한 보험상품 설계 및 상담</li>
-                <li>• 제공항목: 이름, 연락처, 카카오톡아이디</li>
+                <li>• 제공항목: 이름, 연락처, 카카오톡 아이디</li>
                 <li>• 보유기간: 수집 및 동의일로부터 3개월</li>
             </ul>
         </div>
@@ -259,12 +260,19 @@
 
     function openPrivacyModal() { privacyModal.style.display = 'flex'; }
     function closePrivacyModal() { privacyModal.style.display = 'none'; }
+    
+    // 모달 외부 클릭 시 닫기 (UX 개선)
+    window.onclick = function(event) {
+        if (event.target == privacyModal) {
+            closePrivacyModal();
+        }
+    }
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
         if(!document.getElementById('privacyAgree').checked) {
-            alert('개인정보 동의에 체크해주세요.');
+            alert('개인정보 동의에 체크해 주세요.');
             return;
         }
 
@@ -280,7 +288,7 @@
             btn.disabled = false; 
         })
         .catch(() => { 
-            alert('오류가 발생했습니다. 다시 시도해주세요.'); 
+            alert('오류가 발생했습니다. 다시 시도해 주세요.'); 
             btn.disabled = false; 
             btn.innerText = '지금 바로 무료 진단받기';
         });
