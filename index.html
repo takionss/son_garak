@@ -127,53 +127,45 @@
         .privacy-body ul { list-style: none; padding-left: 0; margin-bottom: 15px; }
         .close-modal-btn { padding: 12px; background: var(--point-blue); color: white; border: none; border-radius: 8px; width: 100%; cursor: pointer; font-weight: bold; }
 
-        /* 📱 태블릿 반응형 (1100px 이하) - 무조건 세로로 떨어지도록 강제 */
-        @media (max-width: 1100px) {
+        /* 📱 모바일 및 터치 디바이스 강제 세로 배치 (너비가 1100px 이하이거나, 터치스크린을 쓰는 기기) */
+        @media (max-width: 1100px), (hover: none) and (pointer: coarse) {
             .bg-layer { animation-duration: 90s !important; }
             
-            /* flex를 해제하고 block으로 변경하여 확실하게 위아래로 분리 */
-            .wrapper { display: block; } 
-            
-            .hero-section { 
-                width: 100%; /* 가로 100% 꽉 채우기 */
-                padding: 60px 5%; 
-                text-align: center; 
-                display: block; /* flex 해제 */
+            /* 핵심 원인 해결! 가로로 묶인 요소를 세로(column) 방향으로 찢어줍니다 */
+            .content-area {
+                flex-direction: column !important; 
+            }
+
+            /* 위쪽 비주얼 영역 (가로 100% 차지) */
+            .hero-section {
+                flex: none;
+                width: 100%;
+                padding: 60px 5%;
+                text-align: center;
+                justify-content: center;
             }
             .expert-woman-layer { display: none; }
             .hero-content { margin-left: 0; max-width: 100%; }
-            .hero-section h1 { font-size: 2.5rem; }
+            .hero-section h1 { font-size: 2.3rem; }
             
+            /* 장점 아이콘도 모바일에선 세로로 떨어지게 유지 */
+            .benefit-item { flex-direction: column; text-align: center; padding: 20px; }
+            .benefit-icon { margin-bottom: 5px; }
+
+            /* 아래쪽 폼 영역 (가로 100% 차지하며 폼이 하단으로 떨어짐) */
             .form-section {
-                width: 100%; /* 가로 100% 꽉 채우기 */
-                padding: 50px 5%; 
-                display: flex; 
-                justify-content: center;
+                flex: none;
+                width: 100%;
+                padding: 40px 15px 60px 15px; 
                 border-left: none; /* 가로선 제거 */
                 background-color: rgba(248, 249, 250, 0.6); 
                 backdrop-filter: blur(4px); 
                 -webkit-backdrop-filter: blur(4px);
             }
-            textarea { height: 200px; }
-        }
-
-        /* 📱 모바일 반응형 (768px 이하) - 좁은 화면 최적화 */
-        @media (max-width: 768px) {
-            .hero-section { padding: 40px 5%; }
-            .hero-section h1 { font-size: 2rem; }
-            .main-desc { font-size: 1.05rem; margin-bottom: 35px; }
-            
-            /* 장점 아이콘과 텍스트도 모바일에선 세로로 떨어지게 유지 */
-            .benefit-item { flex-direction: column; text-align: center; padding: 20px; }
-            .benefit-icon { margin-bottom: 5px; }
-            
-            .form-section { padding: 30px 15px; }
-            .consult-card { padding: 35px 20px; border-radius: 16px; width: 100%; }
+            .consult-card { padding: 35px 20px; border-radius: 16px; width: 100%; max-width: 100%; }
             .consult-card h2 { font-size: 1.5rem; margin-bottom: 25px; }
             
-            input, select, textarea { padding: 14px; }
-            .submit-btn { font-size: 1.1rem; padding: 16px; }
-            .modal-content { padding: 20px; }
+            textarea { height: 200px !important; }
         }
     </style>
 </head>
