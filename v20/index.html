@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>광활한 보험의 우주 속에서 나에게 딱 맞는 혜택 행성 찾기 - 보험 상담센터</title>
+    <meta name="description" content="수많은 보험 상품 중 나에게 최적화된 은하계 급 보장 설계를 찾아드립니다. 실시간 은하 분석 무료 탑승하기.">
+    <link rel="stylesheet" href="../shared/style-base.css">
+    <style>
+        :root {
+            --accent: #a855f7;
+            --nebula-purple: #7c3aed;
+            --nebula-blue: #2563eb;
+            --nebula-pink: #db2777;
+            --space-dark: #03001e;
+            --space-card: rgba(15, 10, 45, 0.6);
+            --space-border: rgba(168, 85, 247, 0.35);
+        }
+
+        body {
+            background: linear-gradient(180deg, var(--space-dark) 0%, #12002f 40%, #050014 100%);
+            color: #f3e8ff;
+            font-family: 'Noto Sans KR', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Stars & Galaxy BG */
+        .stars-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            opacity: 0.25;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Nebula Glows */
+        .nebula-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            opacity: 0.45;
+            z-index: -1;
+        }
+        .nebula-1 {
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, var(--nebula-purple), transparent);
+            top: 15%;
+            left: -10%;
+        }
+        .nebula-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--nebula-blue), transparent);
+            bottom: 20%;
+            right: -10%;
+        }
+
+        /* Planetary Orbiting Objects */
+        .orbit-container {
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: rotateOrbit 30s linear infinite;
+        }
+        .planet {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+        .planet-purple {
+            background: radial-gradient(circle at 30% 30%, #c084fc, #7e22ce);
+            top: -16px;
+        }
+        .planet-pink {
+            background: radial-gradient(circle at 30% 30%, #f472b6, #be185d);
+            bottom: -16px;
+            width: 24px; height: 24px;
+        }
+        @keyframes rotateOrbit {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Navigation */
+        .site-header {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+            backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .brand-logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.05em;
+        }
+        .brand-logo svg {
+            fill: none;
+            stroke: #a855f7;
+            stroke-width: 2;
+        }
+        .header-cta {
+            background: linear-gradient(135deg, var(--nebula-purple), var(--nebula-blue));
+            color: #ffffff;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border: 1px solid rgba(255,255,255,0.25);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+            transition: all 0.3s ease;
+        }
+        .header-cta:hover {
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.8);
+            transform: scale(1.05);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0 80px 0;
+            position: relative;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.12fr 0.88fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .space-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(168, 85, 247, 0.15);
+            border: 1px solid var(--space-border);
+            color: #e9d5ff;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2) inset;
+        }
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 900;
+            line-height: 1.35;
+            letter-spacing: -0.01em;
+            margin-bottom: 25px;
+        }
+        .hero-title span {
+            background: linear-gradient(90deg, #a855f7, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-desc {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #d8b4fe;
+            margin-bottom: 40px;
+        }
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .stat-item {
+            background: var(--space-card);
+            border: 1px solid var(--space-border);
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 5px;
+            display: block;
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+        }
+        .stat-label {
+            font-size: 0.85rem;
+            color: #c084fc;
+        }
+
+        /* Hero Orbiting Graphic */
+        .hero-graphic {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 360px;
+        }
+        .center-sun {
+            width: 140px;
+            height: 140px;
+            background: radial-gradient(circle, #f3e8ff, #a855f7, var(--space-dark));
+            border-radius: 50%;
+            box-shadow: 0 0 60px rgba(168, 85, 247, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: 800;
+            text-align: center;
+            font-size: 0.95rem;
+            z-index: 5;
+            border: 2px solid rgba(255,255,255,0.4);
+        }
+
+        /* Nebula Comparison Panels */
+        .nebula-panels {
+            padding: 100px 0;
+            background: rgba(3, 0, 30, 0.8);
+            position: relative;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .section-title {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: #ffffff;
+        }
+        .section-title span {
+            color: #a855f7;
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+        }
+        .panel-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .comparison-card {
+            background: var(--space-card);
+            border: 1px solid var(--space-border);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px 0 rgba(168, 85, 247, 0.1);
+            transition: all 0.3s ease;
+        }
+        .comparison-card:hover {
+            border-color: #c084fc;
+            box-shadow: 0 12px 45px 0 rgba(168, 85, 247, 0.35);
+            transform: translateY(-5px);
+        }
+        .comparison-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--nebula-purple), var(--nebula-pink));
+        }
+        .panel-icon-wrap {
+            width: 70px;
+            height: 70px;
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid var(--space-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px auto;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+        }
+        .panel-icon-wrap svg {
+            width: 32px;
+            height: 32px;
+            stroke: #c084fc;
+            stroke-width: 2;
+            fill: none;
+        }
+        .comparison-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+        .comparison-card p {
+            font-size: 0.95rem;
+            color: #d8b4fe;
+            line-height: 1.6;
+        }
+
+        /* Constellation styled step process */
+        .constellation {
+            padding: 100px 0;
+            position: relative;
+        }
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            position: relative;
+        }
+        .step-node {
+            background: var(--space-card);
+            border: 1px solid var(--space-border);
+            padding: 30px 25px;
+            border-radius: 16px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .step-glow-dot {
+            width: 14px;
+            height: 14px;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #c084fc, 0 0 30px #a855f7;
+            margin: 0 auto 20px auto;
+        }
+        .step-node h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        .step-node p {
+            font-size: 0.9rem;
+            color: #c084fc;
+            line-height: 1.5;
+        }
+
+        /* Galaxy themed glowing form */
+        .form-section {
+            padding: 100px 0;
+            position: relative;
+        }
+        .form-wrapper {
+            max-width: 650px;
+            margin: 0 auto;
+            background: rgba(10, 5, 30, 0.85);
+            border: 2px solid var(--space-border);
+            border-radius: 24px;
+            padding: 50px;
+            box-shadow: 0 0 50px rgba(168, 85, 247, 0.35);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(15px);
+        }
+        .form-wrapper h3 {
+            font-size: 2.1rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 10px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+        }
+        .form-wrapper p {
+            text-align: center;
+            color: #d8b4fe;
+            margin-bottom: 40px;
+            font-size: 1rem;
+        }
+
+        /* Galaxy Form Control theme overrides */
+        .form-section .form-input,
+        .form-section .form-select,
+        .form-section .form-textarea {
+            background: rgba(255, 255, 255, 0.06) !important;
+            border: 1px solid var(--space-border) !important;
+            color: #ffffff !important;
+            border-radius: 10px;
+        }
+        .form-section .form-input::placeholder,
+        .form-section .form-textarea::placeholder {
+            color: #a855f7c0 !important;
+        }
+        .form-section .form-input:focus,
+        .form-section .form-select:focus,
+        .form-section .form-textarea:focus {
+            border-color: #c084fc !important;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.6) !important;
+            background: rgba(255, 255, 255, 0.12) !important;
+        }
+        .form-section .form-select option {
+            background-color: #03001e;
+            color: #ffffff;
+        }
+        .form-section .form-label {
+            color: #e9d5ff;
+            font-weight: 500;
+        }
+        .form-section .submit-btn {
+            background: linear-gradient(90deg, var(--nebula-purple) 0%, var(--nebula-blue) 100%) !important;
+            color: #ffffff !important;
+            border: 1px solid rgba(255, 255, 255, 0.25) !important;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+            border-radius: 10px;
+            height: 60px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 0.05em;
+        }
+        .form-section .submit-btn:hover {
+            box-shadow: 0 0 35px rgba(168, 85, 247, 0.8);
+            filter: brightness(1.15);
+        }
+        .form-section .checkbox-group {
+            color: #c084fc;
+        }
+        .form-section .view-privacy {
+            color: #f472b6;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: #020012;
+            color: #a855f7b0;
+            padding: 50px 0;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            border-top: 1px solid rgba(168, 85, 247, 0.2);
+        }
+        .footer-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        .footer-links a {
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .footer-links a:hover {
+            color: #c084fc;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+                text-align: center;
+            }
+            .hero-title {
+                font-size: 2.6rem;
+            }
+            .hero-stats {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+            .hero-graphic {
+                margin: 0 auto;
+            }
+            .panel-grid {
+                grid-template-columns: 1fr;
+            }
+            .steps-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.1rem;
+            }
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+            .form-wrapper {
+                padding: 30px 20px;
+            }
+            .footer-wrap {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars-bg"></div>
+    <div class="nebula-glow nebula-1"></div>
+    <div class="nebula-glow nebula-2"></div>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="container">
+            <div class="header-wrap">
+                <a href="#" class="brand-logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                    <span>보험 상담센터</span>
+                </a>
+                <a href="#consult-section" class="header-cta">우주급 무료진단 신청</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-text">
+                    <div class="space-badge">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>
+                        우주급 맞춤 보장 매칭 알고리즘 탑재
+                    </div>
+                    
+                    <h1 class="hero-title">광활한 보험의 우주 속에서<br><span>나에게 딱 맞는 혜택 행성 찾기</span></h1>
+                    <p class="hero-desc">너무 복잡하고 방대해서 알 수 없었던 수백 가지의 보험 상품과 특약 정보. 이제 AI 기반 보장 경로 알고리즘으로 최적의 리포트를 매핑해 드립니다.</p>
+                    
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">3분</span>
+                            <span class="stat-label">즉각적인 매칭 설계</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">30~50%</span>
+                            <span class="stat-label">불필요 비용 절약</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">34개</span>
+                            <span class="stat-label">우주적 제휴 보험사</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-graphic">
+                    <div class="center-sun">보장 중심 행성</div>
+                    <div class="orbit-container">
+                        <div class="planet planet-purple"></div>
+                        <div class="planet planet-pink"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nebula Comparison Panels -->
+    <section class="nebula-panels">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">스마트 분석센터의 <span>우주급 강점</span></h2>
+            </div>
+
+            <div class="panel-grid">
+                <div class="comparison-card">
+                    <div class="panel-icon-wrap">
+                        <svg viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    </div>
+                    <h3>우주 정밀 매칭엔진</h3>
+                    <p>특정 제휴사에만 치우치지 않고 시중 모든 핵심 상품을 동시 비교하여 최상의 설계를 구축합니다.</p>
+                </div>
+
+                <div class="comparison-card">
+                    <div class="panel-icon-wrap">
+                        <svg viewBox="0 0 24 24"><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"/><path d="m15 5 3 3"/></svg>
+                    </div>
+                    <h3>중복 보장 궤도 이탈 방지</h3>
+                    <p>알게 모르게 낭비되던 중복 입원 일당이나 만기 환급 거품을 걸러내고 알짜 보장만 남겨둡니다.</p>
+                </div>
+
+                <div class="comparison-card">
+                    <div class="panel-icon-wrap">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                    </div>
+                    <h3>초진단 매칭 보장 알림</h3>
+                    <p>나이가 들수록 변화하는 내 신체 리스크에 맞춰 꼭 채워넣어야 할 필수 특약 공백을 맞춤 피드백 해 드립니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Constellation Process Steps -->
+    <section class="constellation">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">분석 궤도 진입 프로세스</h2>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-node">
+                    <div class="step-glow-dot"></div>
+                    <h4>1. 궤도 등록</h4>
+                    <p>상담 신청 양식에 간편 정보와 연락처를 정확히 입력합니다.</p>
+                </div>
+
+                <div class="step-node">
+                    <div class="step-glow-dot"></div>
+                    <h4>2. 은하 분석 탐색</h4>
+                    <p>34개 사의 실시간 보장 데이터를 수집 및 비교 분석합니다.</p>
+                </div>
+
+                <div class="step-node">
+                    <div class="step-glow-dot"></div>
+                    <h4>3. 맞춤 솔루션 매핑</h4>
+                    <p>1:1 전담 컨설턴트가 최적의 보험료 절감 경로를 설계해 드립니다.</p>
+                </div>
+
+                <div class="step-node">
+                    <div class="step-glow-dot"></div>
+                    <h4>4. 안심 행성 안착</h4>
+                    <p>부담스러운 강권 없이 가볍고 안전한 가입 다이어트를 확정합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galaxy themed glowing form -->
+    <section class="form-section" id="consult-section">
+        <div class="container">
+            <div class="form-wrapper">
+                <h3>우주 맞춤 보장 분석 신청</h3>
+                <p>3분 간편 입력으로 매월 낭비되는 나의 소중한 보험 지출을 점검해 보세요.</p>
+                
+                <form id="consultationForm" action="https://script.google.com/macros/s/AKfycbx-w1FcGyFXR3TR6iv2x3ImVgIMRt9lCoa-PCB6Qer38NbGP_-pJcIxlQU6jQdlokgm/exec" method="POST">
+                    <input type="hidden" name="page_source" value="v20-스페이스우주">
+                    
+                    <div class="form-group">
+                        <label class="form-label">성함 (필수)</label>
+                        <input type="text" name="name" class="form-input" placeholder="실명을 입력해 주세요" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">연락처 (필수)</label>
+                        <input type="tel" name="phone" class="form-input" placeholder="예: 010-1234-5678" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">관심 상담 분야</label>
+                        <select name="category" class="form-select">
+                            <option value="암보험">암보험</option>
+                            <option value="3대진단비">3대 진단비보험(암,뇌,심장)</option>
+                            <option value="태아어린이">태아/어린이보험</option>
+                            <option value="수술비">수술비보험</option>
+                            <option value="유병자">유병력자 간편보험</option>
+                            <option value="치매간병">치매/간병보험</option>
+                            <option value="치아">치아보험</option>
+                            <option value="운전자주택화재">운전자/주택화재보험</option>
+                            <option value="리모델링">보험리모델링</option>
+                            <option value="기타">기타 보험</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">문의내용 (선택)</label>
+                        <textarea name="message" class="form-textarea" placeholder="상담 희망 시간 등을 남겨주세요"></textarea>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="privacyAgree" required>
+                        <label for="privacyAgree">개인정보 수집 및 제3자 제공 동의 <span class="view-privacy" onclick="openPrivacyModal()">[보기]</span></label>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">우주급 맞춤 보장 무료 분석</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-wrap">
+                <div>
+                    <div class="footer-links">
+                        <a href="#" onclick="openPrivacyModal(); return false;">개인정보 처리방침</a>
+                        <a href="#">이용약관</a>
+                    </div>
+                    <p>보험 상담센터 | 대표자: 함일상회 컨설팅 파트너스</p>
+                    <p>주소: 서울특별시 강남구 테헤란로 123 | 고객 상담 센터: 1544-0000</p>
+                    <p>본 사이트의 상담 서비스는 무료이며, 고객님의 개인정보는 안전하게 보호됩니다.</p>
+                    <p style="margin-top: 10px; opacity: 0.6;">© 2026 보험 상담센터. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../shared/form-handler.js"></script>
+    <script>initConsultForm('consultationForm');</script>
+</body>
+</html>
