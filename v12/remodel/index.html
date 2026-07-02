@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>새어 나가는 보험료 숨은 구멍 차단 리모델링 - 보험 상담센터</title>
+    <meta name="description" content="데이터 시각화로 한눈에 보는 내 보험 상태 - 사이버 보험 정밀 분석실에서 내 보험료 낭비를 진단하고 최적의 가치를 찾으세요.">
+    <link rel="stylesheet" href="../../shared/style-base.css">
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --bg-grid: #0d0f12;
+            --neon-green: #39ff14;
+            --neon-blue: #00f0ff;
+            --neon-purple: #bd00ff;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --accent: #22c55e; /* form base accent color override */
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                linear-gradient(rgba(13, 15, 18, 0.8) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(13, 15, 18, 0.8) 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: var(--text-main);
+            font-family: 'Noto Sans KR', sans-serif;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Neon Glow Effects */
+        .neon-text-green {
+            color: var(--neon-green);
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.6);
+        }
+        .neon-text-blue {
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+        }
+        .neon-border-blue {
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2), inset 0 0 15px rgba(0, 240, 255, 0.1);
+        }
+        .neon-border-green {
+            border: 1px solid var(--neon-green);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2), inset 0 0 15px rgba(57, 255, 20, 0.1);
+        }
+
+        /* Floating Animation */
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 15px rgba(0, 240, 255, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(0, 240, 255, 0.5); }
+            100% { box-shadow: 0 0 15px rgba(0, 240, 255, 0.2); }
+        }
+
+        @keyframes pulseGreen {
+            0% { box-shadow: 0 0 15px rgba(57, 255, 20, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(57, 255, 20, 0.5); }
+            100% { box-shadow: 0 0 15px rgba(57, 255, 20, 0.2); }
+        }
+
+        /* Header */
+        header {
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 15px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--neon-green);
+            box-shadow: 0 0 8px var(--neon-green);
+            animation: pulse-dot 1.5s infinite;
+        }
+        @keyframes pulse-dot {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+        .header-btn {
+            background: transparent;
+            color: var(--neon-blue);
+            border: 1px solid var(--neon-blue);
+            padding: 8px 18px;
+            font-weight: 700;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+        }
+        .header-btn:hover {
+            background: rgba(0, 240, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 4px;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            color: var(--neon-blue);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 24px;
+            align-self: flex-start;
+        }
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1.25;
+            letter-spacing: -1px;
+            margin-bottom: 24px;
+        }
+        .hero p {
+            font-size: clamp(1rem, 1.8vw, 1.2rem);
+            line-height: 1.7;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+        }
+        .hero-btn-primary {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #ffffff;
+            border: none;
+            padding: 16px 36px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            transition: all 0.3s;
+        }
+        .hero-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5);
+        }
+
+        /* SVG Chart Block */
+        .chart-container {
+            background: rgba(13, 17, 23, 0.85);
+            border-radius: 12px;
+            padding: 30px;
+            position: relative;
+        }
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding-bottom: 15px;
+        }
+        .chart-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .chart-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--neon-blue);
+        }
+        .chart-legend {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 15px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .legend-color {
+            width: 10px;
+            height: 3px;
+        }
+
+        /* Neon Statistics Widget */
+        .stats-section {
+            background: rgba(10, 10, 10, 0.9);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 60px 24px;
+        }
+        .stats-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .stat-card {
+            background: rgba(20, 20, 20, 0.8);
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
+        }
+        .stat-card:hover {
+            border-color: rgba(57, 255, 20, 0.3);
+            transform: translateY(-3px);
+        }
+        .stat-card .num {
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 900;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .stat-card .lbl {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Cyber Steps */
+        .steps-section {
+            padding: 100px 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .section-header h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            font-weight: 850;
+            margin-bottom: 15px;
+        }
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .step-card {
+            background: rgba(15, 17, 20, 0.7);
+            border-radius: 12px;
+            padding: 35px 30px;
+            border: 1px solid rgba(255,255,255,0.04);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--neon-blue), transparent);
+            opacity: 0.5;
+        }
+        .step-card:hover {
+            border-color: rgba(0, 240, 255, 0.2);
+            transform: translateY(-5px);
+            background: rgba(18, 22, 28, 0.8);
+        }
+        .step-num {
+            font-size: 0.85rem;
+            font-weight: 900;
+            color: var(--neon-blue);
+            margin-bottom: 20px;
+            display: inline-block;
+            background: rgba(0, 240, 255, 0.06);
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+        .step-card h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .step-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Glowing Form Container */
+        .form-section {
+            padding: 100px 24px;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+        .cyber-form-container {
+            background: rgba(13, 17, 23, 0.8);
+            border: 1px solid rgba(0, 240, 255, 0.15);
+            border-radius: 16px;
+            padding: 50px 40px;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.05);
+            backdrop-filter: blur(15px);
+            position: relative;
+        }
+        .form-intro {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .form-intro h2 {
+            font-size: 1.85rem;
+            font-weight: 900;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+        .form-intro p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Form Controls Custom Design */
+        .form-label {
+            color: #d1d5db;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+        .form-input, .form-select, .form-textarea {
+            background: rgba(5, 5, 5, 0.6);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: var(--text-main);
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
+            background: rgba(10, 10, 10, 0.8);
+        }
+        .form-input::placeholder, .form-textarea::placeholder {
+            color: #4b5563;
+        }
+        .form-select option {
+            background-color: #0d1117;
+            color: var(--text-main);
+        }
+        .checkbox-group label {
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .view-privacy {
+            color: var(--neon-blue);
+        }
+        .view-privacy:hover {
+            color: #6ee7b7;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #10b981, #00f0ff);
+            color: #000000;
+            font-weight: 900;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.15rem;
+            letter-spacing: 0.5px;
+            padding: 18px;
+            box-shadow: 0 4px 15px rgba(0, 240, 255, 0.15);
+            transition: all 0.3s;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.4);
+            filter: brightness(1.1);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid rgba(255,255,255,0.06);
+            background: #020202;
+            padding: 50px 24px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+        .footer-logo {
+            font-weight: 900;
+            color: var(--neon-blue);
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        /* Responsive styling */
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 60px 20px;
+            }
+            .hero-badge {
+                align-self: center;
+            }
+            .hero-actions {
+                justify-content: center;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 600px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .cyber-form-container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-dot"></div>
+                CYBER <span class="neon-text-blue">보험분석실</span>
+            </div>
+            <button class="header-btn" onclick="document.getElementById('consultationForm').scrollIntoView({behavior: 'smooth'})">분석실 가동</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div>
+                <div class="hero-badge">Cybernetic Analytics v2.4</div>
+                <h1>새어 나가는 보험료 숨은 구멍 차단 리모델링</h1>
+                <p>
+                    보험 가입 내역을 실시간 스캐닝하고, 복잡한 약관과 중복 특약을 데이터 기반으로 분석합니다. 알고리즘 비교를 통해 당신의 보장 사각지대를 찾아내고 보험료 다이어트를 실현하세요.
+                </p>
+                <div class="hero-actions">
+                    <button class="hero-btn-primary" onclick="document.getElementById('consultationForm').scrollIntoView({behavior: 'smooth'})">실시간 무상 진단</button>
+                </div>
+            </div>
+            <div>
+                <!-- SVG Chart Widget -->
+                <div class="chart-container neon-border-blue">
+                    <div class="chart-header">
+                        <div class="chart-title">
+                            <span class="chart-dot"></span>
+                            보장 가치 및 위험도 예측 모델
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: var(--neon-green)"></div>
+                                <span>정상보장</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: var(--neon-blue)"></div>
+                                <span>기존보험</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Mock chart using SVG -->
+                    <svg viewBox="0 0 350 180" width="100%" height="100%">
+                        <!-- Grid lines -->
+                        <line x1="10" y1="30" x2="340" y2="30" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
+                        <line x1="10" y1="80" x2="340" y2="80" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
+                        <line x1="10" y1="130" x2="340" y2="130" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
+                        <line x1="10" y1="160" x2="340" y2="160" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"></line>
+
+                        <!-- Chart lines -->
+                        <!-- Existing insurance path (blue) -->
+                        <path d="M20,130 Q70,90 120,110 T220,140 T320,100" fill="none" stroke="var(--neon-blue)" stroke-width="2.5" stroke-linecap="round"></path>
+                        <!-- Recommended insurance path (green) -->
+                        <path d="M20,150 Q70,70 120,40 T220,60 T320,30" fill="none" stroke="var(--neon-green)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3,3"></path>
+
+                        <!-- Highlight Dots -->
+                        <circle cx="120" cy="40" r="5" fill="var(--neon-green)" filter="drop-shadow(0 0 3px var(--neon-green))"></circle>
+                        <circle cx="320" cy="100" r="4" fill="var(--neon-blue)"></circle>
+                        
+                        <!-- Axis Labels -->
+                        <text x="20" y="175" fill="var(--text-muted)" font-size="8">가입초기</text>
+                        <text x="110" y="175" fill="var(--text-muted)" font-size="8">3년경과</text>
+                        <text x="210" y="175" fill="var(--text-muted)" font-size="8">7년경과</text>
+                        <text x="310" y="175" fill="var(--text-muted)" font-size="8">현재시점</text>
+                    </svg>
+                    <div style="margin-top:15px; font-size:0.75rem; color:var(--text-muted); text-align:center;">
+                        * 34개 보험사 제휴 데이터 기반 알고리즘 분석 결과 예시
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Neon Statistics Widget -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="num neon-text-green">98%</span>
+                    <span class="lbl">솔루션 제공 만족도</span>
+                </div>
+                <div class="stat-card">
+                    <span class="num neon-text-blue">1.2초</span>
+                    <span class="lbl">평균 빠른 분석 응답</span>
+                </div>
+                <div class="stat-card">
+                    <span class="num neon-text-green">34개</span>
+                    <span class="lbl">분석 대상 제휴 보험사</span>
+                </div>
+                <div class="stat-card">
+                    <span class="num neon-text-blue">4.5만+</span>
+                    <span class="lbl">누적 데이터 분석량</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cyber Check-up Steps -->
+        <section class="steps-section">
+            <div class="section-header">
+                <h2>CYBERNETIC PROCESS</h2>
+                <p>가장 과학적이고 빠른 디지털 보험 진단 및 처방 단계</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <span class="step-num">STEP 01</span>
+                    <h3>데이터베이스 스캔</h3>
+                    <p>가입하신 보험정보와 보장 데이터를 시스템에 스캔하여 기초 데이터 맵을 형성합니다.</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-num">STEP 02</span>
+                    <h3>중복 &amp; 보장 분석</h3>
+                    <p>AI 엔진을 통해 보장 사각지대, 중복 가입 항목 및 보험료 비효율 요소를 탐색합니다.</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-num">STEP 03</span>
+                    <h3>최종 처방 리포트</h3>
+                    <p>34개 보험사의 실시간 요율을 매칭하여 최저가 고보장 설계안을 전송해 드립니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form inside dark glowing glassmorphism container -->
+        <section class="form-section">
+            <div class="cyber-form-container neon-border-green" id="formContainer">
+                <div class="form-intro">
+                    <h2 class="neon-text-green">보험 분석 신청하기</h2>
+                    <p>신청 즉시 담당 전문가가 배정되어 1:1 데이터 분석 상담을 무상으로 진행합니다.</p>
+                </div>
+
+                <form id="consultationForm" action="https://script.google.com/macros/s/AKfycbx-w1FcGyFXR3TR6iv2x3ImVgIMRt9lCoa-PCB6Qer38NbGP_-pJcIxlQU6jQdlokgm/exec" method="POST">
+                    <input type="hidden" name="page_source" value="v12-remodel-리모델링">
+
+                    <div class="form-group">
+                        <label class="form-label">성함 (필수)</label>
+                        <input type="text" name="name" class="form-input" placeholder="실명을 입력해 주세요" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">연락처 (필수)</label>
+                        <input type="tel" name="phone" class="form-input" placeholder="예: 010-1234-5678" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">관심 상담 분야</label>
+                        <select name="category" class="form-select">
+                            <option value="암보험">암보험</option>
+                            <option value="3대진단비">3대 진단비보험(암,뇌,심장)</option>
+                            <option value="태아어린이">태아/어린이보험</option>
+                            <option value="수술비">수술비보험</option>
+                            <option value="유병자">유병력자 간편보험</option>
+                            <option value="치매간병">치매/간병보험</option>
+                            <option value="치아">치아보험</option>
+                            <option value="운전자주택화재">운전자/주택화재보험</option>
+                            <option value="리모델링" selected>보험리모델링</option>
+                            <option value="기타">기타 보험</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">문의내용 (선택)</label>
+                        <textarea name="message" class="form-textarea" placeholder="상담 희망 시간 등을 남겨주세요"></textarea>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="privacyAgree" required>
+                        <label for="privacyAgree">개인정보 수집 및 제3자 제공 동의 <span class="view-privacy" onclick="openPrivacyModal()">[보기]</span></label>
+                    </div>
+
+                    <button type="submit" class="submit-btn">무료 보험 진단 신청하기</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">CYBER INSURANCE LAB</div>
+        <p>© 사이버 보험 정밀 분석실. All rights reserved.</p>
+        <p style="color:var(--text-muted); font-size:0.75rem; margin-top:8px;">
+            본 진단 서비스는 무료 컨설팅이며 개인정보보호법에 의거하여 고객님의 모든 개인정보는 안전하게 보호됩니다.
+        </p>
+    </footer>
+
+    <script src="../../shared/form-handler.js"></script>
+    <script>initConsultForm('consultationForm');</script>
+</body>
+</html>

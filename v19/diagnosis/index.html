@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>암·뇌·심장 3대 핵심 진단비 확보 - 보험 상담센터</title>
+    <meta name="description" content="매거진 에디터가 들려주는 실속 있고 지혜로운 보험 리모델링 비법. 숨겨진 고정 지출을 줄여 가계 경제를 바로 세우세요.">
+    <link rel="stylesheet" href="../../shared/style-base.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700;800;900&display=swap');
+
+        :root {
+            --accent: #262626;
+            --paper-bg: #fbfbf9;
+            --charcoal: #262626;
+            --light-border: #d4d4d8;
+            --muted-gray: #71717a;
+            --red-point: #b91c1c;
+        }
+
+        body {
+            background-color: var(--paper-bg);
+            color: var(--charcoal);
+            font-family: 'Noto Sans KR', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        /* Serif Font Class */
+        .serif-text {
+            font-family: 'Noto Serif KR', serif;
+            word-break: keep-all;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Editorial Elements */
+        .editorial-badge {
+            font-family: 'Noto Serif KR', serif;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--red-point);
+            border-bottom: 2px solid var(--red-point);
+            padding-bottom: 3px;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        /* Header Navigation */
+        .site-header {
+            padding: 30px 0;
+            border-bottom: 1px solid var(--charcoal);
+            background-color: var(--paper-bg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .brand-logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--charcoal);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .header-cta {
+            border: 1px solid var(--charcoal);
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+        }
+        .header-cta:hover {
+            background-color: var(--charcoal);
+            color: var(--paper-bg);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--charcoal);
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 50px;
+            align-items: flex-start;
+        }
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.35;
+            color: var(--charcoal);
+            margin-bottom: 30px;
+        }
+        .hero-desc {
+            font-size: 1.1rem;
+            color: #4b5563;
+            margin-bottom: 40px;
+            text-align: justify;
+        }
+        .editorial-lead {
+            border-left: 3px solid var(--charcoal);
+            padding-left: 20px;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--charcoal);
+            margin-bottom: 30px;
+        }
+        .hero-meta {
+            display: flex;
+            gap: 30px;
+            font-size: 0.85rem;
+            color: var(--muted-gray);
+            border-top: 1px solid var(--light-border);
+            padding-top: 20px;
+        }
+
+        /* 2-Column Hero Article visual */
+        .hero-visual {
+            border: 1px solid var(--charcoal);
+            padding: 40px;
+            background: #ffffff;
+            position: relative;
+        }
+        .hero-visual::before {
+            content: '';
+            position: absolute;
+            top: 5px; left: 5px; right: 5px; bottom: 5px;
+            border: 1px solid var(--light-border);
+            pointer-events: none;
+        }
+        .magazine-issue {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border-bottom: 2px double var(--charcoal);
+            padding-bottom: 8px;
+            margin-bottom: 25px;
+        }
+
+        /* Success & Savings Interview Columns */
+        .interviews {
+            padding: 90px 0;
+            border-bottom: 1px solid var(--charcoal);
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+        .section-header h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        .section-header p {
+            color: var(--muted-gray);
+            font-size: 1rem;
+        }
+        .interview-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .interview-col {
+            border-right: 1px solid var(--light-border);
+            padding-right: 25px;
+        }
+        .interview-col:last-child {
+            border-right: none;
+            padding-right: 0;
+        }
+        .interview-quote {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            position: relative;
+            color: var(--charcoal);
+        }
+        .interview-quote::before {
+            content: '“';
+            font-size: 3rem;
+            font-family: serif;
+            position: absolute;
+            top: -25px;
+            left: -15px;
+            color: rgba(0,0,0,0.1);
+        }
+        .interview-desc {
+            font-size: 0.95rem;
+            color: #4b5563;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+        .interview-author {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--muted-gray);
+        }
+
+        /* Credentials Layout */
+        .credentials {
+            padding: 80px 0;
+            background: #f4f4f0;
+            border-bottom: 1px solid var(--charcoal);
+        }
+        .credentials-wrap {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+        .cred-item {
+            padding: 20px;
+        }
+        .cred-item .val {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--charcoal);
+            display: block;
+            margin-bottom: 10px;
+            font-family: 'Noto Serif KR', serif;
+        }
+        .cred-item .lbl {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--muted-gray);
+        }
+
+        /* Editorial Clean Form */
+        .form-section {
+            padding: 90px 0 120px 0;
+            background-color: var(--paper-bg);
+        }
+        .form-wrapper {
+            max-width: 680px;
+            margin: 0 auto;
+            border: 1px solid var(--charcoal);
+            padding: 50px;
+            background: #ffffff;
+            position: relative;
+        }
+        .form-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 5px; left: 5px; right: 5px; bottom: 5px;
+            border: 1px solid var(--light-border);
+            pointer-events: none;
+        }
+        .form-wrapper h3 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .form-wrapper p {
+            text-align: center;
+            color: var(--muted-gray);
+            margin-bottom: 45px;
+            font-size: 0.95rem;
+        }
+
+        /* Theme Overrides for Form Inputs */
+        .form-section .form-input,
+        .form-section .form-select,
+        .form-section .form-textarea {
+            border: 1px solid var(--charcoal) !important;
+            border-radius: 0px !important;
+            background: var(--paper-bg) !important;
+            font-family: inherit;
+        }
+        .form-section .form-input:focus,
+        .form-section .form-select:focus,
+        .form-section .form-textarea:focus {
+            outline: 1px solid var(--charcoal) !important;
+            background: #ffffff !important;
+            box-shadow: none !important;
+        }
+        .form-section .form-label {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            color: var(--charcoal);
+        }
+        .form-section .submit-btn {
+            background: var(--charcoal) !important;
+            color: var(--paper-bg) !important;
+            border-radius: 0px !important;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.05em;
+            padding: 18px;
+            transition: all 0.3s;
+        }
+        .form-section .submit-btn:hover {
+            background: #000000 !important;
+            transform: none;
+            box-shadow: none;
+        }
+        .form-section .checkbox-group {
+            font-size: 0.8rem;
+        }
+        .form-section .view-privacy {
+            color: var(--charcoal);
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--charcoal);
+            color: #a1a1aa;
+            padding: 50px 0;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            border-top: 1px solid var(--charcoal);
+        }
+        .footer-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        .footer-links a {
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .hero-title {
+                font-size: 2.4rem;
+            }
+            .interview-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .interview-col {
+                border-right: none;
+                border-bottom: 1px solid var(--light-border);
+                padding-right: 0;
+                padding-bottom: 25px;
+            }
+            .interview-col:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+            .credentials-wrap {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+        @media (max-width: 768px) {
+            .form-wrapper {
+                padding: 30px 20px;
+            }
+            .footer-wrap {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="container">
+            <div class="header-wrap">
+                <a href="#" class="brand-logo serif-text">THE INSURANCE</a>
+                <a href="#consult-section" class="header-cta">CONSULTATION</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-text">
+                    <span class="editorial-badge">SPECIAL REPORT : FIXED COST</span>
+                    <h1 class="hero-title serif-text">보험을 리폼하다 —<br>당신이 몰랐던 매달 새어나가는 고정비</h1>
+                    
+                    <div class="editorial-lead serif-text">
+                        "매주 스타벅스 커피값은 아끼면서, 정작 매월 통장에서 소리 없이 빠져나가는 수십만 원의 보험 거품은 왜 방치하고 계십니까?"
+                    </div>
+                    
+                    <p class="main-desc">한국인 3대 사망원인 진단비 완벽 대비. 중복 가입은 걸러내고 빈틈없이 매칭합니다.</p>
+                    
+                    <div class="hero-meta">
+                        <span>발행처: 보험 상담센터 에디터 실</span>
+                        <span>분석 데이터: 34개사 종합 비교</span>
+                    </div>
+                </div>
+
+                <!-- Magazine Hero Block -->
+                <div class="hero-visual">
+                    <div class="magazine-issue">
+                        <span>VOL. 19 / 2026</span>
+                        <span>FREE DISTRIBUTION</span>
+                    </div>
+                    
+                    <h2 class="serif-text" style="font-size: 1.8rem; font-weight: 700; line-height: 1.4; margin-bottom: 20px; border-bottom: 1px solid var(--charcoal); padding-bottom: 15px;">
+                        "평균 37% 보험 다이어트 성공"
+                    </h2>
+                    
+                    <div style="font-size: 0.9rem; line-height: 1.7; color: var(--muted-gray); margin-bottom: 25px;">
+                        자신에게 꼭 맞춘 '보험 리모델링'을 완료한 1,200명의 실제 정량적 데이터를 수합한 결과, 보장 수준은 동일하게 유지하거나 확대하면서 월 납입료는 평균 147,000원 이상 절감한 것으로 나타났습니다.
+                    </div>
+                    
+                    <div style="background: var(--paper-bg); border: 1px solid var(--light-border); padding: 20px; font-size: 0.85rem; font-weight: 600;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                            <span>리폼 전 평균 납입액:</span>
+                            <span style="text-decoration: line-through; color: var(--muted-gray);">385,000원</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; color: var(--red-point); font-weight: 800; font-size: 1.05rem;">
+                            <span>리폼 후 평균 납입액:</span>
+                            <span>238,000원</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Editorial Case Studies -->
+    <section class="interviews">
+        <div class="container">
+            <div class="section-header">
+                <span class="editorial-badge">REAL INTERVIEWS</span>
+                <h2 class="serif-text">리폼에 성공한 사람들의 기록</h2>
+                <p>실제 1:1 진단을 통해 매월의 가계 적자를 극복한 이들의 인터뷰입니다.</p>
+            </div>
+
+            <div class="interview-grid">
+                <div class="interview-col">
+                    <h3 class="interview-quote serif-text">“지인의 권유로 무턱대고 들었던 4개의 암보험을 합쳤습니다.”</h3>
+                    <p class="interview-desc">결혼 후 늘어난 보험료 때문에 맞벌이를 해도 저축이 힘든 상황이었습니다. 3대 진단비와 수술비 특약이 여러 곳에 중복되어 있는 것을 발견하고 불필요한 연계 조건을 조율한 결과 월 18만 원을 아꼈습니다.</p>
+                    <span class="interview-author">— 서울 거주 직장인 이지현 씨 (32세)</span>
+                </div>
+
+                <div class="interview-col">
+                    <h3 class="interview-quote serif-text">“노후 대비 간병보험의 보장 기간을 확대하고 거품을 뺐습니다.”</h3>
+                    <p class="interview-desc">부모님의 실비와 치매간병보험을 대조해 보니 정작 80세 만기로 설계되어 실효성이 낮았습니다. 만기는 100세로 올리되, 유병자 간편 패키지로 교체하여 금액 부담은 절반으로 줄였습니다.</p>
+                    <span class="interview-author">— 경기 분당 자영업 박성우 씨 (45세)</span>
+                </div>
+
+                <div class="interview-col">
+                    <h3 class="interview-quote serif-text">“운전자 및 화재 특약은 다이렉트로 전환이 정답이더군요.”</h3>
+                    <p class="interview-desc">매월 몇 만 원 안 되는 적은 돈이라 무시했던 운전자보험과 주택화재보험을 전문가 조언을 받아 통합 설계했습니다. 보장의 범위는 넓어지고 비용은 커피 두 잔 값으로 해결되어 대단히 만족합니다.</p>
+                    <span class="interview-author">— 인천 거주 프리랜서 김태호 씨 (29세)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Credentials Layout -->
+    <section class="credentials">
+        <div class="container">
+            <div class="credentials-wrap">
+                <div class="cred-item">
+                    <span class="val">34개사</span>
+                    <span class="lbl">비교 분석 가능한 제휴 보험사</span>
+                </div>
+                <div class="cred-item">
+                    <span class="val">98%</span>
+                    <span class="lbl">정밀 맞춤 매칭 만족도</span>
+                </div>
+                <div class="cred-item">
+                    <span class="val">1:1</span>
+                    <span class="lbl">전문 정밀 설계 책임제</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Editorial Form Section -->
+    <section class="form-section" id="consult-section">
+        <div class="container">
+            <div class="form-wrapper">
+                <h3 class="serif-text">보험 리폼 컨설팅 의뢰</h3>
+                <p>에디터가 추천하는 1:1 맞춤 정밀 분석 서비스를 즉시 신청하실 수 있습니다.</p>
+                
+                <form id="consultationForm" action="https://script.google.com/macros/s/AKfycbx-w1FcGyFXR3TR6iv2x3ImVgIMRt9lCoa-PCB6Qer38NbGP_-pJcIxlQU6jQdlokgm/exec" method="POST">
+                    <input type="hidden" name="page_source" value="v19-diagnosis-3대진단비">
+                    
+                    <div class="form-group">
+                        <label class="form-label">성함 (필수)</label>
+                        <input type="text" name="name" class="form-input" placeholder="실명을 입력해 주세요" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">연락처 (필수)</label>
+                        <input type="tel" name="phone" class="form-input" placeholder="예: 010-1234-5678" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">관심 상담 분야</label>
+                        <select name="category" class="form-select">
+                            <option value="암보험">암보험</option>
+                            <option value="3대진단비" selected>3대 진단비보험(암,뇌,심장)</option>
+                            <option value="태아어린이">태아/어린이보험</option>
+                            <option value="수술비">수술비보험</option>
+                            <option value="유병자">유병력자 간편보험</option>
+                            <option value="치매간병">치매/간병보험</option>
+                            <option value="치아">치아보험</option>
+                            <option value="운전자주택화재">운전자/주택화재보험</option>
+                            <option value="리모델링">보험리모델링</option>
+                            <option value="기타">기타 보험</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">문의내용 (선택)</label>
+                        <textarea name="message" class="form-textarea" placeholder="상담 희망 시간 등을 남겨주세요"></textarea>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="privacyAgree" required>
+                        <label for="privacyAgree">개인정보 수집 및 제3자 제공 동의 <span class="view-privacy" onclick="openPrivacyModal()">[보기]</span></label>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">에디터 추천 맞춤 상담 신청하기</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-wrap">
+                <div>
+                    <div class="footer-links">
+                        <a href="#" onclick="openPrivacyModal(); return false;">개인정보 처리방침</a>
+                        <a href="#">이용약관</a>
+                    </div>
+                    <p>보험 상담센터 | 대표자: 함일상회 컨설팅 파트너스</p>
+                    <p>주소: 서울특별시 강남구 테헤란로 123 | 고객 상담 센터: 1544-0000</p>
+                    <p>본 사이트의 상담 서비스는 무료이며, 고객님의 개인정보는 안전하게 보호됩니다.</p>
+                    <p style="margin-top: 10px; opacity: 0.6;">© 2026 보험 상담센터. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../shared/form-handler.js"></script>
+    <script>initConsultForm('consultationForm');</script>
+</body>
+</html>

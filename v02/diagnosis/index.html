@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>암·뇌·심장 3대 핵심 진단비 확보 - 보험 상담센터</title>
+    <meta name="description" content="3분이면 충분합니다. 보험 전문가가 34개 보험사를 비교 분석하여 최적의 보험을 무료로 진단해 드립니다.">
+    <link rel="stylesheet" href="../../shared/style-base.css">
+    <style>
+        :root {
+            --accent: #4F8CFF;
+            --accent-light: #dbeafe;
+            --accent-dark: #2563eb;
+            --bg-alt: #f0f7ff;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --text-light: #94a3b8;
+        }
+        body {
+            background: #ffffff;
+            color: var(--text-main);
+        }
+
+        /* ── Hero Section ── */
+        .hero {
+            background: linear-gradient(180deg, #f0f7ff 0%, #ffffff 100%);
+            padding: 80px 24px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-decoration {
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(79,140,255,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero-decoration-2 {
+            position: absolute;
+            bottom: -40px; left: -40px;
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(79,140,255,0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-light);
+            color: var(--accent-dark);
+            border-radius: 50px;
+            padding: 10px 22px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 28px;
+            animation: fadeInUp 0.6s ease;
+        }
+        .hero h1 {
+            font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+            font-weight: 800;
+            line-height: 1.4;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            animation: fadeInUp 0.6s ease 0.15s both;
+        }
+        .hero h1 .blue { color: var(--accent); }
+        .hero p {
+            font-size: clamp(0.95rem, 2vw, 1.15rem);
+            color: var(--text-sub);
+            line-height: 1.8;
+            margin-bottom: 36px;
+            animation: fadeInUp 0.6s ease 0.3s both;
+        }
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: white;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 6px 24px rgba(79,140,255,0.3);
+            animation: fadeInUp 0.6s ease 0.45s both;
+        }
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 36px rgba(79,140,255,0.4);
+        }
+
+        /* ── Hero SVG Illustration ── */
+        .hero-illustration {
+            max-width: 360px;
+            margin: 50px auto 0;
+            animation: fadeInUp 0.8s ease 0.5s both;
+        }
+        .hero-illustration svg { width: 100%; height: auto; }
+
+        /* ── Benefits Icon Grid ── */
+        .benefits {
+            padding: 80px 24px;
+            background: #ffffff;
+        }
+        .section-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+        .section-tag {
+            display: inline-block;
+            background: var(--accent-light);
+            color: var(--accent-dark);
+            font-size: 0.82rem;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 50px;
+            margin-bottom: 16px;
+        }
+        .section-header h2 {
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.4;
+        }
+        .section-header p {
+            color: var(--text-sub);
+            margin-top: 12px;
+            font-size: 0.95rem;
+        }
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .icon-card {
+            background: #ffffff;
+            border: 1px solid #e8f0fe;
+            border-radius: 20px;
+            padding: 36px 28px;
+            text-align: center;
+            transition: all 0.35s ease;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+        }
+        .icon-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(79,140,255,0.12);
+            border-color: rgba(79,140,255,0.25);
+        }
+        .icon-circle {
+            width: 64px; height: 64px;
+            background: var(--accent-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            transition: all 0.3s ease;
+        }
+        .icon-card:hover .icon-circle {
+            background: var(--accent);
+            transform: scale(1.08);
+        }
+        .icon-card:hover .icon-circle svg { stroke: white; }
+        .icon-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+        .icon-card p {
+            font-size: 0.88rem;
+            color: var(--text-sub);
+            line-height: 1.65;
+        }
+
+        /* ── How It Works ── */
+        .how-it-works {
+            padding: 80px 24px;
+            background: var(--bg-alt);
+        }
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 45px;
+            left: 15%;
+            right: 15%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-light), var(--accent), var(--accent-light));
+            z-index: 0;
+        }
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .step-number {
+            width: 56px; height: 56px;
+            background: white;
+            border: 3px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 16px rgba(79,140,255,0.15);
+            transition: all 0.3s ease;
+        }
+        .step:hover .step-number {
+            background: var(--accent);
+            color: white;
+            transform: scale(1.1);
+        }
+        .step h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+        .step p {
+            font-size: 0.88rem;
+            color: var(--text-sub);
+            line-height: 1.6;
+        }
+
+        /* ── Form Section ── */
+        .form-section {
+            padding: 80px 24px;
+            background: #ffffff;
+        }
+        .form-outer {
+            max-width: 560px;
+            margin: 0 auto;
+        }
+        .form-card {
+            background: #ffffff;
+            border: 1px solid #e8f0fe;
+            border-radius: 24px;
+            padding: 44px 40px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+            position: relative;
+            overflow: hidden;
+        }
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
+            background: linear-gradient(90deg, #4F8CFF, #818cf8, #4F8CFF);
+            border-radius: 24px 24px 0 0;
+        }
+        .form-card-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .form-card-icon {
+            width: 56px; height: 56px;
+            background: var(--accent-light);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+        .form-card-header h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+        .form-card-header p {
+            font-size: 0.88rem;
+            color: var(--text-sub);
+        }
+        .form-card .submit-btn {
+            background: var(--accent);
+            color: white;
+            border-radius: 14px;
+        }
+        .form-card .submit-btn:hover {
+            background: var(--accent-dark);
+            box-shadow: 0 8px 28px rgba(79,140,255,0.3);
+        }
+
+        /* ── Trust Row ── */
+        .trust-row {
+            display: flex;
+            justify-content: center;
+            gap: 36px;
+            flex-wrap: wrap;
+            margin-top: 28px;
+        }
+        .trust-chip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.82rem;
+            color: var(--text-sub);
+        }
+        .trust-chip svg { flex-shrink: 0; }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center;
+            padding: 36px 24px;
+            background: var(--bg-alt);
+            color: var(--text-light);
+            font-size: 0.8rem;
+            border-top: 1px solid #e8f0fe;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .icon-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+            .steps { grid-template-columns: 1fr; gap: 24px; }
+            .steps::before { display: none; }
+            .form-card { padding: 32px 24px; }
+            .hero { padding: 60px 20px 40px; }
+        }
+        @media (max-width: 480px) {
+            .icon-grid { grid-template-columns: 1fr; }
+            .trust-row { gap: 16px; }
+        }
+
+        /* ── Scroll Reveal ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ════════ HERO ════════ -->
+    <section class="hero">
+        <div class="hero-decoration"></div>
+        <div class="hero-decoration-2"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                3분이면 충분합니다
+            </div>
+            <h1>암<br>뇌·심장 3대 핵심 진단비 확보</h1>
+            <p>
+                보험 전문가가 34개 보험사를 비교 분석하여<br>
+                최적의 보험을 무료로 진단해 드립니다.<br>
+                더 이상 혼자 고민하지 마세요.
+            </p>
+            <a href="#form-section" class="hero-cta">
+                무료 진단 시작하기
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+
+        <!-- Hero SVG Illustration -->
+        <div class="hero-illustration">
+            <svg viewBox="0 0 400 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Shield -->
+                <path d="M200 40 L260 70 L260 140 Q260 200 200 230 Q140 200 140 140 L140 70 Z" fill="#dbeafe" stroke="#4F8CFF" stroke-width="2.5"/>
+                <path d="M200 60 L245 82 L245 138 Q245 188 200 212 Q155 188 155 138 L155 82 Z" fill="white" stroke="#93bbfd" stroke-width="1.5"/>
+                <!-- Check mark -->
+                <path d="M178 135 L193 150 L225 118" stroke="#4F8CFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <!-- Floating elements -->
+                <circle cx="90" cy="80" r="20" fill="#dbeafe" opacity="0.7"/>
+                <circle cx="310" cy="100" r="16" fill="#e0e7ff" opacity="0.6"/>
+                <rect x="70" cy="160" width="36" height="36" rx="10" fill="#dbeafe" opacity="0.5" transform="rotate(15 88 178)"/>
+                <rect x="300" cy="170" width="28" height="28" rx="8" fill="#e0e7ff" opacity="0.5" transform="rotate(-10 314 184)"/>
+                <!-- Dollar signs -->
+                <text x="85" y="86" font-size="16" fill="#4F8CFF" font-weight="700" text-anchor="middle">₩</text>
+                <text x="308" y="106" font-size="14" fill="#818cf8" font-weight="700" text-anchor="middle">%</text>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ════════ BENEFITS ════════ -->
+    <section class="benefits reveal">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">왜 필요할까요?</span>
+                <h2>보험 전문가 진단이 필요한 6가지 이유</h2>
+                <p>혼자서는 알기 어려운 보험의 숨겨진 문제를 찾아드립니다</p>
+            </div>
+            <div class="icon-grid">
+                <div class="icon-card">
+                    <div class="icon-circle">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4F8CFF" stroke-width="2" stroke-linecap="round"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </div>
+                    <h3>보장 공백 분석</h3>
+                    <p>현재 보험에서 빠진 중요한 보장 항목을 정밀하게 찾아드립니다.</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon-circle">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4F8CFF" stroke-width="2" stroke-linecap="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                    </div>
+                    <h3>보험료 절감</h3>
+                    <p>같은 보장, 더 저렴한 보험료. 평균 30~50% 보험료를 절약할 수 있습니다.</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon-circle">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4F8CFF" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                    </div>
+                    <h3>34개사 비교</h3>
+                    <p>국내 34개 보험사의 상품을 한눈에 비교하여 최적을 찾아드립니다.</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon-circle">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4F8CFF" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                    </div>
+                    <h3>맞춤 설계</h3>
+                    <p>나이, 직업, 가족 구성에 맞는 1:1 맞춤 보험 포트폴리오를 설계합니다.</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon-circle">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4F8CFF" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3>안전한 상담</h3>
+                    <p>개인정보는 안전하게 보호되며, 강제 가입 권유는 절대 없습니다.</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon-circle">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4F8CFF" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+                    </div>
+                    <h3>전문가 검증</h3>
+                    <p>10년 이상 경력의 보험 전문가가 직접 진단하고 분석합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════ HOW IT WORKS ════════ -->
+    <section class="how-it-works reveal">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">진행 과정</span>
+                <h2>간단한 3단계로 보험을 점검하세요</h2>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>간단 정보 입력</h3>
+                    <p>이름과 연락처, 관심 분야만 입력하면 끝! 3분이면 충분합니다.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>전문가 매칭</h3>
+                    <p>고객님의 상황에 맞는 보험 전문 상담사가 배정됩니다.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>맞춤 진단 결과</h3>
+                    <p>34개 보험사 비교 분석 결과와 최적의 보험 설계를 받아보세요.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════ FORM SECTION ════════ -->
+    <section class="form-section reveal" id="form-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">무료 상담 신청</span>
+                <h2>지금 바로 무료 보험 진단을 시작하세요</h2>
+                <p>부담 없이 신청하시면 전문가가 친절하게 안내해 드립니다</p>
+            </div>
+            <div class="form-outer">
+                <div class="form-card">
+                    <div class="form-card-header">
+                        <div class="form-card-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4F8CFF" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg>
+                        </div>
+                        <h3>무료 보험 진단 신청서</h3>
+                        <p>아래 정보를 입력해 주세요</p>
+                    </div>
+                    <form id="consultationForm" action="https://script.google.com/macros/s/AKfycbx-w1FcGyFXR3TR6iv2x3ImVgIMRt9lCoa-PCB6Qer38NbGP_-pJcIxlQU6jQdlokgm/exec" method="POST">
+                        <input type="hidden" name="page_source" value="v02-diagnosis-3대진단비">
+                        <div class="form-group">
+                            <label class="form-label">성함 (필수)</label>
+                            <input type="text" name="name" class="form-input" placeholder="실명을 입력해 주세요" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">연락처 (필수)</label>
+                            <input type="tel" name="phone" class="form-input" placeholder="예: 010-1234-5678" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">관심 상담 분야</label>
+                            <select name="category" class="form-select">
+                                <option value="암보험">암보험</option>
+                                <option value="3대진단비" selected>3대 진단비보험(암·뇌·심장)</option>
+                                <option value="태아어린이">태아/어린이보험</option>
+                                <option value="수술비">수술비보험</option>
+                                <option value="유병자">유병력자 간편보험</option>
+                                <option value="치매간병">치매/간병보험</option>
+                                <option value="치아">치아보험</option>
+                                <option value="운전자주택화재">운전자/주택화재보험</option>
+                                <option value="리모델링">보험리모델링</option>
+                                <option value="기타">기타 보험</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">문의내용 (선택)</label>
+                            <textarea name="message" class="form-textarea" placeholder="상담 희망 시간 등을 남겨주세요"></textarea>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="privacyAgree" required>
+                            <label for="privacyAgree">개인정보 수집 및 제3자 제공 동의 <span class="view-privacy" onclick="openPrivacyModal()">[보기]</span></label>
+                        </div>
+                        <button type="submit" class="submit-btn">무료 보험 진단 시작하기</button>
+                    </form>
+                    <div class="trust-row">
+                        <div class="trust-chip">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+                            100% 무료
+                        </div>
+                        <div class="trust-chip">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            개인정보 보호
+                        </div>
+                        <div class="trust-chip">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            3분 소요
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════ FOOTER ════════ -->
+    <footer class="footer">
+        <p>© 2025 보험 상담센터. All Rights Reserved. | 본 페이지는 보험 상담 목적으로 운영됩니다.</p>
+    </footer>
+
+<script src="../../shared/form-handler.js"></script>
+<script>
+    initConsultForm('consultationForm');
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

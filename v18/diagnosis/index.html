@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>암·뇌·심장 3대 핵심 진단비 확보 - 보험 상담센터</title>
+    <meta name="description" content="레저, 스포츠, 일상 속 예기치 못한 사고까지 한 번에! 젊은 세대를 위한 실속형 보험 비교 견적 서비스.">
+    <link rel="stylesheet" href="../../shared/style-base.css">
+    <style>
+        :root {
+            --accent: #6d28d9;
+            --citrus-yellow: #fef08a;
+            --citrus-violet: #6d28d9;
+            --citrus-dark: #1e1b4b;
+            --citrus-light: #fafafa;
+        }
+
+        body {
+            background-color: var(--citrus-light);
+            color: var(--citrus-dark);
+            font-family: 'Noto Sans KR', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Common Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Typography */
+        .sporty-tag {
+            display: inline-block;
+            background: var(--citrus-violet);
+            color: var(--citrus-yellow);
+            font-weight: 900;
+            text-transform: uppercase;
+            padding: 6px 16px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            transform: skewX(-10deg);
+            margin-bottom: 20px;
+        }
+
+        /* Header Navigation */
+        .site-header {
+            padding: 15px 0;
+            background: #ffffff;
+            border-bottom: 3px solid var(--citrus-dark);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .brand-logo {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--citrus-dark);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transform: skewX(-5deg);
+        }
+        .brand-logo svg {
+            fill: var(--citrus-violet);
+            width: 28px;
+            height: 28px;
+        }
+        .header-cta {
+            background: var(--citrus-violet);
+            color: #ffffff;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            transition: all 0.2s ease;
+            border: 2px solid var(--citrus-dark);
+            box-shadow: 4px 4px 0px var(--citrus-dark);
+        }
+        .header-cta:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px var(--citrus-dark);
+            background: var(--citrus-yellow);
+            color: var(--citrus-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--citrus-yellow);
+            padding: 90px 0;
+            border-bottom: 6px solid var(--citrus-dark);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::after {
+            content: 'ACTIVE';
+            position: absolute;
+            bottom: -50px;
+            right: -20px;
+            font-size: 10rem;
+            font-weight: 900;
+            color: rgba(109, 40, 217, 0.05);
+            pointer-events: none;
+            letter-spacing: -0.05em;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.25;
+            color: var(--citrus-dark);
+            letter-spacing: -0.02em;
+            margin-bottom: 25px;
+            word-break: keep-all;
+        }
+        .hero-title span {
+            background: var(--citrus-violet);
+            color: #ffffff;
+            padding: 2px 10px;
+            display: inline-block;
+            transform: skewX(-8deg);
+        }
+        .hero-desc {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: #2e1065;
+            margin-bottom: 35px;
+            max-width: 600px;
+        }
+        .hero-features {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .hero-feat-tag {
+            background: #ffffff;
+            border: 2px solid var(--citrus-dark);
+            padding: 10px 20px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 3px 3px 0px var(--citrus-dark);
+            border-radius: 4px;
+        }
+
+        /* Hero Graphic Illustration via CSS */
+        .hero-graphic {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .citrus-circle-wrap {
+            width: 320px;
+            height: 320px;
+            border: 6px solid var(--citrus-dark);
+            background: var(--citrus-violet);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            box-shadow: 12px 12px 0px var(--citrus-dark);
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 30px;
+        }
+        .citrus-badge-overlap {
+            position: absolute;
+            background: #ffffff;
+            border: 3px solid var(--citrus-dark);
+            color: var(--citrus-dark);
+            padding: 8px 16px;
+            font-weight: 900;
+            font-size: 1.1rem;
+            top: -15px;
+            right: 0px;
+            transform: rotate(12deg);
+            box-shadow: 4px 4px 0px var(--citrus-dark);
+        }
+
+        /* Active Benefits Section */
+        .benefits {
+            padding: 100px 0;
+            background: #ffffff;
+            border-bottom: 6px solid var(--citrus-dark);
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--citrus-dark);
+            letter-spacing: -0.03em;
+        }
+        .section-title span {
+            color: var(--citrus-violet);
+        }
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .benefit-card {
+            border: 4px solid var(--citrus-dark);
+            background: #ffffff;
+            padding: 40px 30px;
+            position: relative;
+            box-shadow: 8px 8px 0px var(--citrus-dark);
+            transition: all 0.2s ease;
+        }
+        .benefit-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 12px 12px 0px var(--citrus-dark);
+        }
+        .benefit-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--citrus-yellow);
+            border: 3px solid var(--citrus-dark);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+        .benefit-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: none;
+            stroke: var(--citrus-dark);
+            stroke-width: 2.5;
+        }
+        .benefit-card h3 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        .benefit-card p {
+            font-size: 0.95rem;
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        /* Simple Roadmap Steps */
+        .roadmap {
+            padding: 100px 0;
+            background: #f5f3ff;
+            border-bottom: 6px solid var(--citrus-dark);
+        }
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+        .road-step {
+            background: #ffffff;
+            border: 3px solid var(--citrus-dark);
+            padding: 30px 20px;
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 6px 6px 0px rgba(109, 40, 217, 0.2);
+        }
+        .road-step .num {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--citrus-violet);
+            opacity: 0.2;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+        }
+        .road-step h4 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            margin-top: 15px;
+        }
+        .road-step p {
+            font-size: 0.9rem;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        /* Vivid Contrast Form Section */
+        .form-section {
+            padding: 100px 0;
+            background: var(--citrus-violet);
+            color: #ffffff;
+            position: relative;
+        }
+        .form-wrapper {
+            max-width: 680px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 4px solid var(--citrus-dark);
+            border-radius: 12px;
+            padding: 50px;
+            color: var(--citrus-dark);
+            box-shadow: 12px 12px 0px var(--citrus-yellow);
+        }
+        .form-wrapper h3 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+        .form-wrapper p {
+            text-align: center;
+            color: #4b5563;
+            margin-bottom: 40px;
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        /* Form Controls Custom Overrides */
+        .form-section .form-input,
+        .form-section .form-select,
+        .form-section .form-textarea {
+            border: 3px solid var(--citrus-dark) !important;
+            border-radius: 6px !important;
+            font-weight: 600;
+            padding: 14px 16px;
+        }
+        .form-section .form-input:focus,
+        .form-section .form-select:focus,
+        .form-section .form-textarea:focus {
+            box-shadow: 4px 4px 0px var(--citrus-yellow) !important;
+            background: #fef08a30;
+        }
+        .form-section .form-label {
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: var(--citrus-dark);
+        }
+        .form-section .submit-btn {
+            background: var(--citrus-yellow) !important;
+            color: var(--citrus-dark) !important;
+            border: 3px solid var(--citrus-dark) !important;
+            box-shadow: 6px 6px 0px var(--citrus-dark);
+            font-weight: 900;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            border-radius: 6px;
+            padding: 18px;
+            transform: skewX(-5deg);
+        }
+        .form-section .submit-btn:hover {
+            background: var(--citrus-violet) !important;
+            color: #ffffff !important;
+            transform: translate(-3px, -3px) skewX(-5deg);
+            box-shadow: 9px 9px 0px var(--citrus-dark);
+        }
+        .form-section .checkbox-group {
+            font-weight: 600;
+            color: #4b5563;
+        }
+        .form-section .view-privacy {
+            color: var(--citrus-violet);
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--citrus-dark);
+            color: #93c5fd;
+            padding: 50px 0;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            border-top: 4px solid var(--citrus-dark);
+        }
+        .footer-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        .footer-links {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+        .footer-links a {
+            color: #ffffff;
+            font-weight: 700;
+        }
+        .footer-links a:hover {
+            color: var(--citrus-yellow);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            .hero-features {
+                justify-content: center;
+            }
+            .citrus-circle-wrap {
+                margin: 0 auto;
+            }
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            .roadmap-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .roadmap-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-wrapper {
+                padding: 30px 20px;
+            }
+            .footer-wrap {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="container">
+            <div class="header-wrap">
+                <a href="#" class="brand-logo">
+                    <svg viewBox="0 0 24 24">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                    <span>보험 상담센터</span>
+                </a>
+                <a href="#consult-section" class="header-cta">즉시 무료 설계</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-text">
+                    <span class="sporty-tag">Active Insurance</span>
+                    <h1 class="hero-title">도전하는 젊음을 지켜주는<br><span>스마트 안심 플래닝</span></h1>
+                    <p class="main-desc">한국인 3대 사망원인 진단비 완벽 대비. 중복 가입은 걸러내고 빈틈없이 매칭합니다.</p>
+                    
+                    <div class="hero-features">
+                        <div class="hero-feat-tag">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            3분 빠른 진단
+                        </div>
+                        <div class="hero-feat-tag">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            레저 사고 전용 특약
+                        </div>
+                        <div class="hero-feat-tag">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            불필요 거품 0%
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-graphic">
+                    <div class="citrus-circle-wrap">
+                        <div class="citrus-badge-overlap">UP TO 50% OFF</div>
+                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom:15px;">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                        </svg>
+                        <h3 style="font-size: 1.6rem; font-weight: 900; margin-bottom: 8px;">액티브 라이프 케어</h3>
+                        <p style="font-size: 0.9rem; opacity: 0.9;">활동량이 많은 스마트 세대를 위한 고보장 저보험료 설계 매칭 엔진</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Active Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">왜 <span>액티브 라이프 플랜</span>이어야 할까요?</h2>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3>스포츠/레저 맞춤 특약</h3>
+                    <p>러닝, 자전거, 등산부터 스키, 서핑 등 취미 생활 중 빈번히 발생하는 골절 및 상해 사고를 집중적으로 방어합니다.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                    </div>
+                    <h3>합리적인 다이렉트 설계</h3>
+                    <p>기존 설계사의 과도한 권유나 사업비 수수료를 과감히 제거하여, 핵심 보장만 깔끔하고 투명하게 제공합니다.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3>1:1 맞춤 피드백 시스템</h3>
+                    <p>가입 이후에도 라이프스타일 변화에 맞춰 보험 전문가가 주기적으로 정밀 분석 리포트를 무상 제공합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simple Roadmap Steps -->
+    <section class="roadmap">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">신청부터 분석까지 단 <span>3분</span></h2>
+            </div>
+
+            <div class="roadmap-grid">
+                <div class="road-step">
+                    <span class="num">01</span>
+                    <h4>정보 입력</h4>
+                    <p>이름과 번호, 관심 상담 항목만 간단히 남겨주세요.</p>
+                </div>
+
+                <div class="road-step">
+                    <span class="num">02</span>
+                    <h4>실시간 매칭</h4>
+                    <p>34개 제휴 보험사의 데이터베이스를 즉시 탐색합니다.</p>
+                </div>
+
+                <div class="road-step">
+                    <span class="num">03</span>
+                    <h4>전문가 조율</h4>
+                    <p>1:1 전담 컨설턴트가 최적의 가성비 조합을 추천합니다.</p>
+                </div>
+
+                <div class="road-step">
+                    <span class="num">04</span>
+                    <h4>안심 가입</h4>
+                    <p>강요 없는 친절한 상담으로 기분 좋게 안심을 챙기세요.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vivid Contrast Form Section -->
+    <section class="form-section" id="consult-section">
+        <div class="container">
+            <div class="form-wrapper">
+                <h3>무료 맞춤 설계 신청</h3>
+                <p>지금 내 조건에 딱 맞는 최적의 안심 솔루션을 제안받아 보세요.</p>
+                
+                <form id="consultationForm" action="https://script.google.com/macros/s/AKfycbx-w1FcGyFXR3TR6iv2x3ImVgIMRt9lCoa-PCB6Qer38NbGP_-pJcIxlQU6jQdlokgm/exec" method="POST">
+                    <input type="hidden" name="page_source" value="v18-diagnosis-3대진단비">
+                    
+                    <div class="form-group">
+                        <label class="form-label">성함 (필수)</label>
+                        <input type="text" name="name" class="form-input" placeholder="실명을 입력해 주세요" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">연락처 (필수)</label>
+                        <input type="tel" name="phone" class="form-input" placeholder="예: 010-1234-5678" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">관심 상담 분야</label>
+                        <select name="category" class="form-select">
+                            <option value="암보험">암보험</option>
+                            <option value="3대진단비" selected>3대 진단비보험(암,뇌,심장)</option>
+                            <option value="태아어린이">태아/어린이보험</option>
+                            <option value="수술비">수술비보험</option>
+                            <option value="유병자">유병력자 간편보험</option>
+                            <option value="치매간병">치매/간병보험</option>
+                            <option value="치아">치아보험</option>
+                            <option value="운전자주택화재">운전자/주택화재보험</option>
+                            <option value="리모델링">보험리모델링</option>
+                            <option value="기타">기타 보험</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">문의내용 (선택)</label>
+                        <textarea name="message" class="form-textarea" placeholder="상담 희망 시간 등을 남겨주세요"></textarea>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="privacyAgree" required>
+                        <label for="privacyAgree">개인정보 수집 및 제3자 제공 동의 <span class="view-privacy" onclick="openPrivacyModal()">[보기]</span></label>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">액티브 라이프 무료 보험 설계 받기</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-wrap">
+                <div>
+                    <div class="footer-links">
+                        <a href="#" onclick="openPrivacyModal(); return false;">개인정보 처리방침</a>
+                        <a href="#">이용약관</a>
+                    </div>
+                    <p>보험 상담센터 | 대표자: 함일상회 컨설팅 파트너스</p>
+                    <p>주소: 서울특별시 강남구 테헤란로 123 | 고객 상담 센터: 1544-0000</p>
+                    <p>본 사이트의 상담 서비스는 무료이며, 고객님의 개인정보는 안전하게 보호됩니다.</p>
+                    <p style="margin-top: 10px; opacity: 0.6;">© 2026 보험 상담센터. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../shared/form-handler.js"></script>
+    <script>initConsultForm('consultationForm');</script>
+</body>
+</html>

@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>우리 아이 첫 보험, 따뜻하고 든든하게 - 보험 상담센터</title>
+    <meta name="description" content="사랑스러운 우리 아이를 위한 든든하고 따뜻한 첫 걸음. 34개 보험사 비교 분석으로 가장 합리적인 어린이 보험 맞춤 솔루션을 지금 신청하세요.">
+    <link rel="stylesheet" href="../../shared/style-base.css">
+    <style>
+        :root {
+            --accent: #ff85a2;
+            --accent-bg: #ffd6ff;
+            --bubble-blue: #bbd0ff;
+            --bubble-purple: #e8dbfc;
+            --bubble-pink: #f7d6e0;
+            --text-dark: #4a4e69;
+            --text-muted: #9a8c98;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--accent-bg) 0%, var(--bubble-blue) 100%);
+            color: var(--text-dark);
+            font-family: 'Noto Sans KR', sans-serif;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* --- Floating Bubbles Decoration --- */
+        .bubble-bg {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            box-shadow: inset -5px -5px 12px rgba(0, 0, 0, 0.05), inset 5px 5px 12px rgba(255, 255, 255, 0.8), 0 8px 24px rgba(0, 0, 0, 0.03);
+            pointer-events: none;
+            z-index: -1;
+            animation: float 8s ease-in-out infinite;
+        }
+        .bubble-1 { width: 120px; height: 120px; top: 8%; left: -40px; animation-duration: 9s; }
+        .bubble-2 { width: 180px; height: 180px; top: 25%; right: -60px; animation-delay: 1.5s; animation-duration: 12s; }
+        .bubble-3 { width: 80px; height: 80px; bottom: 40%; left: 5%; animation-delay: 3s; animation-duration: 7s; }
+        .bubble-4 { width: 150px; height: 150px; bottom: 15%; right: 8%; animation-delay: 0.5s; animation-duration: 10s; }
+        .bubble-5 { width: 100px; height: 100px; top: 55%; right: 45%; animation-delay: 2.5s; animation-duration: 9s; }
+
+        /* --- Navigation / Header --- */
+        header {
+            padding: 20px 0;
+            text-align: center;
+        }
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #ff758f;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 8px 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- Common Container & Layout --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.1rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: #3d3b75;
+            letter-spacing: -0.5px;
+        }
+        .section-desc {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #6c757d;
+            margin-bottom: 45px;
+            font-weight: 500;
+        }
+
+        /* --- Claymorphism Cards --- */
+        .clay-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 255, 255, 0.85);
+            border-radius: 32px;
+            padding: 40px;
+            box-shadow: 
+                inset 4px 4px 8px rgba(255, 255, 255, 0.8),
+                inset -4px -4px 8px rgba(186, 208, 255, 0.4),
+                8px 16px 32px rgba(142, 154, 175, 0.15);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .clay-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                inset 4px 4px 8px rgba(255, 255, 255, 0.9),
+                inset -4px -4px 8px rgba(186, 208, 255, 0.5),
+                8px 20px 40px rgba(142, 154, 175, 0.22);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 40px 0 60px;
+            text-align: center;
+        }
+        .hero-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff85a2, #ffacb7);
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 700;
+            padding: 8px 24px;
+            border-radius: 50px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 15px rgba(255, 133, 162, 0.3);
+            animation: pulse 2.5s infinite;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            line-height: 1.35;
+            color: #3d3b75;
+            margin-bottom: 24px;
+            word-break: keep-all;
+        }
+        .hero h1 span {
+            color: #ff6584;
+            position: relative;
+        }
+        .hero h1 span::after {
+            content: '';
+            position: absolute;
+            bottom: 4px; left: 0; width: 100%; height: 12px;
+            background: rgba(255, 133, 162, 0.2);
+            z-index: -1;
+            border-radius: 10px;
+        }
+        .hero-desc {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #5b627a;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .stat-bubble {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 24px;
+            padding: 24px 15px;
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 
+                inset 2px 2px 5px rgba(255, 255, 255, 0.8),
+                8px 12px 24px rgba(166, 180, 200, 0.15);
+            text-align: center;
+        }
+        .stat-val {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ff6584;
+            margin-bottom: 6px;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: #7b809a;
+            font-weight: 600;
+        }
+
+        /* --- Section: Process --- */
+        .process-section {
+            padding: 60px 0;
+        }
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            position: relative;
+        }
+        .process-card {
+            text-align: center;
+            position: relative;
+        }
+        .process-num {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            color: var(--accent);
+            font-weight: 800;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border: 2px solid var(--accent);
+        }
+        .process-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #3d3b75;
+        }
+        .process-desc {
+            font-size: 0.88rem;
+            color: #7b809a;
+            line-height: 1.5;
+        }
+        /* Connectors for process cards */
+        .process-grid::after {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 10%;
+            width: 80%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            z-index: -1;
+        }
+
+        /* --- Section: Child Benefits --- */
+        .benefits-section {
+            padding: 60px 0;
+        }
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        .benefit-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        .benefit-icon {
+            background: linear-gradient(135deg, #ffd6ff, #f7d6e0);
+            padding: 16px;
+            border-radius: 20px;
+            flex-shrink: 0;
+            box-shadow: inset 2px 2px 4px rgba(255,255,255,0.7);
+        }
+        .benefit-item h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #3d3b75;
+            margin-bottom: 8px;
+        }
+        .benefit-item p {
+            font-size: 0.95rem;
+            color: #656d8a;
+            line-height: 1.6;
+        }
+
+        /* --- CTA Form Section --- */
+        .cta-section {
+            padding: 60px 0 100px;
+        }
+        .cta-box {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-header h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #3d3b75;
+            margin-bottom: 8px;
+        }
+        .form-header p {
+            color: #7b809a;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Custom style overrides for Pastel Bubbly Theme Form */
+        .form-input, .form-select, .form-textarea {
+            border: 2px solid rgba(255, 133, 162, 0.2);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            color: var(--text-dark);
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(255, 133, 162, 0.15);
+        }
+        .submit-btn {
+            background: linear-gradient(135deg, #ff758f 0%, #ff85a2 100%);
+            color: white;
+            border-radius: 16px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            box-shadow: 0 8px 25px rgba(255, 117, 143, 0.35);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(255, 117, 143, 0.5);
+            background: linear-gradient(135deg, #ff85a2 0%, #ff9ebb 100%);
+        }
+
+        /* --- Testimonials / Review Slider --- */
+        .reviews-section {
+            padding: 60px 0;
+            text-align: center;
+        }
+        .review-slider {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 30px;
+        }
+        .review-card {
+            background: rgba(255, 255, 255, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 24px;
+            padding: 30px 20px;
+            box-shadow: 0 8px 24px rgba(142, 154, 175, 0.08);
+            text-align: left;
+        }
+        .review-stars {
+            color: #ffb703;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        .review-text {
+            font-size: 0.9rem;
+            color: #555c77;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+        .review-author {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #3d3b75;
+        }
+
+        /* --- FAQ Section --- */
+        .faq-section {
+            padding: 60px 0;
+        }
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            background: rgba(255, 255, 255, 0.7);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 20px 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        .faq-question {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #3d3b75;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .faq-answer {
+            font-size: 0.9rem;
+            color: #5b627a;
+            line-height: 1.6;
+            padding-left: 28px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: rgba(255, 255, 255, 0.4);
+            border-top: 1px solid rgba(255, 255, 255, 0.6);
+            padding: 40px 0;
+            font-size: 0.8rem;
+            color: #7b809a;
+            text-align: center;
+            line-height: 1.8;
+        }
+        footer p {
+            margin-bottom: 8px;
+        }
+
+        /* --- Responsive Queries --- */
+        @media (max-width: 991px) {
+            .hero h1 { font-size: 2.3rem; }
+            .benefits-grid { grid-template-columns: 1fr; gap: 24px; }
+            .review-slider { grid-template-columns: 1fr; }
+            .process-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+            .process-grid::after { display: none; }
+        }
+        @media (max-width: 576px) {
+            .hero h1 { font-size: 1.8rem; }
+            .hero-stats { grid-template-columns: 1fr; gap: 12px; }
+            .clay-card { padding: 25px 18px; border-radius: 24px; }
+            .section-title { font-size: 1.6rem; }
+            .process-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bubbles Background -->
+    <div class="bubble-bg bubble-1"></div>
+    <div class="bubble-bg bubble-2"></div>
+    <div class="bubble-bg bubble-3"></div>
+    <div class="bubble-bg bubble-4"></div>
+    <div class="bubble-bg bubble-5"></div>
+
+    <header>
+        <div class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff758f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 21a9 9 0 0 0 9-9 9 9 0 0 0-9-9 9 9 0 0 0-9 9 9 9 0 0 0 9 9z"></path>
+                <path d="M12 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
+                <path d="M12 12v6"></path>
+            </svg>
+            <span>보험 상담센터</span>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <span class="hero-tag">어린이 자녀보험 전문진단</span>
+            <h1>우리 아이 첫 보험, 따뜻하고 든든하게</h1>
+            <p class="main-desc">소중한 자녀의 성장기 안심 보장을 위해 34개 보험사 제휴 비교분석으로 꼼꼼히 설계합니다.</p>
+            
+            <div class="hero-stats">
+                <div class="stat-bubble">
+                    <div class="stat-val">34개사</div>
+                    <div class="stat-label">실시간 상품비교</div>
+                </div>
+                <div class="stat-bubble">
+                    <div class="stat-val">10만+건</div>
+                    <div class="stat-label">상담 완료 건수</div>
+                </div>
+                <div class="stat-bubble">
+                    <div class="stat-val">99%</div>
+                    <div class="stat-label">고객 안심 만족도</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="container">
+            <div class="clay-card">
+                <h2 class="section-title">어린이 안심 맞춤 보장 포인트</h2>
+                <p class="section-desc">성장기에 꼭 필요한 4대 핵심 담보를 알기 쉽게 설계해 드립니다.</p>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ff758f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>3대 진단비 핵심 집중 보장</h3>
+                            <p>암, 뇌혈관질환, 허혈성심장질환 등 성인보다 훨씬 저렴한 소아기/청소년기 요율로 가장 폭넓게 보장 범위를 설정합니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ff758f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>응급실 내원 및 수술비 걱정 제로</h3>
+                            <p>가벼운 열 감기부터 큰 수술까지, 면책 기간이나 감액 없이 가입 즉시 100% 보장을 받을 수 있도록 조율합니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ff758f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>선천성 이상 및 저체중아 보장</h3>
+                            <p>태아 시기 가입 시, 출생과 동시에 발생할 수 있는 신생아 질병 및 인큐베이터 비용까지 확실히 대비할 수 있습니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ff758f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>일상생활 중 배상책임 보장</h3>
+                            <p>아이들이 놀다가 타인에게 피해를 입히거나, 실수로 남의 물건을 훼손했을 때 든든하게 배상책임을 지원합니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section">
+        <div class="container">
+            <h2 class="section-title">쉽고 편리한 안심 맞춤 프로세스</h2>
+            <p class="section-desc">간단한 신청만으로 상담부터 설계까지 3분 안에 완료됩니다.</p>
+            
+            <div class="process-grid">
+                <div class="clay-card process-card">
+                    <div class="process-num">1</div>
+                    <h3 class="process-title">무료 진단 신청</h3>
+                    <p class="process-desc">하단의 간단한 정보만 입력하여 무료 컨설팅을 예약합니다.</p>
+                </div>
+                <div class="clay-card process-card">
+                    <div class="process-num">2</div>
+                    <h3 class="process-title">34개사 맞춤 분석</h3>
+                    <p class="process-desc">베테랑 비교 전문가가 조건에 맞는 설계안을 실시간 분석합니다.</p>
+                </div>
+                <div class="clay-card process-card">
+                    <div class="process-num">3</div>
+                    <h3 class="process-title">비교 견적 조율</h3>
+                    <p class="process-desc">불필요한 중복 담보는 덜어내고 꼭 필요한 알짜 특약만 조율합니다.</p>
+                </div>
+                <div class="clay-card process-card">
+                    <div class="process-num">4</div>
+                    <h3 class="process-title">안심 보장 개시</h3>
+                    <p class="process-desc">내 마음에 쏙 드는 최적의 플랜을 선택하면 든든한 보장 시작!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Reviews Section -->
+    <section class="reviews-section">
+        <div class="container">
+            <h2 class="section-title">부모님들의 실제 리얼 후기</h2>
+            <p class="section-desc">이미 수많은 엄마, 아빠들이 가격과 혜택에 크게 만족하셨습니다.</p>
+            
+            <div class="review-slider">
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">태아보험 가입할 때 너무 복잡해서 지쳐있었는데 상담원분이 꼼꼼히 비교해주셔서 불필요한 특약 다 빼고 완전 합리적으로 잘 가입했어요!</p>
+                    <div class="review-author">김지혜 님 (예비맘, 31세)</div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">기존에 들었던 아이 실비가 생각보다 비쌌는데, 리모델링 솔루션 받고 보장은 늘리고 매월 납입료는 4만원 줄여서 너무 대만족 중입니다.</p>
+                    <div class="review-author">이정우 님 (직장인, 37세)</div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">아이가 자주 다치고 응급실 갈 일이 잦아서 걱정이었는데 청구도 번거롭지 않게 실시간으로 잘 도와주셔서 전문가 믿고 갈 수 있습니다.</p>
+                    <div class="review-author">박수민 님 (주부, 35세)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">자주 묻는 질문 (FAQ)</h2>
+            <p class="section-desc">어린이 보험에 관해 부모님들이 가장 궁금해하시는 핵심 문답입니다.</p>
+            
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h3 class="faq-question">
+                        <span style="color:var(--accent)">Q.</span> 태아보험과 어린이보험은 어떻게 다른가요?
+                    </h3>
+                    <p class="faq-answer">
+                        태아보험은 별도의 상품이 아니며, 어린이보험에 '태아 가입 특약'을 추가한 형태입니다. 임신 22주 이내에 가입하여 출생 시 발생할 수 있는 저체중아, 신생아 질병 등을 선제적으로 보장받는 플랜입니다.
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h3 class="faq-question">
+                        <span style="color:var(--accent)">Q.</span> 30세 만기와 100세 만기 중 어떤 것이 유리한가요?
+                    </h3>
+                    <p class="faq-answer">
+                        30세 만기는 보험료 부담이 훨씬 적어 가성비가 높은 반면 자녀가 독립할 때 새로 가입해야 하는 단점이 있습니다. 100세 만기는 물가상승이나 병력을 고려해 아예 평생 안심 보장을 완성해주고자 할 때 유리합니다. 각 가정의 예산에 맞춘 최선의 하이브리드 설계 방식을 무료 상담을 통해 자세히 풀어드립니다.
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h3 class="faq-question">
+                        <span style="color:var(--accent)">Q.</span> 가입 이후 보험금 청구 대행도 해주시나요?
+                    </h3>
+                    <p class="faq-answer">
+                        네, 그렇습니다. 본 비교센터를 통해 상담 후 가입하시는 모든 고객님들께는 청구 서류 안내부터 모바일 대행 청구까지 평생 전담 보상 마스터 서비스를 무상 지원해 드리고 있습니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consultation Form Section -->
+    <section class="cta-section" id="form-section">
+        <div class="container cta-box">
+            <div class="clay-card">
+                <div class="form-header">
+                    <h2>3분 무료 맞춤 진단 신청</h2>
+                    <p>우리 아이 맞춤형 안심 보장 최저가 플랜을 바로 받아보세요.</p>
+                </div>
+
+                <form id="consultationForm" action="https://script.google.com/macros/s/AKfycbx-w1FcGyFXR3TR6iv2x3ImVgIMRt9lCoa-PCB6Qer38NbGP_-pJcIxlQU6jQdlokgm/exec" method="POST">
+                    <input type="hidden" name="page_source" value="v14-child-어린이">
+                    
+                    <div class="form-group">
+                        <label class="form-label">성함 (필수)</label>
+                        <input type="text" name="name" class="form-input" placeholder="실명을 입력해 주세요" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">연락처 (필수)</label>
+                        <input type="tel" name="phone" class="form-input" placeholder="예: 010-1234-5678" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">관심 상담 분야</label>
+                        <select name="category" class="form-select">
+                            <option value="태아어린이" selected>태아/어린이보험</option>
+                            <option value="암보험">암보험</option>
+                            <option value="3대진단비">3대 진단비보험(암,뇌,심장)</option>
+                            <option value="수술비">수술비보험</option>
+                            <option value="유병자">유병력자 간편보험</option>
+                            <option value="치매간병">치매/간병보험</option>
+                            <option value="치아">치아보험</option>
+                            <option value="운전자주택화재">운전자/주택화재보험</option>
+                            <option value="리모델링">보험리모델링</option>
+                            <option value="기타">기타 보험</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">문의내용 (선택)</label>
+                        <textarea name="message" class="form-textarea" placeholder="상담 희망 시간이나 궁금하신 내용을 편하게 남겨주세요"></textarea>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="privacyAgree" required>
+                        <label for="privacyAgree">개인정보 수집 및 제3자 제공 동의 <span class="view-privacy" onclick="openPrivacyModal()">[보기]</span></label>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">사랑스러운 우리 아이 보험 무료 진단</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p><strong>보험 상담센터</strong> | 전국 통합 고객센터: 1661-0000</p>
+            <p>본 서비스는 실시간 보험 비교 견적 안내 서비스이며, 제휴된 대리점의 전문 설계사를 통해 상담이 진행됩니다.</p>
+            <p>개인정보 처리 및 서비스 제공 위탁자: 보험 전문대리점 연합회 | 서비스 제공 기간: 상담 완료 후 3개월 이내 폐기</p>
+            <p>© 보험 상담센터 All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../../shared/form-handler.js"></script>
+    <script>
+        initConsultForm('consultationForm');
+    </script>
+</body>
+</html>

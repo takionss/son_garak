@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수술할 때마다 반복해서 지급받는 수술비 설계 - 보험 상담센터</title>
+    <meta name="description" content="10년 전 보험, 지금도 충분할까요? 34개 보험사 비교 분석으로 나에게 꼭 맞는 보험을 찾아드립니다. 무료 상담 신청하세요.">
+    <link rel="stylesheet" href="../../shared/style-base.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #166534;
+            --accent-light: #22c55e;
+            --gold: #b8860b;
+            --gold-light: #d4a843;
+            --bg: #faf8f5;
+            --bg-warm: #f5f0e8;
+            --text-dark: #1a1a1a;
+            --text-body: #4a4a4a;
+            --text-muted: #7a7a7a;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-dark);
+        }
+
+        /* Subtle texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4c5a9' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── Serif Typography ── */
+        .serif { font-family: 'Noto Serif KR', 'Georgia', serif; }
+
+        /* ── Scroll Animation ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── Hero Section ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(ellipse at 30% 20%, rgba(22,101,52,0.06) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 80%, rgba(184,134,11,0.05) 0%, transparent 50%);
+            animation: heroGlow 12s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroGlow {
+            0% { transform: rotate(0deg) scale(1); }
+            100% { transform: rotate(3deg) scale(1.05); }
+        }
+
+        .hero-content {
+            max-width: 720px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-eyebrow {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 0.95rem;
+            color: var(--gold);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            font-weight: 600;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1.4;
+            margin-bottom: 28px;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-body);
+            line-height: 1.8;
+            max-width: 560px;
+            margin: 0 auto 40px;
+            animation: fadeInUp 1s ease 0.8s both;
+        }
+
+        .hero-divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--accent));
+            margin: 0 auto 40px;
+            border-radius: 2px;
+            animation: fadeInUp 1s ease 1s both;
+        }
+
+        .hero-scroll-hint {
+            animation: fadeInUp 1s ease 1.2s both, float 3s ease-in-out infinite;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .hero-scroll-hint svg {
+            display: block;
+            margin: 8px auto 0;
+        }
+
+        /* ── Section Shared ── */
+        .section {
+            padding: 100px 24px;
+        }
+
+        .section-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section-eyebrow {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 0.85rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .section-desc {
+            font-size: 1.05rem;
+            color: var(--text-body);
+            line-height: 1.9;
+            margin-bottom: 50px;
+        }
+
+        /* ── Editorial Intro ── */
+        .editorial {
+            background: var(--bg-warm);
+        }
+
+        .editorial-quote {
+            font-family: 'Noto Serif KR', serif;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-weight: 500;
+            color: var(--text-dark);
+            line-height: 1.9;
+            position: relative;
+            padding-left: 30px;
+            border-left: 3px solid var(--gold);
+        }
+
+        .editorial-quote em {
+            color: var(--accent);
+            font-style: normal;
+            font-weight: 700;
+        }
+
+        .editorial-author {
+            margin-top: 24px;
+            padding-left: 30px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* ── Timeline Section ── */
+        .timeline-section {
+            background: white;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--gold), var(--accent), var(--gold));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 60px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 18px;
+            top: 4px;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid var(--accent);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-dot::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--gold);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-dot::after {
+            transform: scale(1.4);
+        }
+
+        .timeline-step {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 0.8rem;
+            color: var(--gold);
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .timeline-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .timeline-desc {
+            font-size: 0.95rem;
+            color: var(--text-body);
+            line-height: 1.8;
+        }
+
+        /* ── Stats Row ── */
+        .stats-section {
+            background: var(--accent);
+            padding: 70px 24px;
+        }
+
+        .stats-grid {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item {
+            color: white;
+        }
+
+        .stat-number {
+            font-family: 'Noto Serif KR', serif;
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            font-weight: 900;
+            color: var(--gold-light);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            line-height: 1.5;
+        }
+
+        /* ── Testimonials ── */
+        .testimonials {
+            background: var(--bg-warm);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 16px;
+            padding: 36px;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            border: 1px solid rgba(184,134,11,0.12);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+        }
+
+        .testimonial-quote-icon {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            font-family: 'Noto Serif KR', serif;
+            font-size: 4rem;
+            color: rgba(184,134,11,0.1);
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.05rem;
+            color: var(--text-dark);
+            line-height: 1.9;
+            margin-bottom: 24px;
+            font-weight: 400;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .testimonial-name {
+            font-weight: 700;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .testimonial-detail {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .testimonial-savings {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), #22c55e);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-top: 6px;
+        }
+
+        /* ── Trust Section ── */
+        .trust-section {
+            background: white;
+        }
+
+        .trust-badges {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            border-radius: 12px;
+            background: var(--bg);
+            border: 1px solid rgba(22,101,52,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .trust-badge:hover {
+            background: white;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            border-color: var(--gold);
+        }
+
+        .trust-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .trust-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        /* ── Form Section ── */
+        .form-section {
+            background: linear-gradient(180deg, var(--bg-warm) 0%, var(--bg) 100%);
+            padding: 100px 24px 120px;
+        }
+
+        .form-wrapper {
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 24px;
+            padding: 48px 36px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+            border: 1px solid rgba(184,134,11,0.12);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--accent), var(--gold));
+        }
+
+        .form-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .form-subtitle {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 36px;
+        }
+
+        .form-card .form-input:focus,
+        .form-card .form-select:focus,
+        .form-card .form-textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(22,101,52,0.08);
+        }
+
+        .form-card .submit-btn {
+            background: linear-gradient(135deg, var(--accent), #1e7a3f);
+            color: white;
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .form-card .submit-btn:hover {
+            background: linear-gradient(135deg, #1e7a3f, var(--accent));
+        }
+
+        .form-guarantee {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            background: var(--accent);
+            color: white;
+            text-align: center;
+            padding: 40px 24px;
+            font-size: 0.8rem;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .hero { min-height: 90vh; padding: 60px 20px; }
+            .section { padding: 70px 20px; }
+            .stats-grid { grid-template-columns: 1fr; gap: 24px; }
+            .stats-section { padding: 50px 20px; }
+            .trust-badges { grid-template-columns: 1fr; }
+            .form-card { padding: 36px 24px; }
+            .timeline::before { left: 22px; }
+            .timeline-dot { left: 10px; }
+            .timeline-item { padding-left: 60px; }
+        }
+
+        /* ── Gold Shimmer Keyframe ── */
+        @keyframes goldShimmer {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        .gold-accent {
+            color: var(--gold);
+            animation: goldShimmer 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+    <!-- ═══════════ HERO ═══════════ -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-eyebrow">보험 상담센터</p>
+            <div class="hero-divider"></div>
+            <h1 class="hero-title">10년 전에 가입한 보험,<br>지금 제 역할을 하고 있을까요?</h1>
+            <p class="hero-subtitle">
+                시간이 흐르면 삶이 바뀌고, 필요한 보장도 달라집니다.<br>
+                당신의 보험 이야기를 들려주세요. 전문가가 함께 새로운 장을 써드립니다.
+            </p>
+            <div class="hero-scroll-hint">
+                <span>스크롤하여 더 알아보기</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M7 13l5 5 5-5"/><path d="M7 7l5 5 5-5"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ EDITORIAL QUOTE ═══════════ -->
+    <section class="section editorial">
+        <div class="section-container reveal">
+            <p class="editorial-quote">
+                "대부분의 사람들은 보험에 가입한 후 <em>한 번도 점검하지 않습니다.</em>
+                하지만 결혼, 출산, 이직 등 삶의 변화에 따라 보장 내용은 반드시 업데이트되어야 합니다.
+                보험 리모델링은 <em>아끼는 것이 아니라, 지키는 것</em>입니다."
+            </p>
+            <p class="editorial-author">— 보험 상담센터 수석 컨설턴트</p>
+        </div>
+    </section>
+
+    <!-- ═══════════ TIMELINE ═══════════ -->
+    <section class="section timeline-section">
+        <div class="section-container">
+            <div class="reveal">
+                <p class="section-eyebrow">PROCESS</p>
+                <h2 class="section-title">상담은 이렇게 진행됩니다</h2>
+                <p class="section-desc">복잡한 보험, 4단계로 명쾌하게 정리해 드립니다. 무료이며, 부담 없이 시작하세요.</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <p class="timeline-step">STEP 01</p>
+                    <h3 class="timeline-title">📋 무료 상담 신청</h3>
+                    <p class="timeline-desc">간단한 정보만 입력하면 3분 안에 신청 완료. 전문 상담사가 배정됩니다.</p>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <p class="timeline-step">STEP 02</p>
+                    <h3 class="timeline-title">🔍 기존 보험 분석</h3>
+                    <p class="timeline-desc">현재 가입 중인 보험의 보장 범위, 중복 항목, 누락된 보장을 꼼꼼히 분석합니다.</p>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <p class="timeline-step">STEP 03</p>
+                    <h3 class="timeline-title">💬 맞춤 상담</h3>
+                    <p class="timeline-desc">34개 보험사 상품을 비교하여 고객님의 상황에 꼭 맞는 최적의 플랜을 안내합니다.</p>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <p class="timeline-step">STEP 04</p>
+                    <h3 class="timeline-title">✅ 보장 설계 완성</h3>
+                    <p class="timeline-desc">불필요한 보험료는 줄이고, 꼭 필요한 보장은 강화하는 맞춤 설계를 완성합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ STATS ═══════════ -->
+    <section class="stats-section">
+        <div class="stats-grid reveal">
+            <div class="stat-item">
+                <div class="stat-number">10,000+</div>
+                <div class="stat-label">누적 상담 건수</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">고객 만족도</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">34개사</div>
+                <div class="stat-label">비교 가능 보험사</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ TESTIMONIALS ═══════════ -->
+    <section class="section testimonials">
+        <div class="section-container">
+            <div class="reveal">
+                <p class="section-eyebrow">STORIES</p>
+                <h2 class="section-title">고객님들의 보험 이야기</h2>
+                <p class="section-desc">실제 상담을 받으신 분들의 생생한 후기입니다.</p>
+            </div>
+
+            <div class="testimonial-grid">
+                <div class="testimonial-card reveal">
+                    <span class="testimonial-quote-icon">"</span>
+                    <p class="testimonial-text">
+                        결혼 후 아이가 태어나면서 보험을 다시 점검했어요. 중복 보장이 3개나 있었고,
+                        정작 필요한 뇌·심장 보장은 빠져 있었습니다. 상담 한 번으로 월 4만 원을 절약하고
+                        보장은 더 탄탄해졌어요.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">김</div>
+                        <div>
+                            <div class="testimonial-name">김지영 님</div>
+                            <div class="testimonial-detail">35세 · 직장인 · 상담일 2025.03</div>
+                            <span class="testimonial-savings">월 4만 원 절감</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card reveal">
+                    <span class="testimonial-quote-icon">"</span>
+                    <p class="testimonial-text">
+                        20대 때 부모님이 넣어준 보험을 그대로 유지하고 있었는데, 분석해보니
+                        현재 제 나이와 직업에 맞지 않는 구조였습니다. 전문가 덕분에 같은 비용으로
+                        훨씬 좋은 보장을 받게 되었어요.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">박</div>
+                        <div>
+                            <div class="testimonial-name">박현우 님</div>
+                            <div class="testimonial-detail">42세 · 자영업 · 상담일 2025.05</div>
+                            <span class="testimonial-savings">보장 범위 2배 확대</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card reveal">
+                    <span class="testimonial-quote-icon">"</span>
+                    <p class="testimonial-text">
+                        보험 리모델링이라는 걸 처음 들어봤는데, 상담 후 놀랐습니다. 10년 넘게 내던
+                        보험료 중 절반 가까이가 불필요한 특약이었어요. 매달 5만 3천 원을 아끼게
+                        되었습니다. 진작 할 걸 그랬어요.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">이</div>
+                        <div>
+                            <div class="testimonial-name">이수정 님</div>
+                            <div class="testimonial-detail">48세 · 주부 · 상담일 2025.01</div>
+                            <span class="testimonial-savings">월 5.3만 원 절감</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ TRUST ═══════════ -->
+    <section class="section trust-section">
+        <div class="section-container">
+            <div class="reveal">
+                <p class="section-eyebrow">WHY US</p>
+                <h2 class="section-title">보험 상담센터를 믿을 수 있는 이유</h2>
+            </div>
+            <div class="trust-badges">
+                <div class="trust-badge reveal">
+                    <div class="trust-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <span class="trust-text">금융감독원 정식 등록<br>보험대리점</span>
+                </div>
+                <div class="trust-badge reveal">
+                    <div class="trust-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                    </div>
+                    <span class="trust-text">10,000건+ 상담<br>98% 만족도</span>
+                </div>
+                <div class="trust-badge reveal">
+                    <div class="trust-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    </div>
+                    <span class="trust-text">34개 보험사<br>실시간 비교</span>
+                </div>
+                <div class="trust-badge reveal">
+                    <div class="trust-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                    </div>
+                    <span class="trust-text">100% 무료 상담<br>가입 강요 없음</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ FORM SECTION ═══════════ -->
+    <section class="form-section">
+        <div class="form-wrapper">
+            <div class="reveal">
+                <div style="text-align:center; margin-bottom:40px;">
+                    <p class="section-eyebrow" style="text-align:center;">YOUR STORY</p>
+                    <h2 class="section-title" style="text-align:center;">당신의 보험 이야기를<br>시작해 보세요</h2>
+                    <p style="color:var(--text-muted); font-size:0.95rem;">3분이면 충분합니다. 부담 없이 신청하세요.</p>
+                </div>
+            </div>
+
+            <div class="form-card reveal">
+                <h3 class="form-title">무료 상담 신청</h3>
+                <p class="form-subtitle">전문 상담사가 24시간 내 연락드립니다</p>
+
+                <form id="consultationForm" action="https://script.google.com/macros/s/AKfycbx-w1FcGyFXR3TR6iv2x3ImVgIMRt9lCoa-PCB6Qer38NbGP_-pJcIxlQU6jQdlokgm/exec" method="POST">
+                    <input type="hidden" name="page_source" value="v07-surgery-수술비">
+                    <div class="form-group">
+                        <label class="form-label">성함 (필수)</label>
+                        <input type="text" name="name" class="form-input" placeholder="실명을 입력해 주세요" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">연락처 (필수)</label>
+                        <input type="tel" name="phone" class="form-input" placeholder="예: 010-1234-5678" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">관심 상담 분야</label>
+                        <select name="category" class="form-select">
+                            <option value="암보험">암보험</option>
+                            <option value="3대진단비">3대 진단비보험(암·뇌·심장)</option>
+                            <option value="태아어린이">태아/어린이보험</option>
+                            <option value="수술비" selected>수술비보험</option>
+                            <option value="유병자">유병력자 간편보험</option>
+                            <option value="치매간병">치매/간병보험</option>
+                            <option value="치아">치아보험</option>
+                            <option value="운전자주택화재">운전자/주택화재보험</option>
+                            <option value="리모델링">보험리모델링</option>
+                            <option value="기타">기타 보험</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">문의내용 (선택)</label>
+                        <textarea name="message" class="form-textarea" placeholder="상담 희망 시간 등을 남겨주세요"></textarea>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="privacyAgree" required>
+                        <label for="privacyAgree">개인정보 수집 및 제3자 제공 동의 <span class="view-privacy" onclick="openPrivacyModal()">[보기]</span></label>
+                    </div>
+                    <button type="submit" class="submit-btn">나의 보험 이야기 시작하기</button>
+                </form>
+
+                <div class="form-guarantee">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                    <span>개인정보는 안전하게 보호됩니다</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ FOOTER ═══════════ -->
+    <footer class="footer">
+        <p>보험 상담센터 | 무료 상담 · 보험 비교 · 맞춤 설계</p>
+        <p style="margin-top:4px; opacity:0.7;">Copyright © 2025 보험 상담센터. All rights reserved.</p>
+    </footer>
+
+</div>
+
+<script src="../../shared/form-handler.js"></script>
+<script>
+    initConsultForm('consultationForm');
+
+    // Scroll reveal animation
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, index * 100);
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+</script>
+</body>
+</html>
