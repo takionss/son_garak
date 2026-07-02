@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>보험 상담센터 - 전문가 무료 보험 진단</title>
     <meta name="description" content="34개 보험사 정밀 비교 분석으로 보험료는 절감하고 보장은 강화하는 전문 보험 상담 서비스. 지금 바로 무료 진단 신청하세요.">
+    <!-- 랜덤 페이지 리다이렉트 (config.json으로 제어) -->
+    <script>
+    (function(){
+        document.documentElement.style.visibility='hidden';
+        fetch('./config.json?_='+Date.now()).then(function(r){return r.json()}).then(function(c){
+            if(c.mode==='random' && c.pages && c.pages.length>0){
+                var pick=c.pages[Math.floor(Math.random()*c.pages.length)];
+                if(pick!=='main'){window.location.replace('./'+pick+'/');return;}
+            }
+            document.documentElement.style.visibility='';
+        }).catch(function(){document.documentElement.style.visibility='';});
+    })();
+    </script>
     <link rel="stylesheet" href="./shared/style-base.css">
     <style>
         /* ── Theme Variables ── */

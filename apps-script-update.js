@@ -51,7 +51,7 @@ function doPost(e) {
       '━━━━━━━━━━━━━━━━━━━━━━━━━━━\n';
     
     MailApp.sendEmail({
-      to: Session.getActiveUser().getEmail(),
+      to: 'yaincide@naver.com, rich8574@naver.com',
       subject: '[보험상담] ' + name + '님 신규 상담 신청 (' + pageSource + ')',
       body: emailBody
     });
