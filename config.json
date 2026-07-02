@@ -1,4 +1,10 @@
 {
-  "mode": "random",
-  "pages": ["main", "v01", "v02", "v03", "v04", "v05", "v06", "v07", "v08", "v09", "v10"]
+  "mode_comment": "0: fixed(고정메인), 1: random(모든페이지 랜덤), 2: select_random(특정페이지 랜덤)",
+  "mode": 1,
+  
+  "fixed_page": "main",
+  
+  "random_pages": ["main", "v01", "v02", "v03", "v04", "v05", "v06", "v07", "v08", "v09", "v10"],
+  
+  "select_random_pages": ["v01", "v03", "v07"]
 }

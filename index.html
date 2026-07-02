@@ -10,9 +10,19 @@
     (function(){
         document.documentElement.style.visibility='hidden';
         fetch('./config.json?_='+Date.now()).then(function(r){return r.json()}).then(function(c){
-            if(c.mode==='random' && c.pages && c.pages.length>0){
-                var pick=c.pages[Math.floor(Math.random()*c.pages.length)];
-                if(pick!=='main'){window.location.replace('./'+pick+'/');return;}
+            var targetList = [];
+            if(c.mode === 1) { // 1: 모든페이지 랜덤
+                targetList = c.random_pages || [];
+            } else if(c.mode === 2) { // 2: 특정페이지 랜덤
+                targetList = c.select_random_pages || [];
+            }
+            // 0: 고정이거나 리스트가 없을 때는 그냥 메인 유지
+            if(targetList.length > 0) {
+                var pick = targetList[Math.floor(Math.random()*targetList.length)];
+                if(pick !== 'main') {
+                    window.location.replace('./'+pick+'/');
+                    return;
+                }
             }
             document.documentElement.style.visibility='';
         }).catch(function(){document.documentElement.style.visibility='';});
