@@ -3,303 +3,460 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>보험 정밀 팩트체크 센터</title>
+    <title>보험 상담센터 - 전문가 무료 보험 진단</title>
+    <meta name="description" content="34개 보험사 정밀 비교 분석으로 보험료는 절감하고 보장은 강화하는 전문 보험 상담 서비스. 지금 바로 무료 진단 신청하세요.">
+    <link rel="stylesheet" href="./shared/style-base.css">
     <style>
-        :root { --main-dark: #0a1128; --point-blue: #0056b3; --accent-yellow: #ffc107; --bg-light: #f8f9fa; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; background-color: var(--main-dark); color: white; overflow-x: hidden; }
+        /* ── Theme Variables ── */
+        :root {
+            --accent: #2563eb;
+            --accent-light: #3b82f6;
+            --accent-dark: #1d4ed8;
+            --gold: #f59e0b;
+            --gold-light: #fbbf24;
+            --bg-dark: #0b1120;
+            --bg-card: rgba(255,255,255,0.06);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --glass-bg: rgba(255,255,255,0.08);
+            --glass-border: rgba(255,255,255,0.12);
+        }
+        body { background: var(--bg-dark); color: var(--text-primary); }
 
-        .wrapper { display: flex; flex-wrap: wrap; min-height: 100vh; position: relative; }
-
-        /* [Layer 1] 배경: 좌우 패닝 효과 */
-        .bg-layer {
-            position: absolute; 
-            top: 0; 
-            left: -5%; 
-            width: 110%; 
-            height: 100%;
-            background-image: linear-gradient(rgba(10,17,40,0.3), rgba(10,17,40,0.5)), url('./image/bg-room.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            z-index: 1;
-            animation: surePan 40s ease-in-out infinite alternate;
-            will-change: transform;
+        /* ── Animated Background ── */
+        .bg-gradient {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(37,99,235,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(139,92,246,0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 60% 80%, rgba(6,182,212,0.08) 0%, transparent 50%),
+                var(--bg-dark);
+            z-index: 0;
+        }
+        .bg-grid {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 0;
+        }
+        .floating-orb {
+            position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.4; z-index: 0;
+            animation: orbFloat 20s ease-in-out infinite;
+        }
+        .orb-1 { width: 400px; height: 400px; top: -100px; right: -100px; background: rgba(37,99,235,0.3); animation-delay: 0s; }
+        .orb-2 { width: 300px; height: 300px; bottom: -50px; left: -50px; background: rgba(139,92,246,0.2); animation-delay: -7s; }
+        .orb-3 { width: 250px; height: 250px; top: 40%; left: 50%; background: rgba(6,182,212,0.15); animation-delay: -14s; }
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
         }
 
-        @keyframes surePan {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(4%); } 
+        /* ── Content Wrapper ── */
+        .content { position: relative; z-index: 1; }
+
+        /* ── Navigation ── */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 20px 5%;
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(11,17,32,0.8);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.3s;
+        }
+        .nav-logo {
+            font-size: 1.3rem; font-weight: 800; letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #fff, #94a3b8);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .nav-logo span { 
+            -webkit-text-fill-color: var(--accent-light);
+        }
+        .nav-cta {
+            padding: 10px 24px; background: var(--accent); color: white;
+            border: none; border-radius: 10px; font-weight: 600; font-size: 0.9rem;
+            cursor: pointer; transition: all 0.3s;
+        }
+        .nav-cta:hover { background: var(--accent-dark); transform: translateY(-1px); }
+
+        /* ── Hero Section ── */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            padding: 120px 5% 80px; text-align: center;
+        }
+        .hero-inner { max-width: 800px; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 8px 20px; border-radius: 50px;
+            background: rgba(37,99,235,0.15); border: 1px solid rgba(37,99,235,0.3);
+            font-size: 0.85rem; font-weight: 600; color: var(--accent-light);
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        .hero-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
+        .hero h1 {
+            font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 900;
+            line-height: 1.25; letter-spacing: -2px; margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease 0.1s forwards; opacity: 0;
+        }
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero-desc {
+            font-size: 1.15rem; color: var(--text-secondary); line-height: 1.8;
+            max-width: 600px; margin: 0 auto 40px;
+            animation: fadeInUp 0.8s ease 0.2s forwards; opacity: 0;
+        }
+        .hero-cta {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 18px 40px; background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: white; border: none; border-radius: 14px;
+            font-size: 1.15rem; font-weight: 700; cursor: pointer;
+            transition: all 0.3s; box-shadow: 0 8px 32px rgba(37,99,235,0.35);
+            animation: fadeInUp 0.8s ease 0.3s forwards; opacity: 0;
+        }
+        .hero-cta:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(37,99,235,0.45); }
+        .hero-cta svg { transition: transform 0.3s; }
+        .hero-cta:hover svg { transform: translateX(4px); }
+
+        /* ── Stats Bar ── */
+        .stats-bar {
+            display: flex; justify-content: center; gap: 60px;
+            padding: 60px 5%;
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .stat-item { text-align: center; }
+        .stat-number {
+            font-size: 2.8rem; font-weight: 900; letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .stat-label { font-size: 0.9rem; color: var(--text-secondary); margin-top: 6px; font-weight: 500; }
+
+        /* ── Benefits Section ── */
+        .benefits { padding: 100px 5%; max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-tag {
+            display: inline-block; padding: 6px 16px; border-radius: 50px;
+            background: rgba(37,99,235,0.1); color: var(--accent-light);
+            font-size: 0.85rem; font-weight: 600; margin-bottom: 16px;
+        }
+        .section-title {
+            font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 800; letter-spacing: -1px;
+            line-height: 1.3;
+        }
+        .benefits-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+        }
+        .benefit-card {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 36px 28px;
+            transition: all 0.4s; cursor: default;
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        }
+        .benefit-card:hover {
+            transform: translateY(-8px); border-color: rgba(37,99,235,0.3);
+            background: rgba(255,255,255,0.1);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .benefit-icon {
+            width: 56px; height: 56px; border-radius: 14px; margin-bottom: 20px;
+            display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, rgba(37,99,235,0.2), rgba(139,92,246,0.2));
+        }
+        .benefit-card h3 {
+            font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.5px;
+        }
+        .benefit-card p {
+            font-size: 0.92rem; color: var(--text-secondary); line-height: 1.7;
         }
 
-        .content-area { position: relative; z-index: 2; display: flex; flex-wrap: wrap; width: 100%; min-height: 100vh; }
-
-        /* 왼쪽 비주얼 영역 */
-        .hero-section { 
-            flex: 1.6; padding: 60px 5%; display: flex; align-items: center; position: relative;
+        /* ── Process Section ── */
+        .process { padding: 100px 5%; max-width: 1000px; margin: 0 auto; }
+        .process-steps {
+            display: flex; gap: 24px; margin-top: 50px;
+        }
+        .process-step {
+            flex: 1; text-align: center; position: relative;
+            padding: 32px 20px;
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        .process-step:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-4px);
+        }
+        .step-number {
+            width: 44px; height: 44px; border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: white; display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 1.1rem; margin: 0 auto 18px;
+        }
+        .process-step h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+        .process-step p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+        .step-arrow {
+            position: absolute; right: -18px; top: 50%; transform: translateY(-50%);
+            color: var(--text-secondary); font-size: 1.2rem; z-index: 2;
         }
 
-        /* [Layer 2] 여성 전문가 */
-        .expert-woman-layer {
-            position: absolute;
-            bottom: 0; left: -2%;
-            width: auto; height: 75%;
-            max-height: 75vh;
-            object-fit: contain;
-            z-index: 2;
+        /* ── Form Section ── */
+        .form-section {
+            padding: 100px 5%;
+            background: linear-gradient(180deg, transparent, rgba(37,99,235,0.05));
+        }
+        .form-container {
+            max-width: 520px; margin: 0 auto;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px; padding: 48px 40px;
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+        }
+        .form-container h2 {
+            font-size: 1.8rem; font-weight: 800; text-align: center;
+            margin-bottom: 8px; letter-spacing: -1px;
+        }
+        .form-subtitle {
+            text-align: center; color: var(--text-secondary); font-size: 0.95rem;
+            margin-bottom: 36px;
+        }
+        /* Override form elements for dark theme */
+        .form-container .form-label { color: var(--text-secondary); }
+        .form-container .form-input,
+        .form-container .form-select,
+        .form-container .form-textarea {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.12);
+            color: #f1f5f9;
+        }
+        .form-container .form-input::placeholder,
+        .form-container .form-textarea::placeholder { color: #64748b; }
+        .form-container .form-input:focus,
+        .form-container .form-select:focus,
+        .form-container .form-textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(37,99,235,0.15);
+        }
+        .form-container .form-select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8.825a.5.5 0 01-.354-.146l-4.5-4.5a.5.5 0 01.708-.708L6 7.617l4.146-4.146a.5.5 0 01.708.708l-4.5 4.5A.5.5 0 016 8.825z'/%3E%3C/svg%3E");
+        }
+        .form-container .form-select option { background: #1e293b; color: #f1f5f9; }
+        .form-container .submit-btn {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: white;
+            box-shadow: 0 8px 32px rgba(37,99,235,0.35);
+        }
+        .form-container .submit-btn:hover {
+            box-shadow: 0 12px 40px rgba(37,99,235,0.5);
+        }
+        .form-container .checkbox-group { color: #64748b; }
+        .form-container .view-privacy { color: #94a3b8; }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center; padding: 40px 5%;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-secondary); font-size: 0.8rem;
         }
 
-        .hero-content { 
-            position: relative; z-index: 3; 
-            margin-left: 38%; 
-            max-width: 600px;
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .benefits-grid { grid-template-columns: 1fr; }
+            .process-steps { flex-direction: column; }
+            .step-arrow { display: none; }
+            .stats-bar { flex-direction: column; gap: 30px; }
         }
-
-        .hero-section h1 { font-size: 3.2rem; font-weight: 800; margin-bottom: 25px; line-height: 1.3; letter-spacing: -1.5px; word-break: keep-all; }
-        .hero-section h1 span { color: var(--accent-yellow); }
-        .main-desc { font-size: 1.2rem; margin-bottom: 50px; opacity: 0.95; line-height: 1.7; word-break: keep-all; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-
-        .benefits-list { display: flex; flex-direction: column; gap: 20px; }
-        .benefit-item { display: flex; align-items: center; gap: 20px; background: rgba(0,0,0,0.4); padding: 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(5px); }
-        .benefit-icon { width: 55px; height: 55px; object-fit: contain; }
-        .benefit-text h3 { font-size: 1.2rem; color: var(--accent-yellow); margin-bottom: 3px; }
-        .benefit-text p { font-size: 0.95rem; color: #eee; }
-
-        /* 오른쪽 폼 영역 */
-        .form-section { 
-            flex: 1; padding: 40px; display: flex; align-items: center; justify-content: center; 
-            background-color: rgba(248, 249, 250, 0.4); 
-            backdrop-filter: blur(7px);
-            -webkit-backdrop-filter: blur(7px);
-            z-index: 10;
-            border-left: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .consult-card { background: white; width: 100%; max-width: 440px; padding: 45px 35px; border-radius: 24px; box-shadow: 0 25px 50px rgba(0,0,0,0.15); color: #333; }
-        .consult-card h2 { color: var(--point-blue); text-align: center; margin-bottom: 35px; font-size: 1.8rem; letter-spacing: -1px; }
-
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 0.9rem; color: #555; }
-        
-        input, select, textarea { 
-            width: 100%; padding: 16px; border: 1px solid #e0e0e0; border-radius: 12px; font-size: 16px; font-family: inherit;
-        }
-        
-        textarea { height: 150px; resize: none; line-height: 1.5; background: #fdfdfd; }
-
-        /* 약관 동의 체크박스 */
-        .checkbox-group {
-            display: flex; align-items: flex-start; justify-content: center;
-            margin: 20px 0; font-size: 0.85rem; color: #666;
-        }
-        .checkbox-group input[type="checkbox"] {
-            width: 16px; height: 16px; margin-right: 8px; margin-top: 2px; cursor: pointer;
-            accent-color: var(--point-blue);
-        }
-        .checkbox-group label {
-            display: inline; margin-bottom: 0; font-weight: normal; cursor: pointer; color: #555; line-height: 1.4;
-        }
-        .view-privacy { color: #888; text-decoration: underline; cursor: pointer; font-weight: bold; margin-left: 2px; }
-
-        .submit-btn { 
-            width: 100%; padding: 20px; background-color: var(--point-blue); color: white; border: none; border-radius: 12px; 
-            font-size: 1.3rem; font-weight: bold; cursor: pointer; transition: 0.3s;
-        }
-        .submit-btn:hover { background-color: #004494; transform: translateY(-2px); }
-
-        /* 모달(팝업) 공통 스타일 */
-        .modal-overlay { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); 
-            z-index: 2000; justify-content: center; align-items: center; padding: 20px;
-        }
-        .modal-content { 
-            background: white; padding: 30px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); 
-            max-width: 450px; width: 100%; color: #333; position: relative;
-        }
-        
-        .privacy-body {
-            max-height: 60vh; overflow-y: auto; text-align: left;
-            font-size: 0.85rem; line-height: 1.6; color: #555;
-            padding: 15px; border: 1px solid #eee; border-radius: 10px; margin: 15px 0;
-        }
-        .privacy-body h4 { color: #333; margin-bottom: 5px; margin-top: 15px; border-left: 3px solid var(--point-blue); padding-left: 8px; }
-        .privacy-body p { margin-bottom: 10px; }
-        .privacy-body ul { list-style: none; padding-left: 0; margin-bottom: 15px; }
-        .close-modal-btn { padding: 12px; background: var(--point-blue); color: white; border: none; border-radius: 8px; width: 100%; cursor: pointer; font-weight: bold; }
-
-        /* 📱 모바일 및 터치 디바이스 강제 세로 배치 (너비가 1100px 이하이거나, 터치스크린을 쓰는 기기) */
-        @media (max-width: 1100px), (hover: none) and (pointer: coarse) {
-            .bg-layer { animation-duration: 90s !important; }
-            
-            /* 핵심 원인 해결! 가로로 묶인 요소를 세로(column) 방향으로 찢어줍니다 */
-            .content-area {
-                flex-direction: column !important; 
-            }
-
-            /* 위쪽 비주얼 영역 (가로 100% 차지) */
-            .hero-section {
-                flex: none;
-                width: 100%;
-                padding: 60px 5%;
-                text-align: center;
-                justify-content: center;
-            }
-            .expert-woman-layer { display: none; }
-            .hero-content { margin-left: 0; max-width: 100%; }
-            .hero-section h1 { font-size: 2.3rem; }
-            
-            /* 장점 아이콘도 모바일에선 세로로 떨어지게 유지 */
-            .benefit-item { flex-direction: column; text-align: center; padding: 20px; }
-            .benefit-icon { margin-bottom: 5px; }
-
-            /* 아래쪽 폼 영역 (가로 100% 차지하며 폼이 하단으로 떨어짐) */
-            .form-section {
-                flex: none;
-                width: 100%;
-                padding: 40px 15px 60px 15px; 
-                border-left: none; /* 가로선 제거 */
-                background-color: rgba(248, 249, 250, 0.6); 
-                backdrop-filter: blur(4px); 
-                -webkit-backdrop-filter: blur(4px);
-            }
-            .consult-card { padding: 35px 20px; border-radius: 16px; width: 100%; max-width: 100%; }
-            .consult-card h2 { font-size: 1.5rem; margin-bottom: 25px; }
-            
-            textarea { height: 200px !important; }
+        @media (max-width: 768px) {
+            .hero { padding: 100px 5% 60px; }
+            .hero h1 { letter-spacing: -1px; }
+            .form-container { padding: 36px 24px; border-radius: 20px; }
+            .nav { padding: 15px 4%; }
+            .nav-cta { padding: 8px 18px; font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
 
-<div class="wrapper">
-    <div class="bg-layer"></div>
+<!-- Background -->
+<div class="bg-gradient"></div>
+<div class="bg-grid"></div>
+<div class="floating-orb orb-1"></div>
+<div class="floating-orb orb-2"></div>
+<div class="floating-orb orb-3"></div>
 
-    <div class="content-area">
-        <section class="hero-section">
-            <img src="./image/expert-woman.png" alt="보험 전문가" class="expert-woman-layer">
+<div class="content">
 
-            <div class="hero-content">
-                <p style="color: var(--accent-yellow); font-weight: bold; margin-bottom: 12px; font-size: 1.1rem;">보험 정밀 팩트체크 센터</p>
-                <h1>그때 가입한 보험,<br><span>지금도 당신을 지켜주나요?</span></h1>
-                <p class="main-desc">나도 모르게 새어나가는 보험료, 34개 보험사 정밀 비교로 거품은 빼고 보장은 확실히 채워드립니다.</p>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-logo">보험 <span>상담센터</span></div>
+        <button class="nav-cta" onclick="document.getElementById('formSection').scrollIntoView({behavior:'smooth'})">무료 상담 신청</button>
+    </nav>
 
-                <div class="benefits-list">
-                    <div class="benefit-item">
-                        <img src="./image/icon-cost-down.png" class="benefit-icon" alt="비용 절감">
-                        <div class="benefit-text"><h3>보험료 절감</h3><p>불필요하게 낭비되는 고정 지출을 즉시 차단</p></div>
-                    </div>
-                    <div class="benefit-item">
-                        <img src="./image/icon-analysis.png" class="benefit-icon" alt="보장 분석">
-                        <div class="benefit-text"><h3>보장 분석</h3><p>복잡한 약관 속 핵심 보장만 팩트체크</p></div>
-                    </div>
-                    <div class="benefit-item">
-                        <img src="./image/icon-check.png" class="benefit-icon" alt="보험 점검">
-                        <div class="benefit-text"><h3>보험 점검</h3><p>전문가의 정밀 진단으로 설계의 빈틈 보완</p></div>
-                    </div>
-                </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-badge">
+                <span class="dot"></span>
+                34개 보험사 정밀 비교 분석 서비스
             </div>
-        </section>
-
-        <section class="form-section">
-            <div class="consult-card">
-                <h2>무료 진단 신청하기</h2>
-                <form id="consultationForm" action="https://script.google.com/macros/s/AKfycbx-w1FcGyFXR3TR6iv2x3ImVgIMRt9lCoa-PCB6Qer38NbGP_-pJcIxlQU6jQdlokgm/exec" method="POST">
-                    <div class="form-group"><label>성함 (필수)</label><input type="text" name="name" placeholder="실명을 입력해 주세요" required></div>
-                    <div class="form-group"><label>연락처 (필수)</label><input type="tel" name="phone" placeholder="예: 010-1234-5678" required></div>
-                    <div class="form-group">
-                        <label>관심 상담 분야</label>
-                        <select name="category">
-                            <option value="암보험">암보험</option>
-                            <option value="3대진단비">3대 진단비보험(암뇌심장)</option>
-                            <option value="태아어린이">태아/어린이보험</option>
-                            <option value="수술비">수술비보험</option>
-                            <option value="유병자">유병력자 간편보험</option>
-                            <option value="치매간병">치매/간병보험</option>
-                            <option value="치아">치아보험</option>
-                            <option value="운전자주택화재">운전자/주택화재보험</option>
-                            <option value="리모델링">보험리모델링</option>
-                            <option value="기타">기타 보험</option>
-                        </select>
-                    </div>
-                    <div class="form-group"><label>문의내용 (선택)</label><textarea name="message" placeholder="상담 희망 시간 등을 남겨주세요"></textarea></div>
-                    
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="privacyAgree" required>
-                        <label for="privacyAgree">개인정보 수집 및 제3자 제공 동의 <span class="view-privacy" onclick="openPrivacyModal()">[보기]</span></label>
-                    </div>
-
-                    <button type="submit" class="submit-btn">지금 바로 무료 진단받기</button>
-                </form>
-            </div>
-        </section>
-    </div>
-</div>
-
-<div class="modal-overlay" id="privacyModal">
-    <div class="modal-content">
-        <h3 style="color: #333; margin-bottom: 10px;">개인정보 처리방침</h3>
-        <div class="privacy-body">
-            <h4>▶ 개인정보 수집 및 이용 동의</h4>
-            <p>개인정보는 보험문의 상담 목적으로만 사용되며 동의를 거부하실 수 있으나 보험설계 및 상담이 불가능합니다.</p>
-            <ul>
-                <li>• 수집항목: 이름, 연락처, 카카오톡 아이디</li>
-                <li>• 수집목적: 함일상회는 보험 설계, 상담, 리모델링 등 가입권유를 위한 안내 및 서비스를 제공</li>
-                <li>• 보유기간: 수집 및 동의일로부터 3개월</li>
-            </ul>
-            
-            <h4>▶ 개인정보 제3자 제공 동의</h4>
-            <p>개인정보는 보험문의 상담 목적으로만 사용되며 동의를 거부하실 수 있으나 보험설계 및 상담이 불가능합니다.</p>
-            <ul>
-                <li>• 제공받는 자: 함일상회와 위탁계약을 체결한 다수의 보험설계사</li>
-                <li>• 이용목적: 전화, 문자, 카카오톡을 통한 보험상품의 설계, 상담, 가입중인 보험상품의 점검 및 설계, 상담, 보험가입</li>
-                <li>• 제공항목: 이름, 연락처, 카카오톡 아이디</li>
-                <li>• 보유기간: 수집 및 동의일로부터 3개월</li>
-            </ul>
+            <h1>그때 가입한 보험,<br><span class="highlight">지금도 당신을 지켜주고 있나요?</span></h1>
+            <p class="hero-desc">
+                나도 모르게 새어나가는 보험료, 전문가의 정밀 진단으로<br>
+                거품은 빼고 보장은 확실히 채워드립니다.
+            </p>
+            <button class="hero-cta" onclick="document.getElementById('formSection').scrollIntoView({behavior:'smooth'})">
+                지금 바로 무료 진단받기
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
         </div>
-        <button class="close-modal-btn" onclick="closePrivacyModal()">확인</button>
-    </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-number">34개</div>
+            <div class="stat-label">보험사 비교 분석</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">10,000+</div>
+            <div class="stat-label">상담 완료 건수</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">고객 만족도</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">평균 37%</div>
+            <div class="stat-label">보험료 절감율</div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="section-header">
+            <div class="section-tag">왜 보험 점검이 필요할까요?</div>
+            <h2 class="section-title">매달 나가는 보험료,<br>제대로 쓰고 계신가요?</h2>
+        </div>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                </div>
+                <h3>보험료 절감</h3>
+                <p>중복 보장, 불필요한 특약을 찾아내 월 보험료를 평균 37% 절감해 드립니다.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                </div>
+                <h3>보장 강화</h3>
+                <p>현재 보험의 보장 빈틈을 분석하여 필요한 보장을 확실히 채워드립니다.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linecap="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                </div>
+                <h3>전문가 진단</h3>
+                <p>10년 이상 경력의 보험 전문가가 34개 보험사를 정밀 비교 분석합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process">
+        <div class="section-header">
+            <div class="section-tag">간단한 진행 과정</div>
+            <h2 class="section-title">3분이면 충분합니다</h2>
+        </div>
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h4>간편 신청</h4>
+                <p>아래 폼에 이름과 연락처만 입력하세요</p>
+                <span class="step-arrow">→</span>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h4>전문가 배정</h4>
+                <p>맞춤 분야 전문가가 빠르게 연락드립니다</p>
+                <span class="step-arrow">→</span>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h4>정밀 진단</h4>
+                <p>34개 보험사 비교로 최적의 보장을 설계합니다</p>
+                <span class="step-arrow">→</span>
+            </div>
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h4>결과 안내</h4>
+                <p>절감 가능한 보험료와 보장 개선안을 제시합니다</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="form-section" id="formSection">
+        <div class="section-header" style="margin-bottom:40px;">
+            <div class="section-tag">무료 상담 신청</div>
+            <h2 class="section-title">지금 바로 시작하세요</h2>
+        </div>
+        <div class="form-container">
+            <h2>무료 진단 신청</h2>
+            <p class="form-subtitle">전문 상담사가 24시간 내 연락드립니다</p>
+            <form id="consultationForm" action="https://script.google.com/macros/s/AKfycbx-w1FcGyFXR3TR6iv2x3ImVgIMRt9lCoa-PCB6Qer38NbGP_-pJcIxlQU6jQdlokgm/exec" method="POST">
+                <input type="hidden" name="page_source" value="메인페이지">
+                <div class="form-group">
+                    <label class="form-label">성함 (필수)</label>
+                    <input type="text" name="name" class="form-input" placeholder="실명을 입력해 주세요" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">연락처 (필수)</label>
+                    <input type="tel" name="phone" class="form-input" placeholder="예: 010-1234-5678" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">관심 상담 분야</label>
+                    <select name="category" class="form-select">
+                        <option value="암보험">암보험</option>
+                        <option value="3대진단비">3대 진단비보험(암·뇌·심장)</option>
+                        <option value="태아어린이">태아/어린이보험</option>
+                        <option value="수술비">수술비보험</option>
+                        <option value="유병자">유병력자 간편보험</option>
+                        <option value="치매간병">치매/간병보험</option>
+                        <option value="치아">치아보험</option>
+                        <option value="운전자주택화재">운전자/주택화재보험</option>
+                        <option value="리모델링">보험리모델링</option>
+                        <option value="기타">기타 보험</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">문의내용 (선택)</label>
+                    <textarea name="message" class="form-textarea" placeholder="상담 희망 시간 등을 남겨주세요"></textarea>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="privacyAgree" required>
+                    <label for="privacyAgree">개인정보 수집 및 제3자 제공 동의 <span class="view-privacy" onclick="openPrivacyModal()">[보기]</span></label>
+                </div>
+                <button type="submit" class="submit-btn">지금 바로 무료 진단받기</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 보험 상담센터. 본 서비스는 보험 가입을 강제하지 않으며, 무료 상담 후 가입 여부는 자유롭게 결정하실 수 있습니다.</p>
+    </footer>
+
 </div>
 
-<script>
-    const form = document.getElementById('consultationForm');
-    const privacyModal = document.getElementById('privacyModal');
-
-    function openPrivacyModal() { privacyModal.style.display = 'flex'; }
-    function closePrivacyModal() { privacyModal.style.display = 'none'; }
-    
-    // 모달 외부 클릭 시 닫기 (UX 개선)
-    window.onclick = function(event) {
-        if (event.target == privacyModal) {
-            closePrivacyModal();
-        }
-    }
-
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        if(!document.getElementById('privacyAgree').checked) {
-            alert('개인정보 동의에 체크해 주세요.');
-            return;
-        }
-
-        const btn = form.querySelector('.submit-btn');
-        btn.innerText = '접수 중...';
-        btn.disabled = true;
-        
-        fetch(form.action, { method: 'POST', body: new FormData(form) })
-        .then(() => { 
-            alert('신청이 성공적으로 완료되었습니다!'); 
-            form.reset(); 
-            btn.innerText = '지금 바로 무료 진단받기'; 
-            btn.disabled = false; 
-        })
-        .catch(() => { 
-            alert('오류가 발생했습니다. 다시 시도해 주세요.'); 
-            btn.disabled = false; 
-            btn.innerText = '지금 바로 무료 진단받기';
-        });
-    });
-</script>
+<script src="./shared/form-handler.js"></script>
+<script>initConsultForm('consultationForm');</script>
 
 </body>
 </html>
