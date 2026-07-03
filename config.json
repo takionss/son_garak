@@ -1,6 +1,6 @@
 {
   "mode_comment": "0: fixed(고정메인), 1: random(모든페이지 랜덤), 2: select_random(특정페이지 랜덤)",
-  "mode": 0,
+  "mode": 1,
   
   "fixed_page": "main",
   
