@@ -142,8 +142,23 @@
     });
   };
 
-  /* ── DOM 로드 시 자동 초기화 (data-auto-init 속성이 있는 경우) ── */
+  /* ── DOM 로드 시 자동 초기화 및 공통 푸터 적용 ── */
   document.addEventListener('DOMContentLoaded', function () {
+    // 공통 푸터 텍스트 설정
+    const footerText = '© 2026 보험 상담센터. 본 서비스는 보험 가입을 강제하지 않으며, 무료 상담 후 가입 여부는 자유롭게 결정하실 수 있습니다.';
+    
+    // footer 태그 또는 .footer, .site-footer 클래스를 가진 모든 요소를 찾아 텍스트 업데이트
+    const footers = document.querySelectorAll('footer, .footer, .site-footer');
+    footers.forEach(function (footer) {
+      // 내부에 p 태그가 있으면 p 태그 안에 넣고, 없으면 innerHTML로 주입
+      const p = footer.querySelector('p');
+      if (p) {
+        p.innerHTML = footerText;
+      } else {
+        footer.innerHTML = `<p style="margin: 0;">${footerText}</p>`;
+      }
+    });
+
     const autoForm = document.querySelector('form[data-auto-init]');
     if (autoForm) {
       initConsultForm(autoForm.id);
